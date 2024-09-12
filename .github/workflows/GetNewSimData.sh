@@ -16,9 +16,9 @@ ADD_DATA_SCRIPT="Scripts/BuildDatabank/AddData.py"
 #Makes the output file:
 > $OUTPUT_FILE
 
-DATABANK_ABS_PATH = $(pwd)
+DATABANK_ABS_PATH= $(pwd)
 cd $TARGET_DIR
-TARGET_DIR_ABS = $(pwd)
+TARGET_DIR_ABS= $(pwd)
 cd $DATABANK_ABS_PATH
 cd Scripts/BuildDatabank
 
