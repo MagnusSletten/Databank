@@ -11,7 +11,7 @@ on:
 
   push:
     branches:
-      - new_pipeline_v2
+      - new_pipeline
 
 jobs:
   build:
