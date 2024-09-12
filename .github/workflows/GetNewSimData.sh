@@ -52,7 +52,7 @@ else
   echo "No new files detected in $TARGET_DIR."
 fi
 
-cd DATABANK_ABS_PATH
+cd $DATABANK_ABS_PATH
 git status 
 git add .
 git commit -m "Automated push test"
