@@ -1,0 +1,8 @@
+Scripts/BuildDatabank/info_files/1/POPCgromos_ckpT310KINFO.yaml
+Scripts/BuildDatabank/info_files/1007/info.yaml
+Scripts/BuildDatabank/info_files/add-dmpc-opls-dehydration-md-data/charmm36-popc-10wl.yaml
+Scripts/BuildDatabank/info_files/add-dmpc-opls-dehydration-md-data/charmm36-popc-20wl.yaml
+Scripts/BuildDatabank/info_files/add-dmpc-opls-dehydration-md-data/opls3e-popc-10wl.yaml
+Scripts/BuildDatabank/info_files/add-dmpc-opls-dehydration-md-data/opls3e-popc-20wl.yaml
+Scripts/BuildDatabank/info_files/add-dmpc-opls-dehydration-md-data/opls4-popc-45wl.yaml
+Scripts/BuildDatabank/info_files/add-dmpc-opls-dehydration-md-data/opls4-popc-5wl.yaml
