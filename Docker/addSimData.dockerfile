@@ -6,6 +6,7 @@ RUN apt-get update && \
     apt-get install -y git python3 python3-pip
 
 ENV GROMACS_VERSION=2024.3
+ENV GITHUB_REPO_URL=https://github.com/MagnusSletten/Databank
 
 # Install dependencies:
 RUN apt-get update && apt-get install -y \
@@ -44,7 +45,7 @@ WORKDIR /app
 RUN mkdir -p /app/Databank
 
 CMD /bin/bash -c "source /usr/local/gromacs/bin/GMXRC && \
-    git clone https://$GH_TOKEN@github.com/${GITHUB_REPOSITORY}.git Databank && \
+    git clone https://$GH_TOKEN@github.com/MagnusSletten/Databank.git Databank && \
     cd Databank && \
     git fetch origin && git branch -r && \
     git fetch origin docker_test && \
