@@ -37,7 +37,7 @@ if [ -n "$NEW_FILES" ]; then
   while IFS= read -r file; do
     
     echo "Running AddData.py for $file"
-    python3 "AddData.py" -f "$file"
+    python3 "AddData.py" -f "$DATABANK_ABS_PATH/$file"
     break   
   done < "$OUTPUT_FILE"
 
