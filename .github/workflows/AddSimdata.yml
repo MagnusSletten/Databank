@@ -11,7 +11,7 @@ on:
 
   push:
     branches:
-      - new_pipeline
+      - new_pipeline_v2
 
 jobs:
   build:
@@ -28,9 +28,11 @@ jobs:
     - name: Pull Docker image
       run: |
           sudo docker pull nmrlipids/project:addsim1.3
-  
+
     - name: Run the Docker container with environment variables
       run: |
-          sudo docker run --rm --env REPO_URL=${{ github.event.repository.clone_url }} \
-                          --env BRANCH_NAME=${{ env.BRANCH_NAME }} \
-                          nmrlipids/project:addsim1.3
+          sudo docker run --rm \
+          --env REPO_URL=${{ github.event.repository.clone_url }} \
+          --env BRANCH_NAME=${{ env.BRANCH_NAME }} \
+          --env GH_TOKEN=${{ secrets.GH_TOKEN }} \
+          nmrlipids/project:addsim1.3

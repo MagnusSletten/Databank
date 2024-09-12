@@ -6,6 +6,13 @@ TARGET_DIR="Scripts/BuildDatabank/info_files"
 #The branch we are comparing to. For final build this will be the branch the user opens merge requests to:
 TARGET_BRANCH="docker_test"
 
+GITHUB_USERNAME="MagnusSletten_Bot"  
+GITHUB_EMAIL="magnus.elias.sletten@gmail.com"  
+
+
+git config --global user.name "$GITHUB_USERNAME"
+git config --global user.email "$GITHUB_EMAIL"
+
 
 # Name of file we're going to store new filenames in: 
 OUTPUT_FILE="new_files.txt"
@@ -46,3 +53,6 @@ else
 fi
 
 git status 
+git add .
+git commit -m "Automated push test"
+git push 

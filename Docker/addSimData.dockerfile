@@ -44,7 +44,7 @@ WORKDIR /app
 RUN mkdir -p /app/Databank
 
 CMD /bin/bash -c "source /usr/local/gromacs/bin/GMXRC && \
-    git clone $REPO_URL Databank && \
+    git clone https://$GH_TOKEN@github.com/${GITHUB_REPOSITORY}.git Databank && \
     cd Databank && \
     git fetch origin && git branch -r && \
     git fetch origin docker_test && \
