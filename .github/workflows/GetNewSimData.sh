@@ -28,7 +28,7 @@ cd $TARGET_DIR
 TARGET_DIR_ABS=$(pwd)
 cd $DATABANK_ABS_PATH
 cd Scripts/BuildDatabank
-
+BUILDDATABANKPATH=$(pwd)
 git fetch origin
 
 #Finding new added files in this branch relative to the other branch meantioned here:
@@ -42,15 +42,21 @@ if [ -n "$NEW_FILES" ]; then
   
   # Run AddData.py for each new file listed in the output file::
   while IFS= read -r file; do
-    
+    cd $BUILDDATABANKPATH
     echo "Running AddData.py for $file"
     python3 "AddData.py" -f "$DATABANK_ABS_PATH/$file"
-    break   
+    cd $DATABANK_ABS_PATH/Scripts/AnalyzeDatabank
+    ./calcProperties.sh
+    break   #temporary for testing purposes.
   done < "$OUTPUT_FILE"
+
 
 else
   echo "No new files detected in $TARGET_DIR."
 fi
+
+cd $BUILDDATABANKPATH
+rm "$OUTPUT_FILE"
 
 cd $DATABANK_ABS_PATH
 git status 
