@@ -3,7 +3,7 @@ FROM ubuntu:latest
 
 #Python:
 RUN apt-get update && \
-    apt-get install -y git python3 python3-pip
+    apt-get install -y git python3 python3-pip python-is-python3
 
 ENV GROMACS_VERSION=2024.3
 ENV GITHUB_REPO_URL=https://github.com/MagnusSletten/Databank
