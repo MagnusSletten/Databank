@@ -29,7 +29,8 @@ TARGET_DIR_ABS=$(pwd)
 cd $DATABANK_ABS_PATH
 cd Scripts/BuildDatabank
 BUILDDATABANKPATH=$(pwd)
-git fetch origin
+git fetch origin $BRANCH_NAME
+git pull origin $BRANCH_NAME
 
 #Finding new added files in this branch relative to the other branch meantioned here:
 NEW_FILES=$(git diff --name-status origin/$BRANCH_NAME origin/$TARGET_BRANCH | grep "info_files" | awk '{print $2}')
@@ -61,5 +62,5 @@ rm "$OUTPUT_FILE"
 cd $DATABANK_ABS_PATH
 git status 
 git add .
-git commit -m "Automated push test"
+git commit -m "Automated push by NREC"
 git push 
