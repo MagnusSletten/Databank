@@ -36,7 +36,7 @@ RUN cd gromacs-$GROMACS_VERSION && \
 # Make GROMACS available globally:
 RUN echo "source /usr/local/gromacs/bin/GMXRC" >> /etc/bash.bashrc
 
-# Install Python packages with --break-system-packages flag to avoid externally managed environment errors
+# Install Python packages with --break-system-packages flag to avoid externally managed environment errors:
 RUN pip3 install --break-system-packages pytest MDAnalysis MDAnalysisTests tqdm pyyaml pandas buildh
 
 WORKDIR /app
