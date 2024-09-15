@@ -19,11 +19,12 @@ jobs:
     if: github.repository == 'MagnusSletten/Databank' && github.event.pull_request.head.repo.full_name == 'MagnusSletten/Databank' && startsWith(github.event.pull_request.head.ref, 'pr')
     steps:
 
-    - name: Get current branch name
+    - name: Get PR source branch name
       id: vars
       run: |
-        branchName=${github.event.pull_request.head.ref}
+        branchName=${{ github.event.pull_request.head.ref }}
         echo "BRANCH_NAME=$branchName" >> $GITHUB_ENV
+  
 
     - name: Pull Docker image
       run: |
