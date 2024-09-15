@@ -20,15 +20,17 @@ jobs:
           else
             echo "This pull request is from a forked repository."
           fi
+
+      # Step 2: Manually fetch and checkout the incoming forked branch
       - name: Fetch and checkout forked branch
         run: |
-            git fetch https://github.com/${{ github.event.pull_request.head.repo.full_name }} ${{ github.event.pull_request.head.ref }}
-            git checkout -b pr-${{ github.event.pull_request.number }} FETCH_HEAD
-  
-   # Step 3: Push the new branch to the base repository using a GitHub token for authentication
+          git fetch https://github.com/${{ github.event.pull_request.head.repo.full_name }} ${{ github.event.pull_request.head.ref }}
+          git checkout -b pr-${{ github.event.pull_request.number }}-from-fork FETCH_HEAD
+
+      # Step 3: Push the new branch to the base repository using a GitHub token for authentication
       - name: Push the new branch
         run: |
-            git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }} pr-${{ github.event.pull_request.number }}
+          git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }} pr-${{ github.event.pull_request.number }}-from-fork:pr-${{ github.event.pull_request.number }}-from-fork
 
    
       - name: Create pull request to new_pipeline_v2
