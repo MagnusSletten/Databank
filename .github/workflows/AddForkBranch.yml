@@ -9,18 +9,9 @@ on:
 
 jobs:
   copy_fork_pr:
+    if: github.repository == 'MagnusSletten/Databank'
     runs-on: nrec-large
     steps:
-      - name: Check if PR is from a fork
-        id: check_fork
-        run: |
-          if [[ "${{ github.event.pull_request.head.repo.full_name }}" == "${{ github.repository }}" ]]; then
-            echo "This pull request is from the same repository. Skipping."
-            exit 0
-          else
-            echo "This pull request is from a forked repository."
-          fi
-
    
       - name: Fetch and checkout forked branch
         run: |

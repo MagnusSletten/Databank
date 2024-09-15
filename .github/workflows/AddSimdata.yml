@@ -15,9 +15,8 @@ on:
 
 jobs:
   build:
-    
     runs-on: nrec-large  
-
+    if: github.repository == 'MagnusSletten/Databank'
     steps:
     - name: Check if PR is from the same repository
       id: check_pr_source
