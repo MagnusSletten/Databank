@@ -41,7 +41,7 @@ RUN pip3 install --break-system-packages pytest MDAnalysis MDAnalysisTests tqdm 
 
 WORKDIR /app
 
-# Clone the repository at runtime using environment variables
+# Clone the repository at runtime using environment variables:
 RUN mkdir -p /app/Databank
 
 CMD /bin/bash -c "source /usr/local/gromacs/bin/GMXRC && \
