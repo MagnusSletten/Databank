@@ -22,7 +22,7 @@ jobs:
     - name: Get current branch name
       id: vars
       run: |
-        branchName=${GITHUB_REF#refs/heads/}
+        branchName=${github.event.pull_request.head.ref}
         echo "BRANCH_NAME=$branchName" >> $GITHUB_ENV
 
     - name: Pull Docker image
