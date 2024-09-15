@@ -1,4 +1,4 @@
-# Use a base image with Git and necessary tools
+# Use a base image with Git and necessary tools:
 FROM ubuntu:latest
 
 #Python:
