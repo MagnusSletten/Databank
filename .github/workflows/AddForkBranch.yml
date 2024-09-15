@@ -32,7 +32,9 @@ jobs:
         run: |
           git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }} pr-${{ github.event.pull_request.number }}-from-fork:pr-${{ github.event.pull_request.number }}-from-fork
 
-   
+      - name: Fetch new branch
+        run: |
+           git fetch origin pr-${{ github.event.pull_request.number }}-from-fork
       - name: Create pull request to new_pipeline_v2
         uses: peter-evans/create-pull-request@v7.0.2
         with:
