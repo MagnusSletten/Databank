@@ -33,7 +33,7 @@ jobs:
       - name: Create pull request to new_pipeline_v2
         uses: peter-evans/create-pull-request@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
           branch: pr-${{ github.event.pull_request.number }}-from-fork  
           base: new_pipeline_v2  
           title: 'Merge forked PR changes into new_pipeline_v2'
