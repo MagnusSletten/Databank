@@ -20,18 +20,15 @@ jobs:
           else
             echo "This pull request is from a forked repository."
           fi
-      - name: Fetch forked branch
+      - name: Fetch and checkout forked branch
         run: |
-           git fetch origin
-           git fetch https://github.com/${{ github.event.pull_request.head.repo.full_name }} ${{ github.event.pull_request.head.ref }}
-        
-      - name: Create new branch from PR
-        uses: peterjgrainger/action-create-branch@v3.0.0
-        with:
-          branch: 'pr-${{ github.event.pull_request.number }}-from-fork'
-          sha: ${{ github.event.pull_request.head.sha }}  
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+            git fetch https://github.com/${{ github.event.pull_request.head.repo.full_name }} ${{ github.event.pull_request.head.ref }}
+            git checkout -b pr-${{ github.event.pull_request.number }} FETCH_HEAD
+  
+        # Step 3: Push the new branch to the base repository
+      - name: Push the new branch
+        run: |
+            git push origin pr-${{ github.event.pull_request.number }}
 
    
       - name: Create pull request to new_pipeline_v2
