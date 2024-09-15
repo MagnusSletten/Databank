@@ -21,13 +21,13 @@ jobs:
             echo "This pull request is from a forked repository."
           fi
 
-      # Step 2: Manually fetch and checkout the incoming forked branch
+   
       - name: Fetch and checkout forked branch
         run: |
           git fetch https://github.com/${{ github.event.pull_request.head.repo.full_name }} ${{ github.event.pull_request.head.ref }}
           git checkout -b pr-${{ github.event.pull_request.number }}-from-fork FETCH_HEAD
 
-      # Step 3: Push the new branch to the base repository using a GitHub token for authentication
+ 
       - name: Push the new branch
         run: |
           git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }} pr-${{ github.event.pull_request.number }}-from-fork:pr-${{ github.event.pull_request.number }}-from-fork
@@ -35,11 +35,13 @@ jobs:
       - name: Fetch new branch
         run: |
            git fetch origin pr-${{ github.event.pull_request.number }}-from-fork
-      - name: Create pull request to new_pipeline_v2
-        uses: peter-evans/create-pull-request@v7.0.2
-        with:
-          token: ${{ secrets.GH_TOKEN }}
-          branch: pr-${{ github.event.pull_request.number }}-from-fork  
-          base: new_pipeline_v2  
-          title: 'Merge forked PR changes into new_pipeline_v2'
-          body: 'This PR merges changes from a forked repository to the new_pipeline_v2 branch.'
+     
+    
+      - name: Authenticate gh
+        run: |
+          echo "${{ secrets.GH_TOKEN }}" | gh auth login --with-token
+
+ 
+      - name: Create pull request
+        run: |
+          gh pr create --head pr-${{ github.event.pull_request.number }}-from-fork --base new_pipeline_v2 --title "Merge forked PR changes into new_pipeline_v2" --body "This PR merges changes from a forked repository into the new_pipeline_v2 branch."
