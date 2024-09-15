@@ -27,7 +27,7 @@ jobs:
           branch: 'pr-${{ github.event.pull_request.number }}-from-fork'
           sha: ${{ github.event.pull_request.head.sha }}  
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
    
       - name: Create pull request to new_pipeline_v2
