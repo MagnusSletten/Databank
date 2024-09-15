@@ -25,10 +25,10 @@ jobs:
             git fetch https://github.com/${{ github.event.pull_request.head.repo.full_name }} ${{ github.event.pull_request.head.ref }}
             git checkout -b pr-${{ github.event.pull_request.number }} FETCH_HEAD
   
-        # Step 3: Push the new branch to the base repository
+   # Step 3: Push the new branch to the base repository using a GitHub token for authentication
       - name: Push the new branch
         run: |
-            git push origin pr-${{ github.event.pull_request.number }}
+            git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }} pr-${{ github.event.pull_request.number }}
 
    
       - name: Create pull request to new_pipeline_v2
