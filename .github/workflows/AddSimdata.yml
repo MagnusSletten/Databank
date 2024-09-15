@@ -16,7 +16,7 @@ on:
 jobs:
   build:
     runs-on: nrec-large  
-    if: github.repository == 'MagnusSletten/Databank'
+    if: github.repository == 'MagnusSletten/Databank' && github.event.pull_request.head.repo.full_name != 'MagnusSletten/Databank'
     steps:
     - name: Check if PR is from the same repository
       id: check_pr_source
