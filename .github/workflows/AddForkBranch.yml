@@ -1,0 +1,40 @@
+name: Handle Fork PRs
+
+on:
+  pull_request_target:
+    branches:
+      - new_pipeline_v2
+    paths:
+      - 'Scripts/BuildDatabank/info_files/**'
+
+jobs:
+  copy_fork_pr:
+    runs-on: nrec-large
+    steps:
+      - name: Check if PR is from a fork
+        id: check_fork
+        run: |
+          if [[ "${{ github.event.pull_request.head.repo.full_name }}" == "${{ github.repository }}" ]]; then
+            echo "This pull request is from the same repository. Skipping."
+            exit 0
+          else
+            echo "This pull request is from a forked repository."
+          fi
+
+      - name: Create new branch from PR
+        uses: peterjgrainger/action-create-branch@v2.2.0
+        with:
+          branch: 'pr-${{ github.event.pull_request.number }}-from-fork'
+          sha: ${{ github.event.pull_request.head.sha }}  
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+   
+      - name: Create pull request to new_pipeline_v2
+        uses: peter-evans/create-pull-request@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: pr-${{ github.event.pull_request.number }}-from-fork  
+          base: new_pipeline_v2  
+          title: 'Merge forked PR changes into new_pipeline_v2'
+          body: 'This PR merges changes from a forked repository to the new_pipeline_v2 branch.'

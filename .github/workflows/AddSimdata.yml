@@ -1,9 +1,9 @@
 name: Add new data
 #
 on:
-  pull_request:
+  pull_request_target:
     branches:
-      - docker_test
+      - new_pipeline_v2
     paths:
       - 'Scripts/BuildDatabank/info_files/**'
 
@@ -15,9 +15,19 @@ on:
 
 jobs:
   build:
+    
     runs-on: nrec-large  
 
     steps:
+    - name: Check if PR is from the same repository
+      id: check_pr_source
+      run: |
+        if [[ "${{ github.event.pull_request.head.repo.full_name }}" != "${{ github.repository }}" ]]; then
+          echo "This pull request is from a forked repository. Skipping build."
+          exit 0
+        else
+          echo "This pull request is from the same repository."
+        fi
 
     - name: Get current branch name
       id: vars
