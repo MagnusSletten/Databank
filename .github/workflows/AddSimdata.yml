@@ -1,5 +1,5 @@
 name: Add new data
-#
+#s
 on:
   pull_request_target:
     branches:
