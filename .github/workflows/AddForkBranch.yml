@@ -40,7 +40,7 @@ jobs:
       
       - name: Pull Docker image
         run: |
-            sudo docker pull nmrlipids/project:addsim1.3
+            sudo docker pull nmrlipids/project:addsim_fork1.0
 
       - name: Run the Docker container with environment variables
         run: |
@@ -48,4 +48,5 @@ jobs:
           --env REPO_URL=${{ github.event.repository.clone_url }} \
           --env BRANCH_NAME=pr-${{ github.event.pull_request.number }}-from-fork\
           --env GH_TOKEN=${{ secrets.GH_TOKEN }} \
-          nmrlipids/project:addsim1.3
+          --env TARGET_BRANCH=new_pipeline_v3
+          nmrlipids/project:addsim_fork1.0
