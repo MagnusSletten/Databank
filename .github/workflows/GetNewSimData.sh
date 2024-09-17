@@ -3,9 +3,6 @@
 # Directory path:
 TARGET_DIR="Scripts/BuildDatabank/info_files"
 
-#The branch we are comparing to. For final build this will be the branch the user opens merge requests to:
-TARGET_BRANCH="main_mock"
-
 GITHUB_USERNAME="MagnusSletten_Bot"  
 GITHUB_EMAIL="magnus.elias.sletten@gmail.com"  
 

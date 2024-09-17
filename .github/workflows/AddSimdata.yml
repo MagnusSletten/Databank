@@ -1,17 +1,8 @@
 name: Add new data
 #s
 on:
-  pull_request_target:
-    branches:
-      - new_pipeline_v2
-    paths:
-      - 'Scripts/BuildDatabank/info_files/**'
-
   workflow_dispatch:
 
-  push:
-    branches:
-      - new_pipeline_v2
 
 jobs:
   build:
@@ -36,4 +27,5 @@ jobs:
           --env REPO_URL=${{ github.event.repository.clone_url }} \
           --env BRANCH_NAME=${{ env.BRANCH_NAME }} \
           --env GH_TOKEN=${{ secrets.GH_TOKEN }} \
+          --env TARGET_BRANCH=new_pipeline_v3
           nmrlipids/project:addsim1.3
