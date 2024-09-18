@@ -12,6 +12,10 @@ jobs:
     if: github.repository == 'MagnusSletten/Databank' && github.event.pull_request.head.repo.full_name != 'MagnusSletten/Databank'
     runs-on: nrec-large
     steps:
+      - name: Checkout base repository
+        uses: actions/checkout@v3
+
+      
         #The chechkout -b step here makes a new branch which starts from the most recent fetch.
       - name: Fetch and checkout forked branch
         run: |
