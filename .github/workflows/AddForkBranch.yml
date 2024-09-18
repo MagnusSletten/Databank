@@ -45,7 +45,7 @@ jobs:
       - name: Run the Docker container with environment variables
         run: |
           sudo docker run --rm \
-          --env REPO_URL=${{ github.event.repository.clone_url }} \
+          --env REPO_URL=https://github.com/${{ github.repository }}.git \
           --env BRANCH_NAME=pr-${{ github.event.pull_request.number }}-from-fork \
           --env GH_TOKEN=${{ secrets.GH_TOKEN }} \
           --env TARGET_BRANCH=new_pipeline_v3 \
