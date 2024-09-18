@@ -46,7 +46,7 @@ jobs:
         run: |
           sudo docker run --rm \
           --env REPO_URL=${{ github.event.repository.clone_url }} \
-          --env BRANCH_NAME=pr-${{ github.event.pull_request.number }}-from-fork\
+          --env BRANCH_NAME=pr-${{ github.event.pull_request.number }}-from-fork \
           --env GH_TOKEN=${{ secrets.GH_TOKEN }} \
-          --env TARGET_BRANCH=new_pipeline_v3
+          --env TARGET_BRANCH=new_pipeline_v3 \
           nmrlipids/project:addsim_fork1.0
