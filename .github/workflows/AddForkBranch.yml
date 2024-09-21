@@ -44,11 +44,11 @@ jobs:
       
       - name: Pull Docker image
         run: |
-           docker pull nmrlipids/project:addsim_fork1.0
+            sudo docker pull nmrlipids/project:addsim_fork1.0
 
       - name: Run the Docker container with environment variables
         run: |
-          docker run --rm \
+          sudo docker run --rm \
           --env REPO_URL=https://github.com/${{ github.repository }}.git \
           --env BRANCH_NAME=pr-${{ github.event.pull_request.number }}-from-fork \
           --env GH_TOKEN=${{ secrets.GH_TOKEN }} \
