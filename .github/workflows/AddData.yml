@@ -41,6 +41,7 @@ jobs:
        
 
     addExperimentData:
+      needs: copy_fork_pr
       runs-on: nrec-large
       steps:
         - name: Checkout working branch
@@ -81,6 +82,7 @@ jobs:
         
               
     add_sim_data:
+      needs: [copy_fork_pr,addExperimentData]
       runs-on: nrec-large
       steps:
         - name: Pull Docker image
