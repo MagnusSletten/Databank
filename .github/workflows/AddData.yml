@@ -38,65 +38,18 @@ jobs:
           run: |
             gh pr create --head pr-${{ github.event.pull_request.number }}-from-fork --base new_pipeline_v3 --title "${{Github.actor}}'s New Simulation Data" --body "This PR brings in new simulation data from ${{Github.actor}}"
     
-       
-
-    addExperimentData:
+    Add_Experiment_Data:
       needs: copy_fork_pr
-      runs-on: nrec-large
-      steps:
-        - name: Checkout working branch
-          uses: actions/checkout@v3
-          with:
-            ref: pr-${{ github.event.pull_request.number }}-from-fork
-
-        - name: Fetch target branch
-          run: |
-            git fetch origin new_pipeline_v4
-        
-        - name: Check if new files exist in 'Data/Experiments'
-          id: check
-          run: |
-            if git diff --name-only origin/new_pipeline_v4 pr-${{ github.event.pull_request.number }}-from-fork -- Data/experiments/; then
-              echo "experiment_changed=true" >> $GITHUB_ENV
-              echo "::set-output name=experiment_changed::true"
-            else
-              echo "experiment_changed=false" >> $GITHUB_ENV
-              echo "::set-output name=experiment_changed::false"
-            fi
-          
-        - name: Pull Docker image
-          if: steps.check.outputs.experiment_changed == 'true'
-          run: |
-            sudo docker pull nmrlipids/project:addexperiment1.0
-        
-
-        - name: Run the Docker container with environment variables
-          if: ${{ steps.check.outputs.experiment_changed == 'true' }}
-          run: |
-            sudo docker run --rm \
-            --env REPO_URL=https://github.com/${{ github.repository }}.git \
-            --env BRANCH_NAME=pr-${{ github.event.pull_request.number }}-from-fork \
-            --env GH_TOKEN=${{ secrets.GH_TOKEN }} \
-            --env TARGET_BRANCH=new_pipeline_v4 \
-            nmrlipids/project:addexperiment1.0
-
-              
-        
-              
-    add_sim_data:
-      if: false 
-      needs: [copy_fork_pr,addExperimentData]
-      runs-on: nrec-large
-      steps:
-        - name: Pull Docker image
-          run: |
-              sudo docker pull nmrlipids/project:addsim_fork1.0
-
-        - name: Run the Docker container with environment variables
-          run: |
-            sudo docker run --rm \
-            --env REPO_URL=https://github.com/${{ github.repository }}.git \
-            --env BRANCH_NAME=pr-${{ github.event.pull_request.number }} \
-            --env GH_TOKEN=${{ secrets.GH_TOKEN }} \
-            --env TARGET_BRANCH=new_pipeline_v3 \
-            nmrlipids/project:addsim_fork1.0
+      uses: MagnusSletten/Databank/.github/workflows/AddExperimentData.yml@main
+      with:
+        working_branch_name: pr-${{ github.event.pull_request.number }}-from-fork
+        target_branch_name: new_pipeline_v4
+        gh_token: ${{ github.secrets.GH_TOKEN }}
+  
+    Add_Sim_Data:
+      needs: [Add_Experiment_Data,copy_fork_pr]  # Ensure Add_Sim_Data waits for Add_Experiment_Data to finish
+      uses: MagnusSletten/Databank/.github/workflows/AddSimulationData.yml@main
+      with:
+        working_branch_name: pr-${{ github.event.pull_request.number }}
+        target_branch_name: new_pipeline_v3
+        gh_token: ${{ github.secrets.GH_TOKEN }}
