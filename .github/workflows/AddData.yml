@@ -75,9 +75,9 @@ jobs:
           run: |
             sudo docker run --rm \
             --env REPO_URL=https://github.com/${{ github.repository }}.git \
-            --env BRANCH_NAME=${{ inputs.working_branch_name }} \
+            --env BRANCH_NAME=pr-${{ github.event.pull_request.number }}-from-fork \
             --env GH_TOKEN=${{ secrets.GH_TOKEN }} \
-            --env TARGET_BRANCH=${{ inputs.target_branch_name }} \
+            --env TARGET_BRANCH=new_pipeline_v4 \
             nmrlipids/project:addexperiment1.0
 
               
