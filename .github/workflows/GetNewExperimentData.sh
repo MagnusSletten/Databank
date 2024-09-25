@@ -25,22 +25,21 @@ git pull origin $BRANCH_NAME
 NEW_ORDERPARAMETER_FILES=$(git diff --$ORDERPARAMETERS_DIR --name-status origin/$BRANCH_NAME origin/$TARGET_BRANCH | grep "info_files" | awk '{print $2}')
 
 
-# If new files is not Null:
-if [ -n "$NEW_ORDERPARAMETER_FILES" ]; then
-  echo "$NEW_ORDERPARAMETER_FILES"
-  echo "$NEW_ORDERPARAMETER_FILES" > "$ORDERPARAMETER_FILE"  
-  
-  # Run AddData.py for each new file listed in the output file::
-  while IFS= read -r file; do
+while IFS= read -r file; do
+  # Check if the file is a .dat file
+  if [[ "$file" == *.dat ]]; then
     echo "Running data_to_json.py for $file"
     python3 "data_to_json.py" -f "$DATABANK_ABS_PATH/$file"
-    break   #temporary for testing purposes.
-  done < "$ORDERPARAMETER_FILE"
-
+    break   # Temporary for testing purposes.
+  else
+    echo "Skipping non-.dat file: $file"
+  fi
+done < "$ORDERPARAMETER_FILE"
 
 else
   echo "No new files detected in $ORDERPARAMETERS."
 fi
+
 
 
 
