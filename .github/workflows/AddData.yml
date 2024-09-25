@@ -50,7 +50,7 @@ jobs:
       needs: [AddExperimentData,copy_fork_pr]  # Ensure Add_Sim_Data waits for Add_Experiment_Data to finish
       uses: MagnusSletten/Databank/.github/workflows/AddSimulationData.yml@new_pipeline_v4
       with:
-        working_branch_name: pr-${{ github.event.pull_request.number }}
+        working_branch_name: pr-${{ github.event.pull_request.number }}-from-fork
         target_branch_name: new_pipeline_v4
       secrets: inherit 
        
