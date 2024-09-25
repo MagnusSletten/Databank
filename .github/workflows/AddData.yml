@@ -44,7 +44,7 @@ jobs:
       steps:
         - name: Trigger addExperimentData.yml workflow
           run: |
-            gh workflow run AddExperimentData.yml --field working_branch_name=pr-${{ github.event.pull_request.number }}-from-fork --field target_branch_name=new_pipeline_v4
+            gh workflow run AddExperimentData.yml --ref new_pipeline_v4 --field working_branch_name=pr-${{ github.event.pull_request.number }}-from-fork --field target_branch_name=new_pipeline_v4
     
     add_sim_data:
       needs: [copy_fork_pr,add_experiment_data]
@@ -52,7 +52,7 @@ jobs:
       steps:
         - name: Trigger addExperimentData.yml workflow
           run: |
-            gh workflow run AddSimulationData.yml --field working_branch_name=pr-${{ github.event.pull_request.number }}-from-fork --field target_branch_name=new_pipeline_v4
+            gh workflow run AddSimulationData.yml --ref new_pipeline_v4 --field working_branch_name=pr-${{ github.event.pull_request.number }}-from-fork --field target_branch_name=new_pipeline_v4
       
             
       
