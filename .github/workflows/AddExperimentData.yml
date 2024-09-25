@@ -48,4 +48,4 @@ jobs:
           --env BRANCH_NAME=${{ inputs.working_branch_name }} \
           --env GH_TOKEN=${{ secrets.GH_TOKEN }} \
           --env TARGET_BRANCH=${{ inputs.target_branch_name }} \
-          nmrlipids/project:addsim_fork1.0
+          addexperiment1.0
