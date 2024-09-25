@@ -1,0 +1,30 @@
+name: Handle Fork PRs
+
+on:
+  workflow_dispatch:
+    inputs:
+      working_branch_name:
+        description: "The new branch where new files are added"
+        required: true
+        default: "Magnus"
+      target_branch_name:
+        description: "The final destination for files. This will be main at the end"
+        required: true
+        default: "Magnus"
+
+jobs:
+  copy_fork_pr:
+    runs-on: nrec-large
+    steps:
+      - name: Pull Docker image
+        run: |
+            sudo docker pull nmrlipids/project:addsim_fork1.0
+
+      - name: Run the Docker container with environment variables
+        run: |
+          sudo docker run --rm \
+          --env REPO_URL=https://github.com/${{ github.repository }}.git \
+          --env BRANCH_NAME=${{ github.event.inputs.branch_name }}
+          --env GH_TOKEN=${{ secrets.GH_TOKEN }} \
+          --env TARGET_BRANCH=new_pipeline_v3 \
+          nmrlipids/project:addsim_fork1.0
