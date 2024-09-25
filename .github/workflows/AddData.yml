@@ -67,7 +67,7 @@ jobs:
         - name: Pull Docker image
           if: steps.check.outputs.experiment_changed == 'true'
           run: |
-            sudo docker pull nmrlipids/project:addsim_fork1.0
+            sudo docker pull addexperiment1.0
         
 
         - name: Run the Docker container with environment variables
