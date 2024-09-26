@@ -43,7 +43,7 @@ jobs:
       uses: MagnusSletten/Databank/.github/workflows/AddExperimentData.yml@new_pipeline_v4
       with:
         working_branch_name: pr-${{ github.event.pull_request.number }}-from-fork
-        target_branch_name:
+        target_branch_name: new_pipeline_v4
       secrets: inherit 
       
     AddSimulationData:
