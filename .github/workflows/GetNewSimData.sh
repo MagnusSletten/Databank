@@ -54,6 +54,8 @@ else
 fi
 
 cd $BUILDDATABANKPATH
+python searchDATABANK.py
+python QualityEvaluation.py
 rm "$OUTPUT_FILE"
 
 cd $DATABANK_ABS_PATH
