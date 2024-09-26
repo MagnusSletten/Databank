@@ -28,7 +28,7 @@ if [ -n "$NEW_ORDERPARAMETER_FILES" ]; then
   while IFS= read -r file; do
     if [[ $file == *.dat ]]; then
       echo "Running data_to_json.py for $file"
-      python3 "data_to_json.py" "$file"
+      python3 "data_to_json.py" "$DATABANK_ABS_PATH/$file"
       break   # Temporary for testing purposes.
     fi  
   done < "$ORDERPARAMETER_FILE"  
