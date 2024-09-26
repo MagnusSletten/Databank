@@ -25,7 +25,7 @@ git pull origin $BRANCH_NAME
 NEW_ORDERPARAMETER_FILES=$(git diff --name-only origin/$BRANCH_NAME origin/$TARGET_BRANCH -- Data/experiments/)
 
 if [-n $NEW_ORDERPARAMETER_FILES ]; then
-  echo "$NEW_FILES" > "$ORDERPARAMETER_FILE"
+  echo "$NEW_ORDERPARAMETER_FILES" > "$ORDERPARAMETER_FILE"
   while IFS= read -r file; do
     # Check if the file is a .dat file
     if [[ "$file" == *.dat ]]; then
