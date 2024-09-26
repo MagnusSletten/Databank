@@ -29,7 +29,7 @@ if [-n $NEW_ORDERPARAMETER_FILES ]; then
   echo "$NEW_ORDERPARAMETER_FILES" > "$ORDERPARAMETER_FILE"
   while IFS= read -r file; do
     # Check if the file is a .dat file
-    if [[ "$file" == *.dat ]]; then
+    if [[ $file == *.dat ]]; then
       echo "Running data_to_json.py for $file"
       python3 "$DATABANK_ABS_PATH/data_to_json.py" -f "$DATABANK_ABS_PATH/$file"
       break   # Temporary for testing purposes.
@@ -39,7 +39,7 @@ fi
 
 rm "$ORDERPARAMETER_FILE"
 
-cd "$DATABANK_ABS_PATH" || exit
+cd "$DATABANK_ABS_PATH" 
 git status 
 git add .
 git commit -m "Automated push by NREC"
