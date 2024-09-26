@@ -20,21 +20,6 @@ RUN apt-get update && apt-get install -y \
     libfftw3-dev \
     build-essential \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
-
-    # Download and unzip gromacs:
-RUN wget https://ftp.gromacs.org/gromacs/gromacs-$GROMACS_VERSION.tar.gz && \
-tar xfz gromacs-$GROMACS_VERSION.tar.gz && \
-rm gromacs-$GROMACS_VERSION.tar.gz
-
-# Trying without features we don't need:
-RUN cd gromacs-$GROMACS_VERSION && \
-mkdir build && cd build && \
-cmake .. -DGMX_BUILD_OWN_FFTW=ON -DGMX_GPU=OFF -DGMX_MPI=OFF && \
-make -j$(nproc) && \
-make install
-
-# Make GROMACS available globally:
-RUN echo "source /usr/local/gromacs/bin/GMXRC" >> /etc/bash.bashrc
     
 WORKDIR /app
 
