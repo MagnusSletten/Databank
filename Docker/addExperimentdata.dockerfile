@@ -41,7 +41,7 @@ WORKDIR /app
 # Clone the repository at runtime using environment variables
 RUN mkdir -p /app/Databank
 
-CMD /bin/bash -c "source /usr/local/gromacs/bin/GMXRC && \
+CMD /bin/bash -c "\
     git clone https://$GH_TOKEN@github.com/MagnusSletten/Databank.git Databank && \
     cd Databank && \
     git fetch origin && git branch -r && \
