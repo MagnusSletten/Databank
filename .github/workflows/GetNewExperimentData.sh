@@ -20,11 +20,13 @@ cd "$ORDERPARAMETERS_DIR" || exit
 
 git fetch origin $BRANCH_NAME
 git pull origin $BRANCH_NAME
+cd $DATABANK_ABS_PATH
 
 # Find new added files in this branch relative to the other branch mentioned here:
-NEW_ORDERPARAMETER_FILES=$(git diff --name-status origin/$BRANCH_NAME origin/$TARGET_BRANCH -- Data/experiments/ | awk '{print $2}')
+NEW_ORDERPARAMETER_FILES=$(git diff --name-only origin/$BRANCH_NAME origin/$TARGET_BRANCH -- Data/experiments/)
 
-if [[ -n "$NEW_ORDERPARAMETER_FILES" ]]; then
+if [-n $NEW_ORDERPARAMETER_FILES ]; then
+  echo "$NEW_ORDERPARAMETER_FILES" > "$ORDERPARAMETER_FILE"
   while IFS= read -r file; do
     # Check if the file is a .dat file
     if [[ "$file" == *.dat ]]; then
@@ -32,11 +34,7 @@ if [[ -n "$NEW_ORDERPARAMETER_FILES" ]]; then
       python3 "$DATABANK_ABS_PATH/data_to_json.py" -f "$DATABANK_ABS_PATH/$file"
       break   # Temporary for testing purposes.
     else
-      echo "Skipping non-.dat file: $file"
-    fi
-  done <<< "$NEW_ORDERPARAMETER_FILES"
-else
-  echo "No new files detected in $ORDERPARAMETERS_DIR."
+  echo "No new files detected in $TARGET_DIR."
 fi
 
 rm "$ORDERPARAMETER_FILE"

@@ -21,7 +21,18 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
     
+
+# Add a non-root user 'runner'
+RUN useradd -m -s /bin/bash runner
+
+# Set working directory
 WORKDIR /app
+
+# Change ownership of the /app directory to 'runner'
+RUN chown -R runner:runner /app
+
+# Switch to 'runner' user
+USER runner
 
 # Clone the repository at runtime using environment variables
 RUN mkdir -p /app/Databank
