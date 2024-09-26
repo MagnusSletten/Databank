@@ -22,7 +22,7 @@ git fetch origin $BRANCH_NAME
 git pull origin $BRANCH_NAME
 
 # Find new added files in this branch relative to the other branch mentioned here:
-NEW_ORDERPARAMETER_FILES=$(git diff --name-status origin/$BRANCH_NAME origin/$TARGET_BRANCH -- Data/experiments/ | awk '{print $2}')
+NEW_ORDERPARAMETER_FILES=$(git diff --name-only origin/$BRANCH_NAME origin/$TARGET_BRANCH -- Data/experiments/)
 
 if [[ -n "$NEW_ORDERPARAMETER_FILES" ]]; then
   while IFS= read -r file; do
