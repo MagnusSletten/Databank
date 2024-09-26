@@ -23,12 +23,12 @@ cd $DATABANK_ABS_PATH
 # Find new added files in this branch relative to the other branch mentioned here:
 NEW_ORDERPARAMETER_FILES=$(git diff --name-only origin/$BRANCH_NAME origin/$TARGET_BRANCH -- Data/experiments/)
 cd $ORDERPARAMETERS_DIR
-if [ -n "$NEW_ORDERPARAMETER_FILES" ]; then  # Added spaces around the square brackets
+if [ -n "$NEW_ORDERPARAMETER_FILES" ]; then  
   echo "$NEW_ORDERPARAMETER_FILES" > "$ORDERPARAMETER_FILE"
   while IFS= read -r file; do
     if [[ $file == *.dat ]]; then
       echo "Running data_to_json.py for $file"
-      python3 "$DATABANK_ABS_PATH/data_to_json.py" -f "$DATABANK_ABS_PATH/$file"
+      python3 "data_to_json.py" -f "$DATABANK_ABS_PATH/$file"
       break   # Temporary for testing purposes.
     fi  
   done < "$ORDERPARAMETER_FILE"  
