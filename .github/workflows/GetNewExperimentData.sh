@@ -20,6 +20,7 @@ cd "$ORDERPARAMETERS_DIR" || exit
 
 git fetch origin $BRANCH_NAME
 git pull origin $BRANCH_NAME
+cd DATABANK_ABS_PATH
 
 # Find new added files in this branch relative to the other branch mentioned here:
 NEW_ORDERPARAMETER_FILES=$(git diff --name-only origin/$BRANCH_NAME origin/$TARGET_BRANCH -- Data/experiments/)
