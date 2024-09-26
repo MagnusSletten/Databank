@@ -22,7 +22,7 @@ cd $DATABANK_ABS_PATH
 
 # Find new added files in this branch relative to the other branch mentioned here:
 NEW_ORDERPARAMETER_FILES=$(git diff --name-only origin/$BRANCH_NAME origin/$TARGET_BRANCH -- Data/experiments/)
-
+cd $ORDERPARAMETERS_DIR
 if [ -n "$NEW_ORDERPARAMETER_FILES" ]; then  # Added spaces around the square brackets
   echo "$NEW_ORDERPARAMETER_FILES" > "$ORDERPARAMETER_FILE"
   while IFS= read -r file; do
@@ -35,10 +35,11 @@ if [ -n "$NEW_ORDERPARAMETER_FILES" ]; then  # Added spaces around the square br
 else
   echo "No new files detected in $TARGET_DIR."
 fi  # Added missing 'fi' to close the outer if block
-
-rm "$ORDERPARAMETER_FILE"
+"
 
 cd "$DATABANK_ABS_PATH" 
+
+rm "$ORDERPARAMETER_FILE
 git status 
 git add .
 git commit -m "Automated push by NREC"
