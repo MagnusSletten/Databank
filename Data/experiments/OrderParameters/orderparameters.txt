@@ -1,2 +1,3 @@
 Data/experiments/OrderParameters/10.1002/j.1460-2075.1987.tb02595.x/4/POPC_Order_Parameters.dat
 Data/experiments/OrderParameters/10.1002/j.1460-2075.1987.tb02595.x/4/README.yaml
+Data/experiments/OrderParameters/orderparameters.txt
