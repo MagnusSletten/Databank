@@ -41,7 +41,7 @@ jobs:
       - name: Pull Docker image
         if: ${{ steps.check.outputs.experiment_changed == 'true' }}
         run: |
-          sudo docker pull nmrlipids/project:addsim_fork1.0
+          sudo docker pull nmrlipids/project:addexperiment1.0
 
       - name: Run the Docker container with environment variables
         if: ${{ steps.check.outputs.experiment_changed == 'true' }}
@@ -51,4 +51,4 @@ jobs:
           --env BRANCH_NAME=${{ inputs.working_branch_name }} \
           --env GH_TOKEN=${{ secrets.GH_TOKEN }} \
           --env TARGET_BRANCH=${{ inputs.target_branch_name }} \
-          addexperiment1.0
+          nmrlipids/project:addexperiment1.0
