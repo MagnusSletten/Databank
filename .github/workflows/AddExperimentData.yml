@@ -30,7 +30,7 @@ jobs:
       - name: Check if new files exist in 'Data/Experiments'
         id: check
         run: |
-          if git diff --name-only origin/${{ inputs.target_branch_name }} ${{ inputs.working_branch_name }} | grep -qE "^Data/Experiments/"; then
+          if git diff --name-only origin/new_pipeline_v4 pr-${{ github.event.pull_request.number }}-from-fork -- Data/experiments/; then
             echo "experiment_changed=true" >> $GITHUB_ENV
             echo "::set-output name=experiment_changed::true"
           else
