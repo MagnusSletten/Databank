@@ -12,6 +12,7 @@ jobs:
           working_branch_name: ${{ github.event.pull_request.head.ref }}
           target_branch_name: new_pipeline_v4
           pr_number: ${{ github.event.pull_request.number }}
+        secrets: inherit 
   
     AddExperimentData:
       needs: copy_fork_pr
