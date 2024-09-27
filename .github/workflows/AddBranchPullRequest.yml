@@ -40,7 +40,7 @@ jobs:
 
       - name: Authenticate gh
         run: |
-          echo "${{ inputs.gh_token }}" | gh auth login --with-token
+          echo "${{ github.secrets.gh_token }}" | gh auth login --with-token
 
       - name: Create pull request
         run: |
