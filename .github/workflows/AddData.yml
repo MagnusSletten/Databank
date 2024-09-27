@@ -7,6 +7,7 @@ on:
   
 jobs:
     copy_fork_pr:
+        if: github.repository == 'MagnusSletten/Databank' && github.event.pull_request.head.repo.full_name != 'MagnusSletten/Databank'
         uses: MagnusSletten/Databank/.github/workflows/AddBranchPullRequest.yml@new_pipeline_v4
         with:
           working_branch_name: ${{ github.event.pull_request.head.ref }}
