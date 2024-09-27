@@ -32,19 +32,17 @@ jobs:
         run: |
           if git diff --name-only origin/new_pipeline_v4 pr-${{ github.event.pull_request.number }}-from-fork -- Data/experiments/; then
             echo "experiment_changed=true" >> $GITHUB_ENV
-            echo "::set-output name=experiment_changed::true"
           else
             echo "experiment_changed=false" >> $GITHUB_ENV
-            echo "::set-output name=experiment_changed::false"
           fi
 
       - name: Pull Docker image
-        if: ${{ steps.check.outputs.experiment_changed == 'true' }}
+        if: env.experiment_changed == 'true'
         run: |
           sudo docker pull nmrlipids/project:addexperiment1.0
 
       - name: Run the Docker container with environment variables
-        if: ${{ steps.check.outputs.experiment_changed == 'true' }}
+        if: env.experiment_changed == 'true'
         run: |
           sudo docker run --rm \
           --env REPO_URL=https://github.com/${{ github.repository }}.git \
