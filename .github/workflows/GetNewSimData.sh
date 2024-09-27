@@ -30,6 +30,10 @@ BUILDDATABANKPATH=$(pwd)
 git fetch origin "$BRANCH_NAME" || { echo "git fetch failed"; exit 1; }
 git pull origin "$BRANCH_NAME" || { echo "git pull failed"; exit 1; }
 
+# Create a single work directory before processing all files:
+WORK_DIR="/tmp/databank_workdir"
+mkdir -p "$WORK_DIR" || { echo "Failed to create work directory"; exit 1; }
+
 # Find new added files in this branch relative to the target branch:
 NEW_FILES=$(git diff --name-status origin/"$BRANCH_NAME" origin/"$TARGET_BRANCH" | grep "info_files" | awk '{print $2}')
 
@@ -37,16 +41,12 @@ NEW_FILES=$(git diff --name-status origin/"$BRANCH_NAME" origin/"$TARGET_BRANCH"
 if [ -n "$NEW_FILES" ]; then
   echo "$NEW_FILES"
   echo "$NEW_FILES" > "$OUTPUT_FILE"
-  
-  # Create a single work directory before processing all files:
-  WORK_DIR="/tmp/databank_workdir"
-  mkdir -p "$WORK_DIR" || { echo "Failed to create work directory"; exit 1; }
 
   # Run AddData.py for each new file listed in the output file:
   while IFS= read -r file; do
     echo "Running AddData.py for $file"
     cd "$BUILDDATABANKPATH"
-    python3 "$ADD_DATA_SCRIPT" -f "$DATABANK_ABS_PATH/$file" -w "$WORK_DIR" || { echo "AddData.py failed"; exit 1; }
+    python3 "AddData.py" -f "$DATABANK_ABS_PATH/$file" -w "$WORK_DIR" || { echo "AddData.py failed"; exit 1; }
     cd "$DATABANK_ABS_PATH/Scripts/AnalyzeDatabank"
     ./calcProperties.sh || { echo "calcProperties.sh failed"; exit 1; }
     
