@@ -36,10 +36,9 @@ else
   echo "No new files detected in $TARGET_DIR."
 fi  # Added missing 'fi' to close the outer if block
 "
-
-cd "$DATABANK_ABS_PATH" 
-
 rm "$ORDERPARAMETER_FILE
+cd "$DATABANK_ABS_PATH" 
+git pull 
 git status 
 git add .
 git commit -m "Automated push by NREC"
