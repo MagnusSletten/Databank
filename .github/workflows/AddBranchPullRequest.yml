@@ -32,7 +32,7 @@ jobs:
 
       - name: Push the new branch
         run: |
-          git push https://x-access-token:${{ inputs.gh_token }}@github.com/${{ github.repository }} pr-${{ inputs.pr_number }}-from-fork:pr-${{ inputs.pr_number }}-from-fork
+          git push https://x-access-token:$${{ secrets.gh_token }}@github.com/${{ github.repository }} pr-${{ inputs.pr_number }}-from-fork:pr-${{ inputs.pr_number }}-from-fork
 
       - name: Fetch new branch
         run: |
@@ -40,7 +40,7 @@ jobs:
 
       - name: Authenticate gh
         run: |
-          echo "${{ github.secrets.gh_token }}" | gh auth login --with-token
+          echo "${{ secrets.gh_token }}" | gh auth login --with-token
 
       - name: Create pull request
         run: |
