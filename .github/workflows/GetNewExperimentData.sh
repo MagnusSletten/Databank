@@ -28,7 +28,7 @@ if [ -n "$NEW_ORDERPARAMETER_FILES" ]; then
   while IFS= read -r file; do
     if [[ $file == *.dat ]]; then
       echo "Running data_to_json.py for $file"
-      python3 "data_to_json.py" -f "$DATABANK_ABS_PATH/$file"
+      python3 "data_to_json.py" "$DATABANK_ABS_PATH/$file"
       break   # Temporary for testing purposes.
     fi  
   done < "$ORDERPARAMETER_FILE"  
@@ -36,10 +36,9 @@ else
   echo "No new files detected in $TARGET_DIR."
 fi  # Added missing 'fi' to close the outer if block
 "
-
-cd "$DATABANK_ABS_PATH" 
-
 rm "$ORDERPARAMETER_FILE
+cd "$DATABANK_ABS_PATH" 
+git pull 
 git status 
 git add .
 git commit -m "Automated push by NREC"
