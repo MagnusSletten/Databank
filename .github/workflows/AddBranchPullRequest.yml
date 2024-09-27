@@ -1,0 +1,51 @@
+name: Add new branch and pull request
+
+on:
+  workflow_call:
+    inputs:
+      working_branch_name:
+        description: "The new branch where new files are added"
+        required: true
+        default: "Magnus"
+        type: string
+      target_branch_name:
+        description: "The final destination for files. This will be main at the end"
+        required: true
+        default: "Magnus"
+        type: string
+      pr_number:
+        description: "The pull request number"
+        required: true
+        type: string
+      gh_token:
+        description: "GitHub token for authentication"
+        required: true
+        type: string
+
+jobs:
+  copy_fork_pr:
+    runs-on: nrec-large
+    steps:
+      - name: Checkout base repository
+        uses: actions/checkout@v3
+
+      - name: Fetch and checkout forked branch
+        run: |
+          git fetch https://github.com/${{ github.event.pull_request.head.repo.full_name }} ${{ inputs.working_branch_name }}
+          git checkout -b pr-${{ inputs.pr_number }}-from-fork FETCH_HEAD
+
+      - name: Push the new branch
+        run: |
+          git push https://x-access-token:${{ inputs.gh_token }}@github.com/${{ github.repository }} pr-${{ inputs.pr_number }}-from-fork:pr-${{ inputs.pr_number }}-from-fork
+
+      - name: Fetch new branch
+        run: |
+          git fetch origin pr-${{ inputs.pr_number }}-from-fork
+
+      - name: Authenticate gh
+        run: |
+          echo "${{ inputs.gh_token }}" | gh auth login --with-token
+
+      - name: Create pull request
+        run: |
+          gh pr create --head pr-${{ inputs.pr_number }}-from-fork --base ${{ inputs.target_branch_name }} --title "${{ github.actor }}'s New Simulation Data" --body "This PR brings in new simulation data from ${{ github.actor }}"

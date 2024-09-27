@@ -7,37 +7,12 @@ on:
   
 jobs:
     copy_fork_pr:
-        if: github.repository == 'MagnusSletten/Databank' && github.event.pull_request.head.repo.full_name != 'MagnusSletten/Databank'
-        runs-on: nrec-large
-        steps:
-        - name: Checkout base repository
-          uses: actions/checkout@v3
-        
-                #The chechkout -b step here makes a new branch which starts from the most recent fetch.
-        - name: Fetch and checkout forked branch
-          run: |
-                git fetch https://github.com/${{ github.event.pull_request.head.repo.full_name }} ${{ github.event.pull_request.head.ref }}
-                git checkout -b pr-${{ github.event.pull_request.number }}-from-fork FETCH_HEAD  
-
- 
-        - name: Push the new branch
-          run: |
-            git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }} pr-${{ github.event.pull_request.number }}-from-fork:pr-${{ github.event.pull_request.number }}-from-fork
-
-        - name: Fetch new branch
-          run: |
-            git fetch origin pr-${{ github.event.pull_request.number }}-from-fork
-        
-        
-        - name: Authenticate gh
-          run: |
-            echo "${{ secrets.GH_TOKEN }}" | gh auth login --with-token
-
-    
-        - name: Create pull request
-          run: |
-            gh pr create --head pr-${{ github.event.pull_request.number }}-from-fork --base new_pipeline_v4 --title "${{Github.actor}}'s New Simulation Data" --body "This PR brings in new simulation data from ${{Github.actor}}"
-    
+        uses: MagnusSletten/Databank/.github\workflows\AddBranchPullRequest.yml@new_pipeline_v4
+        with:
+          working_branch_name: ${{ github.event.pull_request.head.ref }}
+          target_branch_name: new_pipeline_v4
+          pr_number: ${{ github.event.pull_request.number }}
+  
     AddExperimentData:
       needs: copy_fork_pr
       uses: MagnusSletten/Databank/.github/workflows/AddExperimentData.yml@new_pipeline_v4
@@ -45,7 +20,7 @@ jobs:
         working_branch_name: pr-${{ github.event.pull_request.number }}-from-fork
         target_branch_name: new_pipeline_v4
       secrets: inherit 
-      
+        
     AddSimulationData:
       needs: [AddExperimentData,copy_fork_pr]  # Ensure Add_Sim_Data waits for Add_Experiment_Data to finish
       uses: MagnusSletten/Databank/.github/workflows/AddSimulationData.yml@new_pipeline_v4
