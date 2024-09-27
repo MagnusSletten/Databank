@@ -37,12 +37,12 @@ jobs:
           fi
 
       - name: Pull Docker image
-        if: env.experiment_changed == 'true'
+        if: ${{env.experiment_changed == 'true'}} 
         run: |
           sudo docker pull nmrlipids/project:addexperiment1.0
 
       - name: Run the Docker container with environment variables
-        if: env.experiment_changed == 'true'
+        if: ${{env.experiment_changed == 'true'}} 
         run: |
           sudo docker run --rm \
           --env REPO_URL=https://github.com/${{ github.repository }}.git \
