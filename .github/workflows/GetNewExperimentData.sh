@@ -6,9 +6,6 @@ GITHUB_EMAIL="magnus.elias.sletten@gmail.com"
 git config --global user.name "$GITHUB_USERNAME"
 git config --global user.email "$GITHUB_EMAIL"
 
-# Name of file we're going to store new filenames in:
-ORDERPARAMETER_FILE="orderparameters.txt"
-
 
 DATABANK_ABS_PATH=$(pwd)
 ORDERPARAMETERS_DIR="Data/experiments/OrderParameters"
