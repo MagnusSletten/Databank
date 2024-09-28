@@ -40,17 +40,17 @@ if [ -n "$NEW_FILES" ]; then
   echo "$NEW_FILES"
   # Run AddData.py for each new file listed in the output:
   for file in $NEW_FILES; do
-    echo "Running AddData.py for $file"
-    cd "$BUILDDATABANKPATH"
-    python3 "AddData.py" -f "$DATABANK_ABS_PATH/$file" -w "$WORK_DIR" || { echo "AddData.py failed"; exit 1; }
-    cd "$DATABANK_ABS_PATH/Scripts/AnalyzeDatabank"
-    ./calcProperties.sh || { echo "calcProperties.sh failed"; exit 1; }
+  if [[ $file == *.yaml ]]; then
+      echo "Running AddData.py for $file"
+      cd "$BUILDDATABANKPATH"
+      python3 "AddData.py" -f "$DATABANK_ABS_PATH/$file" -w "$WORK_DIR" || { echo "AddData.py failed"; exit 1; }
+      cd "$DATABANK_ABS_PATH/Scripts/AnalyzeDatabank"
+      ./calcProperties.sh || { echo "calcProperties.sh failed"; exit 1; }
     break  # Remove this break after testing.
   done
 else
   echo "No new files detected in $TARGET_DIR."
 fi
-
 
 
 cd "$BUILDDATABANKPATH"
