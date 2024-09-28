@@ -9,8 +9,6 @@ git config --global user.email "$GITHUB_EMAIL"
 # Name of file we're going to store new filenames in:
 ORDERPARAMETER_FILE="orderparameters.txt"
 
-# Initialize the output file:
-> "$ORDERPARAMETER_FILE"
 
 DATABANK_ABS_PATH=$(pwd)
 ORDERPARAMETERS_DIR="Data/experiments/OrderParameters"
@@ -34,8 +32,8 @@ if [ -n "$NEW_ORDERPARAMETER_FILES" ]; then
 else
   echo "No new files detected in $TARGET_DIR."
 fi
-"
-rm "$ORDERPARAMETER_FILE
+
+
 cd "$DATABANK_ABS_PATH" 
 git pull 
 git status 

@@ -15,7 +15,7 @@ on:
         type: string 
 
 jobs:
-  copy_fork_pr:
+  AddSimData:
     runs-on: nrec-large
     steps:
       - name: Pull Docker image
