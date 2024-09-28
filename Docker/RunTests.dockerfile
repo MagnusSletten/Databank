@@ -40,9 +40,28 @@ RUN cd gromacs-$GROMACS_VERSION && \
 
 
 RUN pip3 install pytest MDAnalysis MDAnalysisTests tqdm pyyaml pandas buildh
+WORKDIR /app
 
+# Add a non-root user 'runner'
+RUN useradd -m -s /bin/bash runner
+
+# Change ownership of the /app directory to 'runner'
+RUN chown -R runner:runner /app
+
+# Switch to 'runner' user
+USER runner
+
+# Clone the repository at runtime using environment variables
+RUN mkdir -p /app/Databank
+# Clone the repository and switch to the new_pipeline_v4 branch
+RUN git clone --branch new_pipeline_v4 https://github.com/MagnusSletten/Databank.git /app/Databank
+
+
+# List the contents of the cloned repository to verify
+RUN ls -R /app/Databank
+
+# Set the working directory to where your tests are located
 WORKDIR /app/Databank/Scripts/tests/
 
+# Set the default command to run pytest after sourcing GROMACS
 CMD ["/bin/bash", "-c", "source /usr/local/gromacs/bin/GMXRC && pytest -vs"]
-
-
