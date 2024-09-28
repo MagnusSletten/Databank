@@ -4,9 +4,15 @@ on:
     types: [opened]
     branches:
       - new_pipeline_v4
-  
+
 jobs:
+    Identify_Workflow_Source:
+      runs-on: nrec-large
+      steps:
+        - run: echo "This used the repo1 workflow files!"  
+
     Add_New_Branch_Create_Pr:
+      needs: Identify_Workflow_Source
       if: github.repository == 'MagnusSletten/Databank' && github.event.pull_request.head.repo.full_name != 'MagnusSletten/Databank'
       uses: MagnusSletten/Databank/.github/workflows/AddBranchPullRequest.yml@new_pipeline_v4
       with:
@@ -14,7 +20,7 @@ jobs:
         target_branch_name: new_pipeline_v4
         pr_number: ${{ github.event.pull_request.number }}
       secrets: inherit 
-  
+
     AddExperimentData:
       needs: Add_New_Branch_Create_Pr
       uses: MagnusSletten/Databank/.github/workflows/AddExperimentData.yml@new_pipeline_v4
@@ -22,7 +28,7 @@ jobs:
         working_branch_name: pr-${{ github.event.pull_request.number }}-from-fork
         target_branch_name: new_pipeline_v4
       secrets: inherit 
-        
+
     AddSimulationData:
       needs: [AddExperimentData,Add_New_Branch_Create_Pr]  
       uses: MagnusSletten/Databank/.github/workflows/AddSimulationData.yml@new_pipeline_v4
@@ -30,4 +36,3 @@ jobs:
         working_branch_name: pr-${{ github.event.pull_request.number }}-from-fork
         target_branch_name: new_pipeline_v4
       secrets: inherit 
-       
