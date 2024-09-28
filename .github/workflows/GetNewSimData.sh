@@ -16,9 +16,6 @@ OUTPUT_FILE="new_files.txt"
 # Path to AddData.py:
 ADD_DATA_SCRIPT="Scripts/BuildDatabank/AddData.py"
 
-# Makes the output file:
-> "$OUTPUT_FILE"
-
 # Store absolute paths for later use:
 DATABANK_ABS_PATH=$(pwd)
 cd "$TARGET_DIR"
@@ -40,19 +37,14 @@ NEW_FILES=$(git diff --name-status origin/"$BRANCH_NAME" origin/"$TARGET_BRANCH"
 # If new files exist:
 if [ -n "$NEW_FILES" ]; then
   echo "$NEW_FILES"
-  echo "$NEW_FILES" > "$OUTPUT_FILE"
-
   # Run AddData.py for each new file listed in the output file:
-  while IFS= read -r file; do
+  for file in $NEW_FILES; do
     echo "Running AddData.py for $file"
-    cd "$BUILDDATABANKPATH"
+    cd "$BUILDDATABANKPATH"   
     python3 "AddData.py" -f "$DATABANK_ABS_PATH/$file" -w "$WORK_DIR" || { echo "AddData.py failed"; exit 1; }
     cd "$DATABANK_ABS_PATH/Scripts/AnalyzeDatabank"
     ./calcProperties.sh || { echo "calcProperties.sh failed"; exit 1; }
-    
     break  # Remove this break after testing.
-    
-  done < "$OUTPUT_FILE"
 else
   echo "No new files detected in $TARGET_DIR."
 fi
@@ -62,8 +54,6 @@ cd "$BUILDDATABANKPATH"
 python searchDATABANK.py || { echo "searchDATABANK.py failed"; exit 1; }
 python QualityEvaluation.py || { echo "QualityEvaluation.py failed"; exit 1; }
 
-# Clean up:
-rm "$OUTPUT_FILE"
 
 # Push changes to the repository:
 cd "$DATABANK_ABS_PATH"
