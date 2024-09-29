@@ -53,15 +53,9 @@ USER runner
 
 # Clone the repository at runtime using environment variables
 RUN mkdir -p /app/Databank
-# Clone the repository and switch to the new_pipeline_v4 branch
-RUN git clone --branch new_pipeline_v4 https://github.com/MagnusSletten/Databank.git /app/Databank
-
-
-# List the contents of the cloned repository to verify
-RUN ls -R /app/Databank
-
-# Set the working directory to where your tests are located
-WORKDIR /app/Databank/Scripts/tests/
 
 # Set the default command to run pytest after sourcing GROMACS
-CMD ["/bin/bash", "-c", "source /usr/local/gromacs/bin/GMXRC && pytest -vs"]
+CMD ["/bin/bash", "-c", "git clone --branch new_pipeline_v4 https://github.com/MagnusSletten/Databank.git /app/Databank && \
+cd /app/Databank/Scripts/tests/ && \
+source /usr/local/gromacs/bin/GMXRC && \
+pytest -vs"]

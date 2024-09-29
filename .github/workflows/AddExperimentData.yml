@@ -19,7 +19,7 @@ jobs:
     runs-on: nrec-large
     steps:
       - name: Checkout working branch
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           ref: ${{ inputs.working_branch_name }}
 
