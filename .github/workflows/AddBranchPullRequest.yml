@@ -23,7 +23,7 @@ jobs:
     runs-on: nrec-large
     steps:
       - name: Checkout base repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Fetch and checkout forked branch
         run: |
