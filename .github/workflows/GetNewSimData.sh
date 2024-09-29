@@ -10,9 +10,6 @@ GITHUB_EMAIL="magnus.elias.sletten@gmail.com"
 git config --global user.name "$GITHUB_USERNAME"
 git config --global user.email "$GITHUB_EMAIL"
 
-# Name of file to store new filenames:
-OUTPUT_FILE="new_files.txt"
-
 # Path to AddData.py:
 ADD_DATA_SCRIPT="Scripts/BuildDatabank/AddData.py"
 
@@ -52,8 +49,6 @@ if [ -n "$NEW_FILES" ]; then
 else
   echo "No new files detected in $TARGET_DIR."
 fi
-
-
 
 cd "$BUILDDATABANKPATH"
 python searchDATABANK.py || { echo "searchDATABANK.py failed"; exit 1; }
