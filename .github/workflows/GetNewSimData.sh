@@ -53,6 +53,8 @@ fi
 cd "$BUILDDATABANKPATH"
 python searchDATABANK.py || { echo "searchDATABANK.py failed"; exit 1; }
 python QualityEvaluation.py || { echo "QualityEvaluation.py failed"; exit 1; }
+python makeRanking.py || { echo "makeRanking.py failed"; exit 1; }
+
 
 
 # Push changes to the repository:
