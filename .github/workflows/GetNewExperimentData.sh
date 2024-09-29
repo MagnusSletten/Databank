@@ -28,7 +28,7 @@ if [ -n "$NEW_ORDERPARAMETER_FILES" ]; then
     fi
   done
 else
-  echo "No new files detected in $TARGET_DIR."
+  echo "No new files detected in $ORDERPARAMETERS_DIR."
 fi
 cd $DATABANK_ABS_PATH
 
@@ -42,7 +42,7 @@ if [ -n "$NEW_FORMFACTOR_FILES" ]; then
     fi
   done
 else
-  echo "No new files detected in $TARGET_DIR."
+  echo "No new files detected in $FORMFACTOR_DIR."
 fi
 
 cd "$DATABANK_ABS_PATH" 
