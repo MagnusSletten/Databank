@@ -31,7 +31,7 @@ jobs:
       - name: Create and Push the New Branch
         run: |
           # Create a new branch from the current checked out branch
-          git checkout -b pr-${{ github.event.inputs.working_branch_name }}
+          git checkout -b ${{ github.event.inputs.working_branch_name }}
           # Push the new branch to the remote repository
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} pr-${{ github.event.inputs.working_branch_name }}
   
