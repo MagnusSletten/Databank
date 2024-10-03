@@ -1,4 +1,4 @@
-name: Add sim data 
+name: Recompute instance
 
 on:
   workflow_dispatch:
