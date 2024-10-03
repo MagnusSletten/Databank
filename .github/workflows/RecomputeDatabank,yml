@@ -1,0 +1,86 @@
+name: Add sim data 
+
+on:
+  workflow_dispatch:
+    inputs:
+      working_branch_name:
+        description: "The new branch where new files are added"
+        required: true
+        default: "default"
+        type: string 
+      target_branch_name:
+        description: "The final destination for files. This will be main at the end"
+        required: true
+        default: "default"
+        type: string 
+      start_index:
+        description: "Starting index "
+        required: true
+        type: number  
+      end_index:
+        description: "End index"
+        required: true
+        type: number 
+      number_of_runs: 
+        description: "Number of individual runners being used"
+        required: true
+        type: number 
+
+jobs:
+  make_new_branch:
+    runs-on: nrec-large
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Create and Push the New Branch
+        run: |
+          # Create a new branch from the current checked out branch
+          git checkout -b pr-${{ github.event.inputs.working_branch_name }}
+          # Push the new branch to the remote repository
+          git push http
+  
+  Run-dispatches:   
+    runs-on: nrec-large
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Calculate and Dispatch Child Workflows
+        shell: bash
+        run: |
+          # Read inputs
+          number_of_runs=${{ github.event.inputs.number_of_runs }}
+          start=${{ github.event.inputs.start }}
+          end=${{ github.event.inputs.end }}
+
+          # Calculate total number of items
+          total_items=$((end - start + 1))
+
+          # Calculate base chunk size
+          chunk_size=$((total_items / number_of_runs))
+          remainder=$((total_items % number_of_runs))
+
+          current_start=$start
+
+          for (( i=1; i<=number_of_runs; i++ ))
+          do
+            # Calculate end index for this chunk
+            current_chunk_size=$chunk_size
+            if [ $i -le $remainder ]; then
+              current_chunk_size=$((current_chunk_size + 1))
+            fi
+
+            current_end=$((current_start + current_chunk_size - 1))
+
+            echo "Dispatching child workflow for indices $current_start to $current_end"
+
+            # Dispatch the child workflow
+            curl -X POST \
+              -H "Accept: application/vnd.github+json" \
+              -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+              https://api.github.com/repos/${{ github.repository }}/actions/workflows/RecomputeInstance.yml/dispatches \
+              -d '{"ref":"main", "inputs":{"working_branch_name":"'"$working_branch_name"'","target_branch_name":"'"$target_branch_name"'","start_index":"'"$current_start"'","end_index":"'"$current_end"'"}}'
+
+            current_start=$((current_end + 1))
+          done
