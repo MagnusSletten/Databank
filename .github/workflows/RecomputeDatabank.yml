@@ -44,8 +44,8 @@ jobs:
         run: |
           # Read inputs
           number_of_runs=${{ github.event.inputs.number_of_runs }}
-          start=${{ github.event.inputs.start }}
-          end=${{ github.event.inputs.end }}
+          start=${{ github.event.inputs.start_index }}
+          end=${{ github.event.inputs.end_index }}
 
           # Calculate total number of items
           total_items=$((end - start + 1))
