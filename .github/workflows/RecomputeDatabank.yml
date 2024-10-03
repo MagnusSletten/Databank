@@ -8,11 +8,6 @@ on:
         required: true
         default: "default"
         type: string 
-      target_branch_name:
-        description: "The final destination for files. This will be main at the end"
-        required: true
-        default: "default"
-        type: string 
       start_index:
         description: "Starting index" 
         required: true
@@ -80,7 +75,7 @@ jobs:
               -H "Accept: application/vnd.github+json" \
               -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
               https://api.github.com/repos/${{ github.repository }}/actions/workflows/RecomputeInstance.yml/dispatches \
-              -d '{"ref":"main", "inputs":{"working_branch_name":"'"$working_branch_name"'","target_branch_name":"'"$target_branch_name"'","start_index":"'"$current_start"'","end_index":"'"$current_end"'"}}'
+              -d '{"ref":"main", "inputs":{"working_branch_name":"'"$working_branch_name"'","start_index":"'"$current_start"'","end_index":"'"$current_end"'"}}'
 
             current_start=$((current_end + 1))
           done

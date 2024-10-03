@@ -7,12 +7,7 @@ on:
         description: "The new branch where new files are added"
         required: true
         default: "default"
-        type: string 
-      target_branch_name:
-        description: "The final destination for files. This will be main at the end"
-        required: true
-        default: "default"
-        type: string 
+        type: string  
       start_index:
         description: "Starting index "
         required: true
