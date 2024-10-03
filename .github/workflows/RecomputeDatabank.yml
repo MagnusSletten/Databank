@@ -37,10 +37,8 @@ jobs:
   
   Run-dispatches:   
     runs-on: nrec-large
+    needs: make_new_branch
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
       - name: Calculate and Dispatch Child Workflows
         shell: bash
         run: |
