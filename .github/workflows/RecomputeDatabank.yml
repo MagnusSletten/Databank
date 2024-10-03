@@ -1,4 +1,5 @@
 name: Recompute Datbank
+
 on:
   workflow_dispatch:
     inputs:
@@ -37,7 +38,7 @@ jobs:
           # Create a new branch from the current checked out branch
           git checkout -b pr-${{ github.event.inputs.working_branch_name }}
           # Push the new branch to the remote repository
-          git push http
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} pr-${{ github.event.inputs.working_branch_name }}
   
   Run-dispatches:   
     runs-on: nrec-large
