@@ -28,15 +28,20 @@ def main():
 
         print(f"Dispatching child workflow for indices {current_start} to {current_end}")
 
-        # Run the GitHub CLI command to dispatch the workflow
-      #  subprocess.run([
-      #      "gh", "workflow", "run", "RecomputeInstance.yml", "--ref", "main",
-      #      "--field", f"working_branch_name={working_branch_name}",
-      #      "--field", f"start_index={current_start}",
-      #      "--field", f"end_index={current_end}"
-      #  ], check=True)
+        try:
+            # Run the GitHub CLI command to dispatch the workflow
+            result = subprocess.run([
+                "gh", "workflow", "run", "RecomputeInstance.yml", "--ref", "main",
+                "--field", f"working_branch_name={working_branch_name}",
+                "--field", f"start_index={current_start}",
+                "--field", f"end_index={current_end}"
+            ], check=True, capture_output=True, text=True)
+            print(result.stdout)
 
-        current_start = current_end + 1
+        except subprocess.CalledProcessError as e:
+            print(f"Error dispatching workflow: {e}")
+            print(f"Command output: {e.output}")
+            print(f"Command stderr: {e.stderr}")
 
 if __name__ == "__main__":
     main()

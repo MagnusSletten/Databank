@@ -50,4 +50,5 @@ jobs:
             --env END_INDEX=100 \
             --env WORKING_BRANCH_NAME="feature_branch" \
             --env GITHUB_TOKEN="${{ secrets.GH_TOKEN }}" \
+            --env GITHUB_REPOSITORY="${{ github.repository }}" \
             nmrlipids/project:dispatchrecomputes1.0

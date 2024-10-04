@@ -1,6 +1,7 @@
+# Use an official Python runtime as a base image
 FROM python:3.10-slim
 
-
+# Install necessary dependencies and GitHub CLI
 RUN apt-get update && \
     apt-get install -y curl git && \
     curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg && \
@@ -11,21 +12,20 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-
+# Set the working directory
 WORKDIR /app
+
 # Add a non-root user 'runner'
 RUN useradd -ms /bin/bash runner
 
-# Copy the Python script into the container
-COPY DispatchRecompute.py .
-    
 # Change ownership of the /app directory to 'runner'
 RUN chown -R runner:runner /app
 
 # Switch to 'runner' user
 USER runner
 
-# Set up authentication before running the script
+# Set up authentication and clone the repository before running the script
 ENTRYPOINT ["bash", "-c", "\
-  echo \"$GITHUB_TOKEN\" | gh auth login --with-token && \
-  python DispatchRecompute.py"]
+  git clone https://x-access-token:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git && \
+  cd $(basename $GITHUB_REPOSITORY) && \
+  python Docker/DispatchRecompute.py"]
