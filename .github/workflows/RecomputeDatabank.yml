@@ -1,4 +1,4 @@
-name: Recompute Datbanka
+name: Recompute Datbanke
 
 on:
   workflow_dispatch:
