@@ -27,7 +27,6 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
-
       - name: Create and Push the New Branch
         run: |
           # Create a new branch from the current checked out branch
@@ -50,5 +49,5 @@ jobs:
             --env START_INDEX=1 \
             --env END_INDEX=100 \
             --env WORKING_BRANCH_NAME="feature_branch" \
-            --env GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
+            --env GITHUB_TOKEN="${{ secrets.GH_TOKEN }}" \
             nmrlipids/project:dispatchrecomputes1.0

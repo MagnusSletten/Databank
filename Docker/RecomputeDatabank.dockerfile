@@ -25,5 +25,7 @@ RUN chown -R runner:runner /app
 # Switch to 'runner' user
 USER runner
 
-# Set the command to run the Python script
-ENTRYPOINT ["python", "DispatchRecompute.py"]
+# Set up authentication before running the script
+ENTRYPOINT ["bash", "-c", "\
+  echo \"$GITHUB_TOKEN\" | gh auth login --with-token && \
+  python DispatchRecompute.py"]
