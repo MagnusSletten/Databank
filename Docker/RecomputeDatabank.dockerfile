@@ -26,6 +26,6 @@ USER runner
 
 # Set up authentication and clone the repository before running the script
 ENTRYPOINT ["bash", "-c", "\
-  git clone https://x-access-token:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git && \
+  git clone https://x-access-token:$GH_TOKEN@github.com/$GITHUB_REPOSITORY.git && \
   cd $(basename $GITHUB_REPOSITORY) && \
   python Docker/DispatchRecompute.py"]
