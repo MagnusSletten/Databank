@@ -55,7 +55,7 @@ USER runner
 RUN mkdir -p /app/Databank
 
 CMD /bin/bash -c "source /usr/local/gromacs/bin/GMXRC && \
-    git clone https://$GH_TOKEN@github.com/MagnusSletten/Databank.git Databank && \
+    git clone https://x-access-token:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git Databank && \
     cd Databank && \
     git fetch origin && git branch -r && \
     git checkout $BRANCH_NAME && \
