@@ -31,4 +31,6 @@ jobs:
           --env REPO_URL=https://github.com/${{ github.repository }}.git \
           --env BRANCH_NAME=${{ inputs.working_branch_name }} \
           --env GH_TOKEN=${{ secrets.GH_TOKEN }} \
+          --env start_index=${{ inputs.start_index }} \
+          --env end_index=${{ inputs.end_index }} \
           nmrlipids/project:recomputeinstance1.0

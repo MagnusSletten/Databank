@@ -22,7 +22,7 @@ on:
         type: number 
 
 jobs:
-  make_new_branch:
+  Make_New_branch:
     runs-on: nrec-large
     steps:
       - name: Checkout Repository
@@ -38,43 +38,17 @@ jobs:
   
   Run-dispatches:   
     runs-on: nrec-large
-    needs: make_new_branch
+    needs: Make_New_branch
     steps:
-      - name: Authenticate GitHub CLI
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
-      - name: Calculate and Dispatch Child Workflows
-        shell: bash
+      - name: Pull Latest Docker Image
+        run: sudo docker pull nmrlipids/project:dispatchrecomputes1.0
+
+      - name: Run Docker to Calculate and Dispatch Child Workflows
         run: |
-          # Read inputs
-          number_of_runs=${{ github.event.inputs.number_of_runs }}
-          start=${{ github.event.inputs.start_index }}
-          end=${{ github.event.inputs.end_index }}
-
-          # Calculate total number of items
-          total_items=$((end - start + 1))
-
-          # Calculate base chunk size
-          chunk_size=$((total_items / number_of_runs))
-          remainder=$((total_items % number_of_runs))
-
-          current_start=$start
-
-          for (( i=1; i<=number_of_runs; i++ ))
-          do
-            # Calculate end index for this chunk
-            current_chunk_size=$chunk_size
-            if [ $i -le $remainder ]; then
-              current_chunk_size=$((current_chunk_size + 1))
-            fi
-
-            current_end=$((current_start + current_chunk_size - 1))
-
-            echo "Dispatching child workflow for indices $current_start to $current_end"
-
-            gh workflow run RecomputeInstance.yml --ref main \
-              --field working_branch_name="$working_branch_name" \
-              --field start_index="$current_start" \
-              --field end_index="$current_end"
-
-            current_start=$((current_end + 1))
-          done
+         sudo docker run --rm `
+            -e NUMBER_OF_RUNS=${{ github.event.inputs.number_of_runs }} `
+            -e START_INDEX=${{ github.event.inputs.start_index }} `
+            -e END_INDEX=${{ github.event.inputs.end_index }} `
+            -e WORKING_BRANCH_NAME=${{ github.event.inputs.working_branch_name }} `
+            -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} `
+            nmrlipids/project:dispatchrecomputes1.0
