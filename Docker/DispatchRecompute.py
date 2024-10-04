@@ -42,6 +42,8 @@ def main():
             print(f"Error dispatching workflow: {e}")
             print(f"Command output: {e.output}")
             print(f"Command stderr: {e.stderr}")
+        current_start = current_end + 1
+
 
 if __name__ == "__main__":
     main()
