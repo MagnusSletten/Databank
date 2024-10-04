@@ -50,5 +50,5 @@ jobs:
             --env END_INDEX=${{ github.event.inputs.end_index }} \
             --env WORKING_BRANCH_NAME=${{ github.event.inputs.working_branch_name }} \
             --env GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
-            --env GITHUB_REPOSITORY="${{ github.repository }}" \
+            --env GITHUB_REPOSITORY="https://github.com/${{ github.repository }}.git" \
             nmrlipids/project:dispatchrecomputes1.0
