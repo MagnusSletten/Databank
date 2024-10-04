@@ -28,7 +28,7 @@ jobs:
       - name: Run the Docker container with environment variables
         run: |
           sudo docker run --rm \
-          --env REPO_URL=https://github.com/${{ github.repository }}.git \
+          --env REPO_URL="${{ github.repository }}.git"\
           --env BRANCH_NAME=${{ inputs.working_branch_name }} \
           --env GITHUB_TOKEN=${{ secrets.GH_TOKEN }} \
           --env start_index=${{ inputs.start_index }} \
