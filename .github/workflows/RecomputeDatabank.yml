@@ -45,7 +45,7 @@ jobs:
 
       - name: Run Docker to Calculate and Dispatch Child Workflows
         run: |
-          docker run --rm \
+          sudo docker run --rm \
             --env NUMBER_OF_RUNS=5 \
             --env START_INDEX=1 \
             --env END_INDEX=100 \
