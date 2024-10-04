@@ -45,10 +45,10 @@ jobs:
       - name: Run Docker to Calculate and Dispatch Child Workflows
         run: |
           sudo docker run --rm \
-            --env NUMBER_OF_RUNS=5 \
-            --env START_INDEX=1 \
-            --env END_INDEX=100 \
-            --env WORKING_BRANCH_NAME="feature_branch" \
-            --env GH_TOKEN=${{ secrets.GH_TOKEN }} \
+            --env NUMBER_OF_RUNS=${{ github.event.inputs.number_of_runs }} \
+            --env START_INDEX=${{ github.event.inputs.start_index }} \
+            --env END_INDEX=${{ github.event.inputs.end_index }} \
+            --env WORKING_BRANCH_NAME=${{ github.event.inputs.working_branch_name }} \
+            --env GITHUB_TOKEN=${{ secrets.GH_TOKEN }} \
             --env GITHUB_REPOSITORY="${{ github.repository }}" \
             nmrlipids/project:dispatchrecomputes1.0
