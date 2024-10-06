@@ -1,0 +1,54 @@
+name: Recompute Databank
+
+on:
+  workflow_dispatch:
+    inputs:
+      working_branch_name:
+        description: "The new branch where new files are added"
+        required: true
+        default: "default"
+        type: string 
+      start_index:
+        description: "Starting index" 
+        required: true
+        type: number  
+      end_index:
+        description: "End index"
+        required: true
+        type: number 
+      number_of_runs: 
+        description: "Number of individual runners being used"
+        required: true
+        type: number 
+
+jobs:
+  Make_New_branch:
+    runs-on: nrec-large
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      - name: Create and Push the New Branch
+        run: |
+          # Create a new branch from the current checked out branch
+          git checkout -b ${{ github.event.inputs.working_branch_name }}
+          # Push the new branch to the remote repository
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} ${{ github.event.inputs.working_branch_name }}
+      
+  
+  Run-dispatches:   
+    runs-on: nrec-large
+    needs: Make_New_branch
+    steps:
+      - name: Pull Latest Docker Image
+        run: sudo docker pull nmrlipids/project:dispatchrecomputes1.0
+
+      - name: Run Docker to Calculate and Dispatch Child Workflows
+        run: |
+          sudo docker run --rm \
+            --env NUMBER_OF_RUNS=${{ github.event.inputs.number_of_runs }} \
+            --env START_INDEX=${{ github.event.inputs.start_index }} \
+            --env END_INDEX=${{ github.event.inputs.end_index }} \
+            --env WORKING_BRANCH_NAME=${{ github.event.inputs.working_branch_name }} \
+            --env GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+            --env GITHUB_REPOSITORY="${{ github.repository }}" \
+            nmrlipids/project:dispatchrecomputes1.0

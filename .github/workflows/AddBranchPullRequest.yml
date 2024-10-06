@@ -19,7 +19,14 @@ on:
         type: string
 
 jobs:
-  copy_fork_pr:
+  Clean_Workspace:
+    runs-on: nrec-large
+    steps:
+      - name: Clean up workspace
+        run: |
+          # Delete all files in the workspace directory
+          rm -rf $GITHUB_WORKSPACE/*
+  Copy_Fork_Create_PR:
     runs-on: nrec-large
     steps:
       - name: Checkout base repository

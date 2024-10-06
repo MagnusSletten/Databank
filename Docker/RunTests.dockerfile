@@ -15,7 +15,6 @@ RUN apt-get update && apt-get install -y \
     wget \
     curl \
     python3-pip \
-    sudo \
     libperl4-corelibs-perl \
     libfftw3-dev \
     git \
@@ -35,7 +34,7 @@ RUN cd gromacs-$GROMACS_VERSION && \
     cmake .. -DGMX_BUILD_OWN_FFTW=ON -DREGRESSIONTEST_DOWNLOAD=ON && \
     make && \
     make check && \  
-    sudo make install && \
+    make install && \
     source /usr/local/gromacs/bin/GMXRC
 
 

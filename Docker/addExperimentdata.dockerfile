@@ -19,10 +19,11 @@
         libfftw3-dev \
         build-essential \
         python3-yaml \
-        && apt-get clean && rm -rf /var/lib/apt/lists/*
-    
+        && apt-get clean && rm -rf /var/lib/apt/lists/*  
+    #double check last line 
+
     # Add a non-root user 'runner'
-    RUN useradd -m -s /bin/bash runner
+    RUN useradd -ms /bin/bash runner
     
     # Set working directory
     WORKDIR /app
@@ -34,14 +35,10 @@
     USER runner
     
     # Clone the repository at runtime using environment variables
-    RUN mkdir -p /app/Databank
-    
+    #Check depth 
     CMD /bin/bash -c "\
-        git clone https://$GH_TOKEN@github.com/MagnusSletten/Databank.git Databank && \
+        git clone https://$GH_TOKEN@github.com/MagnusSletten/Databank.git --depth 1 --branch=$BRANCH_NAME Databank && \  
         cd Databank && \
-        git fetch origin && git branch -r && \
-        git fetch origin $TARGET_BRANCH && \
-        git checkout $BRANCH_NAME && \
         chmod +x /app/Databank/.github/workflows/GetNewExperimentData.sh && \
         /app/Databank/.github/workflows/GetNewExperimentData.sh"
     

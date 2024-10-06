@@ -21,7 +21,6 @@ cd "$DATABANK_ABS_PATH/Scripts/BuildDatabank"
 BUILDDATABANKPATH=$(pwd)
 
 # Fetch the latest changes from the branches:
-git fetch origin "$BRANCH_NAME" || { echo "git fetch failed"; exit 1; }
 git pull origin "$BRANCH_NAME" || { echo "git pull failed"; exit 1; }
 
 # Create a single work directory before processing all files:
@@ -43,7 +42,7 @@ if [ -n "$NEW_FILES" ]; then
       python3 "AddData.py" -f "$DATABANK_ABS_PATH/$file" -w "$WORK_DIR" || { echo "AddData.py failed"; exit 1; }
       cd "$DATABANK_ABS_PATH/Scripts/AnalyzeDatabank"
       ./calcProperties.sh || { echo "calcProperties.sh failed"; exit 1; }
-      break  # Remove this break after testing.
+    
     fi
   done
 else
@@ -60,6 +59,6 @@ python makeRanking.py || { echo "makeRanking.py failed"; exit 1; }
 # Push changes to the repository:
 cd "$DATABANK_ABS_PATH"
 git status
-git add .
+git stage --all 
 git commit -m "Automated push by NREC" || { echo "git commit failed"; exit 1; }
 git push || { echo "git push failed"; exit 1; }
