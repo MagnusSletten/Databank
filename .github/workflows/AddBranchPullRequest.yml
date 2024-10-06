@@ -28,6 +28,7 @@ jobs:
           rm -rf $GITHUB_WORKSPACE/*
   Copy_Fork_Create_PR:
     runs-on: nrec-large
+    needs: Clean_Workspace 
     steps:
       - name: Checkout base repository
         uses: actions/checkout@v4
