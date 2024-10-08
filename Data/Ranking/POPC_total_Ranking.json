@@ -4549,7 +4549,7 @@
     },
     {
         "POPC": { "sn-1": NaN, "sn-2": NaN, "headgroup": 0.05712, "total": 0.05712 },
-        "TotalQuality": { "headgroup": 0.00184247, "tails": 0, "total": 0.00184247 },
+        "TotalQuality": { "headgroup": 0.00147229, "tails": 0, "total": 0.00147229 },
         "system": {
             "FF_DATE": "?/?/2020",
             "TYPEOFSYSTEM": "lipid bilayer",
