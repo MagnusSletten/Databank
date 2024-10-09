@@ -37,7 +37,8 @@ subset_files=("${sorted_files[@]:$start_index:$(($end_index - $start_index + 1))
 # Process each file in the subset
 for file in "${subset_files[@]}"; do
   if [[ $file == *.yaml ]]; then
-    echo "Running AddData.py for $file"
+    folder=$(dirname "$file") 
+    echo "Running AddData.py for $file in folder $folder"
     cd "$BUILDDATABANKPATH"
     python3 "AddData.py" -f "$file" -w "$WORK_DIR" || { echo "AddData.py failed"; exit 1; }
    
