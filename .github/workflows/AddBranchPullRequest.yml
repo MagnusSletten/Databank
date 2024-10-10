@@ -6,12 +6,10 @@ on:
       working_branch_name:
         description: "The new branch where new files are added"
         required: true
-        default: "Magnus"
         type: string
       target_branch_name:
         description: "The final destination for files. This will be main at the end"
         required: true
-        default: "Magnus"
         type: string
       pr_number:
         description: "The pull request number"

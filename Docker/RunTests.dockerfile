@@ -54,7 +54,7 @@ USER runner
 RUN mkdir -p /app/Databank
 
 # Set the default command to run pytest after sourcing GROMACS
-CMD ["/bin/bash", "-c", "git clone --branch new_pipeline_v4 https://github.com/MagnusSletten/Databank.git /app/Databank && \
+CMD ["/bin/bash", "-c", "git clone --branch $BRANCH_NAME https://github.com/MagnusSletten/Databank.git /app/Databank && \
 cd /app/Databank/Scripts/tests/ && \
 source /usr/local/gromacs/bin/GMXRC && \
 pytest -vs"]
