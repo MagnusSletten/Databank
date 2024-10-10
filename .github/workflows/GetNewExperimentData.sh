@@ -38,7 +38,6 @@ if [ -n "$NEW_FORMFACTOR_FILES" ]; then
     if [[ $file == *.dat ]]; then
       echo "Running data_to_json.py for formfactor files: $file"
       python3 "data_to_json.py" "$DATABANK_ABS_PATH/$file"
-      break   # Temporary for testing purposes.
     fi
   done
 else
