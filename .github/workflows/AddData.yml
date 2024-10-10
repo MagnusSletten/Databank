@@ -8,7 +8,7 @@ on:
 jobs:
     Add_New_Branch_Create_Pr:
       if: github.repository == 'MagnusSletten/Databank' && github.event.pull_request.head.repo.full_name != 'MagnusSletten/Databank'
-      uses: MagnusSletten/Databank/.github/workflows/AddBranchPullRequest.yml@new_pipeline_v4
+      uses: MagnusSletten/Databank/.github/workflows/AddBranchPullRequest.yml@main
       with:
         working_branch_name: ${{ github.event.pull_request.head.ref }}
         target_branch_name: new_pipeline_v4
@@ -17,7 +17,7 @@ jobs:
   
     AddExperimentData:
       needs: Add_New_Branch_Create_Pr
-      uses: MagnusSletten/Databank/.github/workflows/AddExperimentData.yml@new_pipeline_v4
+      uses: MagnusSletten/Databank/.github/workflows/AddExperimentData.yml@main
       with:
         working_branch_name: pr-${{ github.event.pull_request.number }}-from-fork
         target_branch_name: new_pipeline_v4
@@ -25,7 +25,7 @@ jobs:
         
     AddSimulationData:
       needs: [AddExperimentData,Add_New_Branch_Create_Pr]  
-      uses: MagnusSletten/Databank/.github/workflows/AddSimulationData.yml@new_pipeline_v4
+      uses: MagnusSletten/Databank/.github/workflows/AddSimulationData.yml@main
       with:
         working_branch_name: pr-${{ github.event.pull_request.number }}-from-fork
         target_branch_name: new_pipeline_v4
