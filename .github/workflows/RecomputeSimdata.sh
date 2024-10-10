@@ -29,7 +29,7 @@ WORK_DIR="/tmp/databank_workdir"
 mkdir -p "$WORK_DIR" || { echo "Failed to create work directory"; exit 1; }
 
 # Get sorted list of all .yaml files in BUILDDATABANKPATH
-sorted_files=($(find "$BUILDDATABANKPATH/info_files" -name "*.yaml" | sort -t '/' -k6n))
+sorted_files=($(find "$BUILDDATABANKPATH/info_files" -name "*.yaml"))
 
 
 # Calculate the subset of files based on $start_index and $end_index
