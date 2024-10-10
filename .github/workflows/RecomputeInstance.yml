@@ -30,7 +30,7 @@ jobs:
           sudo docker run --rm \
           --env GITHUB_REPOSITORY="${{ github.repository }}" \
           --env BRANCH_NAME=${{ inputs.working_branch_name }} \
-          --env GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+          --env GITHUB_TOKEN=${{ secrets.GH_TOKEN }} \
           --env start_index=${{ inputs.start_index }} \
           --env end_index=${{ inputs.end_index }} \
           nmrlipids/project:recomputeinstance1.0
