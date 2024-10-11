@@ -38,7 +38,6 @@ jobs:
 
       - name: Push the new branch
         run: |
-
           git push https://x-access-token:$${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} pr-${{ inputs.pr_number }}-from-fork:pr-${{ inputs.pr_number }}-from-fork
 
       - name: Fetch new branch
