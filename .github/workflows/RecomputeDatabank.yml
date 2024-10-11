@@ -31,6 +31,8 @@ jobs:
         run: |
           # Create a new branch from the current checked out branch
           git checkout -b ${{ inputs.working_branch_name }}
+          # Create an empty commit to initialize the branch
+          git commit --allow-empty -m "Initial placeholder commit"
           # Push the new branch to the remote repository
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} ${{ inputs.working_branch_name }}
       - name: Authenticate gh
