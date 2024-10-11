@@ -27,12 +27,25 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+      - name: Set Git User Identity
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "actions@github.com"
       - name: Create and Push the New Branch
         run: |
           # Create a new branch from the current checked out branch
-          git checkout -b ${{ github.event.inputs.working_branch_name }}
+          git checkout -b ${{ inputs.working_branch_name }}
+          # Create an empty commit to initialize the branch
+          git commit --allow-empty -m "Initial placeholder commit"
           # Push the new branch to the remote repository
-          git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }} ${{ github.event.inputs.working_branch_name }}
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} ${{ inputs.working_branch_name }}
+      - name: Authenticate gh
+        run: |
+            echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+  
+      - name: Create Pull Request
+        run: |
+            gh pr create --head ${{ inputs.working_branch_name }} --base main --title "This is a recompute of data started by ${{github.actor}}" --body "The recompute includes files starting from ${{inputs.start_index}} and ending with ${{inputs.end_index}} "
       
   
   Run-dispatches:   
@@ -49,6 +62,6 @@ jobs:
             --env START_INDEX=${{ github.event.inputs.start_index }} \
             --env END_INDEX=${{ github.event.inputs.end_index }} \
             --env WORKING_BRANCH_NAME=${{ github.event.inputs.working_branch_name }} \
-            --env GITHUB_TOKEN=${{ secrets.GH_TOKEN }} \
+            --env GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
             --env GITHUB_REPOSITORY="${{ github.repository }}" \
             nmrlipids/project:dispatchrecomputes1.0

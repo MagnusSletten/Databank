@@ -60,5 +60,5 @@ python makeRanking.py || { echo "makeRanking.py failed"; exit 1; }
 cd "$DATABANK_ABS_PATH"
 git status
 git stage --all 
-git commit -m "Automated push by NREC" || { echo "git commit failed"; exit 1; }
+git commit -m "Automated push by NREC with new simulation data" || { echo "git commit failed"; exit 1; }
 git push || { echo "git push failed"; exit 1; }
