@@ -32,10 +32,10 @@ jobs:
           # Create a new branch from the current checked out branch
           git checkout -b ${{ inputs.working_branch_name }}
           # Push the new branch to the remote repository
-          git push https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/${{ github.repository }} ${{ inputs.working_branch_name }}
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} ${{ inputs.working_branch_name }}
       - name: Authenticate gh
         run: |
-            echo "${{ secrets.GH_TOKEN }}" | gh auth login --with-token
+            echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
   
       - name: Create Pull Request
         run: |
@@ -56,6 +56,6 @@ jobs:
             --env START_INDEX=${{ github.event.inputs.start_index }} \
             --env END_INDEX=${{ github.event.inputs.end_index }} \
             --env WORKING_BRANCH_NAME=${{ github.event.inputs.working_branch_name }} \
-            --env GITHUB_TOKEN=${{ secrets.GH_TOKEN }} \
+            --env GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
             --env GITHUB_REPOSITORY="${{ github.repository }}" \
             nmrlipids/project:dispatchrecomputes1.0

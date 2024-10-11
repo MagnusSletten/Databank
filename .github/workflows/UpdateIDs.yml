@@ -49,7 +49,7 @@ jobs:
         # Trigger the step only if there have been changes made to the IDs
         if: steps.newids.outputs.newids == 'true'
         with:
-          token: ${{ secrets.GH_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: Update simulation IDs
           committer: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
           author: ${{ github.actor }} <${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com>
