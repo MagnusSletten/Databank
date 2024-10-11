@@ -37,7 +37,7 @@ USER runner
 # Clone the repository at runtime using environment variables
 #Check depth 
 CMD /bin/bash -c "\
-    git clone https://$GH_TOKEN@github.com/MagnusSletten/Databank.git  --branch=$BRANCH_NAME Databank && \  
+    git clone https://$GITHUB_TOKEN@github.com/MagnusSletten/Databank.git  --branch=$BRANCH_NAME Databank && \  
     cd Databank && \
     git fetch origin && git branch -r && \
     chmod +x /app/Databank/.github/workflows/GetNewExperimentData.sh && \

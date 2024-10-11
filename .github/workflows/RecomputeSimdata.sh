@@ -58,4 +58,4 @@ cd "$DATABANK_ABS_PATH"
 git status
 git add .
 git commit -m "Automated push by NREC" || { echo "git commit failed"; exit 1; }
-git push || { echo "git push failed"; exit 1; }
+git push https://x-access-token:$GITHUB_TOKEN@github.com/MagnusSletten/Databank.git || { echo "git push failed"; exit 1; }
