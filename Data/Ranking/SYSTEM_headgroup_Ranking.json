@@ -6925,68 +6925,8 @@
         }
     },
     {
-        "POPC": { "sn-1": NaN, "sn-2": NaN, "headgroup": 0.00609809, "total": 0.00609809 },
-        "TotalQuality": { "headgroup": 0.000381131, "tails": 0, "total": 0.000381131 },
-        "system": {
-            "DOI": "10.5281/zenodo.3857816",
-            "SOFTWARE": "gromacs",
-            "TRJ": [
-                ["run2.xtc"]
-            ],
-            "TPR": [
-                ["run2.tpr"]
-            ],
-            "PREEQTIME": 120,
-            "TIMELEFTOUT": 0,
-            "COMPOSITION": {
-                "POPC": {
-                    "NAME": "PC",
-                    "MOLTYPE": "system1",
-                    "MAPPING": "mappingPOPClipid17.yaml",
-                    "COUNT": [76, 74]
-                },
-                "POPG": {
-                    "NAME": "PGR",
-                    "MOLTYPE": "system2",
-                    "MAPPING": "mappingPOPGlipid17.yaml",
-                    "COUNT": [75, 75]
-                },
-                "SOL": { "NAME": "SOL", "MAPPING": "mappingTIP3Pwater.yaml", "COUNT": 31572 },
-                "SOD": { "NAME": "NA", "MAPPING": "mappingNA.yaml", "COUNT": 150 }
-            },
-            "DIR_WRK": "/usr/home/bort/Databank",
-            "PUBLICATION": null,
-            "AUTHORS_CONTACT": "Virtanen, Salla; Ollila, O. H. Samuli",
-            "SYSTEM": "150POPC_150POPG_31572SOL_150SOD_298K",
-            "SOFTWARE_VERSION": null,
-            "FF": "Lipid17",
-            "FF_SOURCE": "starting structure and lipid 17 parameters from https://zenodo.org/record/2585523#.Xbf0FC17FBx",
-            "FF_DATE": null,
-            "CPT": null,
-            "LOG": null,
-            "TOP": [
-                ["gromacsFIXED.top"]
-            ],
-            "TRAJECTORY_SIZE": 4953124108,
-            "TRJLENGTH": 200020,
-            "TEMPERATURE": 298,
-            "NUMBER_OF_ATOMS": 134016,
-            "DATEOFRUNNING": "03/01/2022",
-            "TYPEOFSYSTEM": "lipid bilayer",
-            "EXPERIMENT": {
-                "ORDERPARAMETER": {
-                    "POPC": { "10.1002/j.1460-2075.1987.tb02595.x": "10.1002/j.1460-2075.1987.tb02595.x/6" },
-                    "POPG": {}
-                },
-                "FORMFACTOR": {}
-            },
-            "ID": 503,
-            "path": "50a/869/50a869e592b5cb04f2139c462da1fd7814832acd/4416de72d1d15b560aef6adf7222ea774c90b53f/"
-        }
-    },
-    {
-        "POPC": { "sn-1": NaN, "sn-2": NaN, "headgroup": 0.0063467, "total": 0.0063467 },
-        "TotalQuality": { "headgroup": 0.000163589, "tails": 0, "total": 0.000163589 },
+        "POPC": { "sn-1": NaN, "sn-2": NaN, "headgroup": 0.05712, "total": 0.05712 },
+        "TotalQuality": { "headgroup": 0.00147229, "tails": 0, "total": 0.00147229 },
         "system": {
             "FF_DATE": "?/?/2020",
             "TYPEOFSYSTEM": "lipid bilayer",
@@ -7035,58 +6975,8 @@
         }
     },
     {
-        "POPC": { "sn-1": NaN, "sn-2": NaN, "headgroup": 0.000804793, "total": 0.000804793 },
-        "TotalQuality": { "headgroup": 5.02996e-05, "tails": 0, "total": 5.02996e-05 },
-        "system": {
-            "FF_DATE": "?/?/2020",
-            "TYPEOFSYSTEM": "lipid bilayer",
-            "SYSTEM": "POPC:POPG(1:1)_T298K",
-            "TEMPERATURE": 298,
-            "NUMBER_OF_ATOMS": 128895,
-            "EXPERIMENT": {
-                "ORDERPARAMETER": {
-                    "POPG": {},
-                    "POPC": { "10.1002/j.1460-2075.1987.tb02595.x": "10.1002/j.1460-2075.1987.tb02595.x/6" }
-                },
-                "FORMFACTOR": {}
-            },
-            "FF_SOURCE": "NMRlipidsIV",
-            "COMPOSITION": {
-                "POPG": {
-                    "NAME": "PGR",
-                    "COUNT": [76, 74],
-                    "MAPPING": "mappingPOPGlipid17ecc.yaml"
-                },
-                "POPC": {
-                    "NAME": "POPC",
-                    "COUNT": [75, 75],
-                    "MAPPING": "mappingPOPClipid17ecc_POPCres.yaml"
-                },
-                "SOL": { "NAME": "SOL", "COUNT": 29865, "MAPPING": "mappingSPCwater.yaml" },
-                "SOD": { "NAME": "NA", "COUNT": 150, "MAPPING": "mappingSODecc.yaml" }
-            },
-            "TIMELEFTOUT": 15,
-            "TRJLENGTH": 347500,
-            "DATEOFRUNNING": "05/10/2021",
-            "FF": "lipid17ecc",
-            "SOFTWARE": "gromacs",
-            "PREEQTIME": 0,
-            "DOI": "10.5281/zenodo.3859339",
-            "TRAJECTORY_SIZE": 8278576984,
-            "TPR": [
-                ["topol.tpr"]
-            ],
-            "TRJ": [
-                ["traj.xtc"]
-            ],
-            "DIR_WRK": "/media/osollila/Data/tmp/DATABANK/",
-            "ID": 146,
-            "path": "5e2/0fe/5e20fe22000d94eb54ce0e030c1dd2439796b331/839c970611cedad2e65068b6e412d84c12831ed6/"
-        }
-    },
-    {
-        "POPC": { "sn-1": NaN, "sn-2": NaN, "headgroup": 0.000728805, "total": 0.000728805 },
-        "TotalQuality": { "headgroup": 4.55503e-05, "tails": 0, "total": 4.55503e-05 },
+        "POPC": { "sn-1": NaN, "sn-2": NaN, "headgroup": 0.00579869, "total": 0.00579869 },
+        "TotalQuality": { "headgroup": 0.000362418, "tails": 0, "total": 0.000362418 },
         "system": {
             "DOI": "10.5281/zenodo.3613573",
             "SYSTEM": "POPC_T298K",
@@ -7125,7 +7015,7 @@
             "TYPEOFSYSTEM": "lipid bilayer",
             "EXPERIMENT": {
                 "ORDERPARAMETER": {
-                    "POPC": { "10.1002/j.1460-2075.1987.tb02595.x": "10.1002/j.1460-2075.1987.tb02595.x/6" },
+                    "POPC": { "10.1002/j.1460-2075.1987.tb02595.x": "10.1002/j.1460-2075.1987.tb02595.x/5" },
                     "POPG": {}
                 },
                 "FORMFACTOR": {}
@@ -7135,8 +7025,8 @@
         }
     },
     {
-        "POPC": { "sn-1": NaN, "sn-2": NaN, "headgroup": 0.0013682, "total": 0.0013682 },
-        "TotalQuality": { "headgroup": 3.52658e-05, "tails": 0, "total": 3.52658e-05 },
+        "POPC": { "sn-1": NaN, "sn-2": NaN, "headgroup": 0.0123138, "total": 0.0123138 },
+        "TotalQuality": { "headgroup": 0.000317392, "tails": 0, "total": 0.000317392 },
         "system": {
             "FF_DATE": "?/?/2020",
             "TYPEOFSYSTEM": "lipid bilayer",
@@ -7185,8 +7075,8 @@
         }
     },
     {
-        "POPC": { "sn-1": NaN, "sn-2": NaN, "headgroup": 0.000297749, "total": 0.000297749 },
-        "TotalQuality": { "headgroup": 1.86093e-05, "tails": 0, "total": 1.86093e-05 },
+        "POPC": { "sn-1": NaN, "sn-2": NaN, "headgroup": 0.00448247, "total": 0.00448247 },
+        "TotalQuality": { "headgroup": 0.000280154, "tails": 0, "total": 0.000280154 },
         "system": {
             "FF_DATE": "?/?/2020",
             "TYPEOFSYSTEM": "lipid bilayer",
@@ -7196,7 +7086,7 @@
             "EXPERIMENT": {
                 "ORDERPARAMETER": {
                     "POPG": {},
-                    "POPC": { "10.1002/j.1460-2075.1987.tb02595.x": "10.1002/j.1460-2075.1987.tb02595.x/6" }
+                    "POPC": { "10.1002/j.1460-2075.1987.tb02595.x": "10.1002/j.1460-2075.1987.tb02595.x/5" }
                 },
                 "FORMFACTOR": {}
             },
@@ -7235,8 +7125,118 @@
         }
     },
     {
-        "POPC": { "sn-1": NaN, "sn-2": NaN, "headgroup": 0.00035123, "total": 0.00035123 },
-        "TotalQuality": { "headgroup": 9.05309e-06, "tails": 0, "total": 9.05309e-06 },
+        "POPC": { "sn-1": NaN, "sn-2": NaN, "headgroup": 0.00208751, "total": 0.00208751 },
+        "TotalQuality": { "headgroup": 0.000130469, "tails": 0, "total": 0.000130469 },
+        "system": {
+            "FF_DATE": "?/?/2020",
+            "TYPEOFSYSTEM": "lipid bilayer",
+            "SYSTEM": "POPC:POPG(1:1)_T298K",
+            "TEMPERATURE": 298,
+            "NUMBER_OF_ATOMS": 128895,
+            "EXPERIMENT": {
+                "ORDERPARAMETER": {
+                    "POPG": {},
+                    "POPC": { "10.1002/j.1460-2075.1987.tb02595.x": "10.1002/j.1460-2075.1987.tb02595.x/5" }
+                },
+                "FORMFACTOR": {}
+            },
+            "FF_SOURCE": "NMRlipidsIV",
+            "COMPOSITION": {
+                "POPG": {
+                    "NAME": "PGR",
+                    "COUNT": [76, 74],
+                    "MAPPING": "mappingPOPGlipid17ecc.yaml"
+                },
+                "POPC": {
+                    "NAME": "POPC",
+                    "COUNT": [75, 75],
+                    "MAPPING": "mappingPOPClipid17ecc_POPCres.yaml"
+                },
+                "SOL": { "NAME": "SOL", "COUNT": 29865, "MAPPING": "mappingSPCwater.yaml" },
+                "SOD": { "NAME": "NA", "COUNT": 150, "MAPPING": "mappingSODecc.yaml" }
+            },
+            "TIMELEFTOUT": 15,
+            "TRJLENGTH": 347500,
+            "DATEOFRUNNING": "05/10/2021",
+            "FF": "lipid17ecc",
+            "SOFTWARE": "gromacs",
+            "PREEQTIME": 0,
+            "DOI": "10.5281/zenodo.3859339",
+            "TRAJECTORY_SIZE": 8278576984,
+            "TPR": [
+                ["topol.tpr"]
+            ],
+            "TRJ": [
+                ["traj.xtc"]
+            ],
+            "DIR_WRK": "/media/osollila/Data/tmp/DATABANK/",
+            "ID": 146,
+            "path": "5e2/0fe/5e20fe22000d94eb54ce0e030c1dd2439796b331/839c970611cedad2e65068b6e412d84c12831ed6/"
+        }
+    },
+    {
+        "POPC": { "sn-1": NaN, "sn-2": NaN, "headgroup": 0.00137297, "total": 0.00137297 },
+        "TotalQuality": { "headgroup": 8.58106e-05, "tails": 0, "total": 8.58106e-05 },
+        "system": {
+            "DOI": "10.5281/zenodo.3857816",
+            "SOFTWARE": "gromacs",
+            "TRJ": [
+                ["run2.xtc"]
+            ],
+            "TPR": [
+                ["run2.tpr"]
+            ],
+            "PREEQTIME": 120,
+            "TIMELEFTOUT": 0,
+            "COMPOSITION": {
+                "POPC": {
+                    "NAME": "PC",
+                    "MOLTYPE": "system1",
+                    "MAPPING": "mappingPOPClipid17.yaml",
+                    "COUNT": [76, 74]
+                },
+                "POPG": {
+                    "NAME": "PGR",
+                    "MOLTYPE": "system2",
+                    "MAPPING": "mappingPOPGlipid17.yaml",
+                    "COUNT": [75, 75]
+                },
+                "SOL": { "NAME": "SOL", "MAPPING": "mappingTIP3Pwater.yaml", "COUNT": 31572 },
+                "SOD": { "NAME": "NA", "MAPPING": "mappingNA.yaml", "COUNT": 150 }
+            },
+            "DIR_WRK": "/usr/home/bort/Databank",
+            "PUBLICATION": null,
+            "AUTHORS_CONTACT": "Virtanen, Salla; Ollila, O. H. Samuli",
+            "SYSTEM": "150POPC_150POPG_31572SOL_150SOD_298K",
+            "SOFTWARE_VERSION": null,
+            "FF": "Lipid17",
+            "FF_SOURCE": "starting structure and lipid 17 parameters from https://zenodo.org/record/2585523#.Xbf0FC17FBx",
+            "FF_DATE": null,
+            "CPT": null,
+            "LOG": null,
+            "TOP": [
+                ["gromacsFIXED.top"]
+            ],
+            "TRAJECTORY_SIZE": 4953124108,
+            "TRJLENGTH": 200020,
+            "TEMPERATURE": 298,
+            "NUMBER_OF_ATOMS": 134016,
+            "DATEOFRUNNING": "03/01/2022",
+            "TYPEOFSYSTEM": "lipid bilayer",
+            "EXPERIMENT": {
+                "ORDERPARAMETER": {
+                    "POPC": { "10.1002/j.1460-2075.1987.tb02595.x": "10.1002/j.1460-2075.1987.tb02595.x/5" },
+                    "POPG": {}
+                },
+                "FORMFACTOR": {}
+            },
+            "ID": 503,
+            "path": "50a/869/50a869e592b5cb04f2139c462da1fd7814832acd/4416de72d1d15b560aef6adf7222ea774c90b53f/"
+        }
+    },
+    {
+        "POPC": { "sn-1": NaN, "sn-2": NaN, "headgroup": 0.00316107, "total": 0.00316107 },
+        "TotalQuality": { "headgroup": 8.14779e-05, "tails": 0, "total": 8.14779e-05 },
         "system": {
             "FF_DATE": "??",
             "TYPEOFSYSTEM": "lipid bilayer",
