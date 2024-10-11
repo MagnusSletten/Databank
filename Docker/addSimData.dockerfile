@@ -55,7 +55,7 @@ USER runner
 RUN mkdir -p /app/Databank
 
 CMD /bin/bash -c "source /usr/local/gromacs/bin/GMXRC && \
-    git clone https://$GH_TOKEN@github.com/MagnusSletten/Databank.git  --branch=$BRANCH_NAME Databank && \  
+    git clone https://$GITHUB_TOKEN@github.com/MagnusSletten/Databank.git  --branch=$BRANCH_NAME Databank && \  
     cd Databank && \
     git fetch origin && git branch -r && \
     chmod +x /app/Databank/.github/workflows/GetNewSimData.sh && \
