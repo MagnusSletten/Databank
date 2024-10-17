@@ -6996,7 +6996,7 @@
             "EXPERIMENT": {
                 "ORDERPARAMETER": {
                     "POPG": {},
-                    "POPC": { "10.1002/j.1460-2075.1987.tb02595.x": "10.1002/j.1460-2075.1987.tb02595.x/4" }
+                    "POPC": {}
                 },
                 "FORMFACTOR": {}
             },
@@ -7146,7 +7146,7 @@
             "EXPERIMENT": {
                 "ORDERPARAMETER": {
                     "POPG": {},
-                    "POPC": { "10.1002/j.1460-2075.1987.tb02595.x": "10.1002/j.1460-2075.1987.tb02595.x/4" }
+                    "POPC": {}
                 },
                 "FORMFACTOR": {}
             },
@@ -7246,7 +7246,7 @@
             "EXPERIMENT": {
                 "ORDERPARAMETER": {
                     "POPG": {},
-                    "POPC": { "10.1002/j.1460-2075.1987.tb02595.x": "10.1002/j.1460-2075.1987.tb02595.x/4" }
+                    "POPC": {}
                 },
                 "FORMFACTOR": {}
             },
