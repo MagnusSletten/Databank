@@ -3,31 +3,31 @@ on:
   pull_request_target:
     types: [opened]
     branches:
-      - pipeline_dev
+      - dev_pipeline
   
 jobs:
     Add_New_Branch_Create_Pr:
       if: github.repository == 'MagnusSletten/Databank' && github.event.pull_request.head.repo.full_name != 'MagnusSletten/Databank'
-      uses: MagnusSletten/Databank/.github/workflows/AddBranchPullRequest.yml@pipeline_dev
+      uses: MagnusSletten/Databank/.github/workflows/AddBranchPullRequest.yml@dev_pipeline
       with:
         working_branch_name: ${{ github.event.pull_request.head.ref }}
-        target_branch_name: pipeline_dev
+        target_branch_name: dev_pipeline
         pr_number: ${{ github.event.pull_request.number }}
       secrets: inherit 
   
     AddExperimentData:
       needs: Add_New_Branch_Create_Pr
-      uses: MagnusSletten/Databank/.github/workflows/AddExperimentData.yml@pipeline_dev
+      uses: MagnusSletten/Databank/.github/workflows/AddExperimentData.yml@dev_pipeline
       with:
         working_branch_name: pr-${{ github.event.pull_request.number }}-from-fork
-        target_branch_name: pipeline_dev
+        target_branch_name: dev_pipeline
       secrets: inherit 
         
     AddSimulationData:
       needs: [AddExperimentData,Add_New_Branch_Create_Pr]  
-      uses: MagnusSletten/Databank/.github/workflows/AddSimulationData.yml@pipeline_dev
+      uses: MagnusSletten/Databank/.github/workflows/AddSimulationData.yml@dev_pipeline
       with:
         working_branch_name: pr-${{ github.event.pull_request.number }}-from-fork
-        target_branch_name: pipeline_dev
+        target_branch_name: dev_pipeline
       secrets: inherit 
        
