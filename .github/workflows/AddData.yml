@@ -3,7 +3,7 @@ on:
   pull_request_target:
     types: [opened]
     branches:
-      - new_pipeline_v4
+      - pipeline_dev
   
 jobs:
     Add_New_Branch_Create_Pr:
@@ -11,7 +11,7 @@ jobs:
       uses: MagnusSletten/Databank/.github/workflows/AddBranchPullRequest.yml@pipeline_dev
       with:
         working_branch_name: ${{ github.event.pull_request.head.ref }}
-        target_branch_name: new_pipeline_v4
+        target_branch_name: pipeline_dev
         pr_number: ${{ github.event.pull_request.number }}
       secrets: inherit 
   
@@ -20,7 +20,7 @@ jobs:
       uses: MagnusSletten/Databank/.github/workflows/AddExperimentData.yml@pipeline_dev
       with:
         working_branch_name: pr-${{ github.event.pull_request.number }}-from-fork
-        target_branch_name: new_pipeline_v4
+        target_branch_name: pipeline_dev
       secrets: inherit 
         
     AddSimulationData:
@@ -28,6 +28,6 @@ jobs:
       uses: MagnusSletten/Databank/.github/workflows/AddSimulationData.yml@pipeline_dev
       with:
         working_branch_name: pr-${{ github.event.pull_request.number }}-from-fork
-        target_branch_name: new_pipeline_v4
+        target_branch_name: pipeline_dev
       secrets: inherit 
        
