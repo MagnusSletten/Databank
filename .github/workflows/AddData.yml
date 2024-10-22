@@ -1,0 +1,33 @@
+name: Add data
+on:
+  pull_request_target:
+    types: [opened]
+    branches:
+      - new_pipeline_v4
+  
+jobs:
+    Add_New_Branch_Create_Pr:
+      if: github.repository == 'MagnusSletten/Databank' && github.event.pull_request.head.repo.full_name != 'MagnusSletten/Databank'
+      uses: MagnusSletten/Databank/.github/workflows/AddBranchPullRequest.yml@main
+      with:
+        working_branch_name: ${{ github.event.pull_request.head.ref }}
+        target_branch_name: new_pipeline_v4
+        pr_number: ${{ github.event.pull_request.number }}
+      secrets: inherit 
+  
+    AddExperimentData:
+      needs: Add_New_Branch_Create_Pr
+      uses: MagnusSletten/Databank/.github/workflows/AddExperimentData.yml@main
+      with:
+        working_branch_name: pr-${{ github.event.pull_request.number }}-from-fork
+        target_branch_name: new_pipeline_v4
+      secrets: inherit 
+        
+    AddSimulationData:
+      needs: [AddExperimentData,Add_New_Branch_Create_Pr]  
+      uses: MagnusSletten/Databank/.github/workflows/AddSimulationData.yml@main
+      with:
+        working_branch_name: pr-${{ github.event.pull_request.number }}-from-fork
+        target_branch_name: new_pipeline_v4
+      secrets: inherit 
+       
