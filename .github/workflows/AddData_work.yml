@@ -1,0 +1,32 @@
+name: Add sim data 
+
+on:
+  workflow_call:
+    inputs:
+      working_branch_name:
+        description: "The new branch where new files are added"
+        required: true
+        default: "default"
+        type: string 
+      target_branch_name:
+        description: "The final destination for files. This will be main at the end"
+        required: true
+        default: "default"
+        type: string 
+
+jobs:
+  AddSimData:
+    runs-on: nrec-large
+    steps:
+      - name: Pull Docker image
+        run: |
+          sudo docker pull nmrlipids/add_data
+
+      - name: Run the Docker container with environment variables
+        run: |
+          sudo docker run --rm \
+          --env REPO_URL=https://github.com/${{ github.repository }}.git \
+          --env BRANCH_NAME=${{ inputs.working_branch_name }} \
+          --env GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+          --env TARGET_BRANCH=${{ inputs.target_branch_name }} \
+          nmrlipids/add_data
