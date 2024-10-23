@@ -42,6 +42,9 @@ RUN pip3 install --break-system-packages pytest MDAnalysis MDAnalysisTests tqdm 
 # Add a non-root user 'runner'
 RUN useradd -m -s /bin/bash runner
 
+# Create a symbolic link for python -> python3
+RUN ln -s /usr/bin/python3 /usr/bin/python
+
 # Set working directory
 WORKDIR /app
 
@@ -50,6 +53,7 @@ RUN chown -R runner:runner /app
 
 # Switch to 'runner' user
 USER runner
+
 
 # Command to clone the repo and run both experiment and simdata scripts
 CMD /bin/bash -c "source /usr/local/gromacs/bin/GMXRC && \
