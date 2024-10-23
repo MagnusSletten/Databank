@@ -15,19 +15,12 @@ jobs:
         pr_number: ${{ github.event.pull_request.number }}
       secrets: inherit 
   
-    AddExperimentData:
+    AddData:
       needs: Add_New_Branch_Create_Pr
-      uses: MagnusSletten/Databank/.github/workflows/AddExperimentData.yml@dev_pipeline
+      uses: MagnusSletten/Databank/.github/workflows/AddData_work.yml@dev_pipeline
       with:
         working_branch_name: pr-${{ github.event.pull_request.number }}-from-fork
         target_branch_name: dev_pipeline
       secrets: inherit 
         
-    AddSimulationData:
-      needs: [AddExperimentData,Add_New_Branch_Create_Pr]  
-      uses: MagnusSletten/Databank/.github/workflows/AddSimulationData.yml@dev_pipeline
-      with:
-        working_branch_name: pr-${{ github.event.pull_request.number }}-from-fork
-        target_branch_name: dev_pipeline
-      secrets: inherit 
        
