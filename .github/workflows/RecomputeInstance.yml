@@ -23,7 +23,7 @@ jobs:
     steps:
       - name: Pull Docker image
         run: |
-          sudo docker pull nmrlipids/project:recomputeinstance1.0
+          sudo docker pull nmrlipids/recompute_instance
 
       - name: Run the Docker container with environment variables
         run: |
@@ -33,4 +33,4 @@ jobs:
           --env GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
           --env start_index=${{ inputs.start_index }} \
           --env end_index=${{ inputs.end_index }} \
-          nmrlipids/project:recomputeinstance1.0
+          nmrlipids/recompute_instance

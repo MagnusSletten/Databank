@@ -1,11 +1,9 @@
-# Use a lightweight Debian-based base image
 FROM debian:bookworm-slim
 
-# Set environment variables
 ENV GROMACS_VERSION=2024.3
-ENV GITHUB_REPO_URL=https://github.com/MagnusSletten/Databank
 
-# Install necessary dependencies
+#Note: This still needs a enviromental variable with the repo url.
+
 RUN apt-get update && apt-get install -y \
     bash \
     git \
@@ -23,7 +21,6 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Download and build GROMACS without GPU or MPI
 RUN wget https://ftp.gromacs.org/gromacs/gromacs-$GROMACS_VERSION.tar.gz && \
     tar xfz gromacs-$GROMACS_VERSION.tar.gz && \
     rm gromacs-$GROMACS_VERSION.tar.gz && \
@@ -33,10 +30,10 @@ RUN wget https://ftp.gromacs.org/gromacs/gromacs-$GROMACS_VERSION.tar.gz && \
     make -j$(nproc) && \
     make install
 
-# Make GROMACS available globally
+
 RUN echo "source /usr/local/gromacs/bin/GMXRC" >> /etc/profile
 
-# Install Python packages with the --break-system-packages flag to avoid externally managed environment errors
+
 RUN pip3 install --break-system-packages pytest MDAnalysis MDAnalysisTests tqdm pyyaml pandas buildh
 
 # Add a non-root user 'runner'
@@ -45,13 +42,12 @@ RUN useradd -m -s /bin/bash runner
 # Create a symbolic link for python -> python3
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
-# Set working directory
+
 WORKDIR /app
 
-# Change ownership of the /app directory to 'runner'
+
 RUN chown -R runner:runner /app
 
-# Switch to 'runner' user
 USER runner
 
 

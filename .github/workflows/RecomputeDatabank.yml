@@ -53,7 +53,7 @@ jobs:
     needs: Make_New_branch
     steps:
       - name: Pull Latest Docker Image
-        run: sudo docker pull nmrlipids/project:dispatchrecomputes1.0
+        run: sudo docker pull nmrlipids/recompute_dispatcher
 
       - name: Run Docker to Calculate and Dispatch Child Workflows
         run: |
@@ -64,4 +64,4 @@ jobs:
             --env WORKING_BRANCH_NAME=${{ github.event.inputs.working_branch_name }} \
             --env GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
             --env GITHUB_REPOSITORY="${{ github.repository }}" \
-            nmrlipids/project:dispatchrecomputes1.0
+            nmrlipids/recompute_dispatcher
