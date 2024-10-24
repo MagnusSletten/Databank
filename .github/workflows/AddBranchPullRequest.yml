@@ -1,5 +1,6 @@
 name: Add new branch and pull request
-
+#This will used for an incoming pull request from a fork and it makes a new branch within our repository which is identical to the incoming branch 
+#with a given new branch name and create a pull request to target_branch_name
 on:
   workflow_call:
     inputs:
@@ -8,7 +9,7 @@ on:
         required: true
         type: string
       target_branch_name:
-        description: "The final destination for files. This will be main at the end"
+        description: "The branch it will create a PR towards to. "
         required: true
         type: string
       pr_number:
@@ -48,4 +49,5 @@ jobs:
 
       - name: Create pull request
         run: |
-          gh pr create --head ${{inputs.working_branch_name}} --base ${{ inputs.target_branch_name }} --title "${{ github.actor }}'s New Data" --body "This PR brings in new data from ${{ github.actor }}"
+          gh pr create --head ${{inputs.working_branch_name}} --base ${{ inputs.target_branch_name }} 
+          --title "${{ github.actor }}'s New Data" --body "This PR brings in new data from ${{ github.actor }}"
