@@ -10,7 +10,7 @@ jobs:
       if: github.repository == 'MagnusSletten/Databank' && github.event.pull_request.head.repo.full_name != 'MagnusSletten/Databank'
       uses: MagnusSletten/Databank/.github/workflows/AddBranchPullRequest.yml@dev_pipeline
       with:
-        working_branch_name: ${{ github.event.pull_request.head.ref }}
+        working_branch_name: pr-${{ github.event.pull_request.number }}-from-fork
         target_branch_name: dev_pipeline
         pr_number: ${{ github.event.pull_request.number }}
       secrets: inherit 

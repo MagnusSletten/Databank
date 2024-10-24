@@ -33,16 +33,14 @@ jobs:
 
       - name: Fetch and checkout forked branch
         run: |
-          git fetch https://github.com/${{ github.event.pull_request.head.repo.full_name }} ${{ inputs.working_branch_name }}
-          git checkout -b pr-${{ inputs.pr_number }}-from-fork FETCH_HEAD
+          #This fetches the branch from pull request number and creates new branch with branch name:
+          git fetch origin pull/${{ inputs.pr_number }}/head:${{inputs.working_branch_name}}
+          git checkout ${{inputs.working_branch_name}}
+
 
       - name: Push the new branch
         run: |
-          git push https://x-access-token:$${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} pr-${{ inputs.pr_number }}-from-fork:pr-${{ inputs.pr_number }}-from-fork
-
-      - name: Fetch new branch
-        run: |
-          git fetch origin pr-${{ inputs.pr_number }}-from-fork
+          git push https://x-access-token:$${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} ${{inputs.working_branch_name}}:${{inputs.working_branch_name}}
 
       - name: Authenticate gh
         run: |
@@ -50,4 +48,4 @@ jobs:
 
       - name: Create pull request
         run: |
-          gh pr create --head pr-${{ inputs.pr_number }}-from-fork --base ${{ inputs.target_branch_name }} --title "${{ github.actor }}'s New Data" --body "This PR brings in new data from ${{ github.actor }}"
+          gh pr create --head ${{inputs.working_branch_name}} --base ${{ inputs.target_branch_name }} --title "${{ github.actor }}'s New Data" --body "This PR brings in new data from ${{ github.actor }}"
