@@ -6,7 +6,7 @@ on:
       - dev_pipeline
   
 jobs:
-    Add_New_Branch_Create_Pr:
+    NewBranchAndPr:
       if: github.repository == 'MagnusSletten/Databank' && github.event.pull_request.head.repo.full_name != 'MagnusSletten/Databank'
       uses: MagnusSletten/Databank/.github/workflows/AddBranchPullRequest.yml@dev_pipeline
       with:
@@ -16,7 +16,7 @@ jobs:
       secrets: inherit 
   
     AddData:
-      needs: Add_New_Branch_Create_Pr
+      needs: NewBranchAndPr
       uses: MagnusSletten/Databank/.github/workflows/AddData.yml@dev_pipeline
       with:
         working_branch_name: pr-${{ github.event.pull_request.number }}-from-fork
