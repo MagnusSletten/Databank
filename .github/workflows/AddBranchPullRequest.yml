@@ -51,5 +51,5 @@ jobs:
 
       - name: Create pull request
         run: |
-          gh pr create --head ${{inputs.working_branch_name}} --base ${{ inputs.target_branch_name }} 
+          gh pr create --head ${{inputs.working_branch_name}} --base ${{ inputs.target_branch_name }} \
           --title "${{ github.actor }}'s New Data" --body "This PR brings in new data from ${{ github.actor }}"
