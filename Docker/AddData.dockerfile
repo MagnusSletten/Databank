@@ -58,5 +58,7 @@ CMD /bin/bash -c "source /usr/local/gromacs/bin/GMXRC && \
     git fetch origin && git branch -r && \
     chmod +x /app/Databank/.github/workflows/GetNewExperimentData.sh && \
     chmod +x /app/Databank/.github/workflows/GetNewSimData.sh && \
+    chmod +x /app/Databank/ .github\workflows\RunnerGitConfig.sh \
+    /app/Databank/.github/workflows/RunnerGitConfig.sh \
     /app/Databank/.github/workflows/GetNewExperimentData.sh && \
     /app/Databank/.github/workflows/GetNewSimData.sh"
