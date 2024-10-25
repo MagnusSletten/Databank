@@ -1,5 +1,5 @@
-GITHUB_USERNAME="MagnusSletten_Bot"  
-GITHUB_EMAIL="magnus.elias.sletten@gmail.com"  
+GITHUB_USERNAME="GitHub Actions Bot"  
+GITHUB_EMAIL="action@github.com"  
 
-git config user.name "GitHub Actions Bot"
-git config user.email "actions@github.com"
+git config user.name "$GITHUB_USERNAME"
+git config user.email "$GITHUB_EMAIL"
