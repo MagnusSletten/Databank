@@ -1,6 +1,8 @@
-name: Add new branch and pull request
 #This will used for an incoming pull request from a fork and it makes a new branch within our repository which is identical to the incoming branch 
 #with a given new branch name and create a pull request to target_branch_name
+
+name: Add new branch and pull request
+
 on:
   workflow_call:
     inputs:
