@@ -1,0 +1,55 @@
+#This will used for an incoming pull request from a fork and it makes a new branch within our repository which is identical to the incoming branch 
+#with a given new branch name and create a pull request to target_branch_name
+
+name: Add new branch and pull request
+
+on:
+  workflow_call:
+    inputs:
+      working_branch_name:
+        description: "The new branch where new files are added"
+        required: true
+        type: string
+      target_branch_name:
+        description: "The branch it will create a PR towards to. "
+        required: true
+        type: string
+      pr_number:
+        description: "The pull request number"
+        required: true
+        type: string
+
+jobs:
+  Clean_Workspace:
+    runs-on: nrec-large
+    steps:
+      - name: Clean up workspace
+        run: |
+          # Delete all files in the workspace directory
+          rm -rf $GITHUB_WORKSPACE/*
+  Copy_Fork_Create_PR:
+    runs-on: nrec-large
+    needs: Clean_Workspace 
+    steps:
+      - name: Checkout base repository
+        uses: actions/checkout@v4
+
+      - name: Fetch and checkout forked branch
+        run: |
+          #This fetches the branch from pull request number and creates new branch with branch name:
+          git fetch origin pull/${{ inputs.pr_number }}/head:${{inputs.working_branch_name}}
+          git checkout ${{inputs.working_branch_name}}
+
+
+      - name: Push the new branch
+        run: |
+          git push https://x-access-token:$${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} ${{inputs.working_branch_name}}:${{inputs.working_branch_name}}
+
+      - name: Authenticate gh
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+
+      - name: Create pull request
+        run: |
+          gh pr create --head ${{inputs.working_branch_name}} --base ${{ inputs.target_branch_name }} \
+          --title "${{ github.actor }}'s New Data" --body "This PR brings in new data from ${{ github.actor }}"

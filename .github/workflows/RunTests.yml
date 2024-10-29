@@ -1,0 +1,22 @@
+name: Run tests
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'Scripts/**/*.py'
+
+jobs:
+    build-and-test:
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        runs-on: nrec-large 
+        steps:
+          - name: pull docker image
+            run: sudo docker pull lamadrama/lamafiles:1.9
+          
+          - name: Run Docker container with volume
+            run: |
+                  sudo docker run --rm -v "${{ github.workspace }}:/app/Databank" \
+                  --env BRANCH_NAME=${{ github.event.pull_request.head.ref }} \
+                  lamadrama/lamafiles:1.9
+
