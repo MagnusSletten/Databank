@@ -1,12 +1,12 @@
-#Starting from ubuntu
+# Starting from Ubuntu
 FROM ubuntu:22.04
-SHELL ["/bin/bash", "-c"] 
+SHELL ["/bin/bash", "-c"]
 
 # Setting environment variables
 ENV GROMACS_VERSION=2024.3
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install system dependencies, some of these might not be needed: 
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     cmake \
     gcc \
@@ -23,22 +23,34 @@ RUN apt-get update && apt-get install -y \
     libfile-copy-recursive-perl \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Download and unpack the latest GROMACS:
+# Download and unpack the latest GROMACS
 RUN wget https://ftp.gromacs.org/gromacs/gromacs-$GROMACS_VERSION.tar.gz && \
     tar xfz gromacs-$GROMACS_VERSION.tar.gz && \
     rm gromacs-$GROMACS_VERSION.tar.gz
 
-# Build and install GROMACS per instructions from the official guide:
+# Build and install GROMACS
 RUN cd gromacs-$GROMACS_VERSION && \
     mkdir build && cd build && \
     cmake .. -DGMX_BUILD_OWN_FFTW=ON -DREGRESSIONTEST_DOWNLOAD=ON && \
     make && \
-    make check && \  
+    make check && \
     make install && \
     source /usr/local/gromacs/bin/GMXRC
 
+# Install Cython and any other build dependencies
+RUN pip3 install Cython pytest tqdm pyyaml pandas buildh
 
-RUN pip3 install pytest MDAnalysis MDAnalysisTests tqdm pyyaml pandas buildh
+# Clone the MDAnalysis repository
+RUN git clone --branch develop https://github.com/MDAnalysis/mdanalysis.git
+
+
+
+
+# Install MDAnalysis from the package directory
+RUN cd mdanalysis/package && \
+    python3 setup.py install
+
+
 WORKDIR /app
 
 # Add a non-root user 'runner'
@@ -58,3 +70,7 @@ CMD ["/bin/bash", "-c", "git clone --branch $BRANCH_NAME https://github.com/Magn
 cd /app/Databank/Scripts/tests/ && \
 source /usr/local/gromacs/bin/GMXRC && \
 pytest -vs"]
+
+
+
+
