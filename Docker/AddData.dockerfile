@@ -34,7 +34,15 @@ RUN wget https://ftp.gromacs.org/gromacs/gromacs-$GROMACS_VERSION.tar.gz && \
 RUN echo "source /usr/local/gromacs/bin/GMXRC" >> /etc/profile
 
 
-RUN pip3 install --break-system-packages pytest MDAnalysis MDAnalysisTests tqdm pyyaml pandas buildh
+RUN pip3 install --break-system-packages pytest tqdm pyyaml pandas buildh Cython
+
+WORKDIR /app 
+# Clone the MDAnalysis repository
+RUN git clone --branch develop https://github.com/MDAnalysis/mdanalysis.git && \
+    cd mdanalysis/package && \
+    python3 setup.py install && \
+    cd ../.. && rm -rf mdanalysis
+
 
 # Add a non-root user 'runner'
 RUN useradd -m -s /bin/bash runner
@@ -56,9 +64,6 @@ CMD /bin/bash -c "source /usr/local/gromacs/bin/GMXRC && \
     git clone https://$GITHUB_TOKEN@github.com/MagnusSletten/Databank.git --branch=$BRANCH_NAME Databank && \
     cd Databank && \
     git fetch origin && git branch -r && \
-    chmod +x /app/Databank/.github/workflows/GetNewExperimentData.sh && \
-    chmod +x /app/Databank/.github/workflows/GetNewSimData.sh && \
-    chmod +x /app/Databank/.github/workflows/RunnerGitConfig.sh &&\
-    /app/Databank/.github/workflows/RunnerGitConfig.sh && \
-    /app/Databank/.github/workflows/GetNewExperimentData.sh && \
-    /app/Databank/.github/workflows/GetNewSimData.sh"
+    Scripts/DockerScripts/RunnerGitConfig.sh && \
+    Scripts/DockerScripts/GetNewExperimentData.sh && \
+    Scripts/DockerScripts/GetNewSimData.sh"

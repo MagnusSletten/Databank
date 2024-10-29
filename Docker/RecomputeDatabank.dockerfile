@@ -1,6 +1,8 @@
 # Use an official Python runtime as a base image
 FROM python:3.10-slim
 
+ENV BRANCH_NAME="dev_pipeline" 
+
 # Install necessary dependencies and GitHub CLI
 RUN apt-get update && \
     apt-get install -y curl git && \
@@ -26,6 +28,6 @@ USER runner
 
 # Set up authentication and clone the repository before running the script
 ENTRYPOINT ["bash", "-c", "\
-  git clone https://x-access-token:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git && \
-  cd $(basename $GITHUB_REPOSITORY) && \
-  python Docker/DispatchRecompute.py"]
+  git clone https://x-access-token:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git --branch=$BRANCH_NAME && \
+  cd Databank && \
+  python Scripts/DockerScripts/DispatchRecompute.py"]
