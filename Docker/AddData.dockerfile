@@ -34,7 +34,15 @@ RUN wget https://ftp.gromacs.org/gromacs/gromacs-$GROMACS_VERSION.tar.gz && \
 RUN echo "source /usr/local/gromacs/bin/GMXRC" >> /etc/profile
 
 
-RUN pip3 install --break-system-packages pytest MDAnalysis MDAnalysisTests tqdm pyyaml pandas buildh
+RUN pip3 install --break-system-packages pytest tqdm pyyaml pandas buildh Cython
+
+WORKDIR /app 
+# Clone the MDAnalysis repository
+RUN git clone --branch develop https://github.com/MDAnalysis/mdanalysis.git && \
+    cd mdanalysis/package && \
+    python3 setup.py install && \
+    cd ../.. && rm -rf mdanalysis
+
 
 # Add a non-root user 'runner'
 RUN useradd -m -s /bin/bash runner
