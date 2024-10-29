@@ -66,5 +66,5 @@ CMD /bin/bash -c "source /usr/local/gromacs/bin/GMXRC && \
     cd Databank && \
     git fetch origin && git branch -r && \
     git checkout $BRANCH_NAME && \
-    chmod +x /app/Databank/.github/workflows/RecomputeSimdata.sh && \
-    /app/Databank/.github/workflows/RecomputeSimdata.sh"
+    chmod +x Scripts/DockerScripts/RecomputeSimdata.sh && \
+    Scripts/DockerScripts/RecomputeSimdata.sh"
