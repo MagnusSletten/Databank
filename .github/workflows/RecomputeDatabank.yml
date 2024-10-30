@@ -3,8 +3,13 @@ name: Recompute Databank
 on:
   workflow_dispatch:
     inputs:
+      target_branch_name:
+        description: "The branch which has the files that are going to be recomputed."
+        required: true
+        default: "main"
+        type: string
       working_branch_name:
-        description: "The new branch where new files are added"
+        description: "The new branch where new files are added. A pull request to target_branch_name is then made from working_branch_name"
         required: true
         default: "default"
         type: string 
@@ -27,6 +32,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
+        with:
+          ref: ${{inputs.target_branch_name}}  
       - name: Set Git User Identity
         run: |
           git config user.name "GitHub Actions Bot"
