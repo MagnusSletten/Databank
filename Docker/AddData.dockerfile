@@ -2,7 +2,7 @@ FROM debian:bookworm-slim
 
 ENV GROMACS_VERSION=2024.3
 
-#Note: This still needs a enviromental variable with the repo url.
+#Note: This still needs a enviromental variable with the repo url
 
 RUN apt-get update && apt-get install -y \
     bash \
