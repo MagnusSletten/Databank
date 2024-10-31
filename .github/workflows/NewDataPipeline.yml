@@ -3,7 +3,7 @@ on:
   pull_request_target:
     types: [opened]
     branches:
-      - dev_pipeline
+      - test_pipeline_v1
   
 jobs:
     NewBranchAndPr:
@@ -11,7 +11,7 @@ jobs:
       uses: MagnusSletten/Databank/.github/workflows/AddBranchPullRequest.yml@dev_pipeline
       with:
         working_branch_name: pr-${{ github.event.pull_request.number }}-from-fork
-        target_branch_name: dev_pipeline
+        target_branch_name: test_pipeline_v1
         pr_number: ${{ github.event.pull_request.number }}
       secrets: inherit 
   
@@ -20,7 +20,7 @@ jobs:
       uses: MagnusSletten/Databank/.github/workflows/AddData.yml@dev_pipeline
       with:
         working_branch_name: pr-${{ github.event.pull_request.number }}-from-fork
-        target_branch_name: dev_pipeline
+        target_branch_name: test_pipeline_v1
       secrets: inherit 
         
        
