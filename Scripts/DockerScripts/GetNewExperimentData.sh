@@ -28,7 +28,7 @@ cd $DATABANK_ABS_PATH
 NEW_FORMFACTOR_FILES=$(git diff --name-only origin/$BRANCH_NAME origin/$TARGET_BRANCH -- $FORMFACTOR_DIR)
 if [ -n "$NEW_FORMFACTOR_FILES" ]; then  
   for file in $NEW_FORMFACTOR_FILES; do
-    if [[ $file == *.dat ]]; then
+    if [[ $file == *.dat || $file == *.xff ]]; then
       echo "Running data_to_json.py for formfactor files: $file"
       python3 "data_to_json.py" "$DATABANK_ABS_PATH/$file"
     fi
