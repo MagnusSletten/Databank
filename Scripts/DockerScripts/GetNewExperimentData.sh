@@ -26,6 +26,7 @@ cd $DATABANK_ABS_PATH
 
 # Find new added formfactor files in this branch relative to the other branch mentioned here:
 NEW_FORMFACTOR_FILES=$(git diff --name-only origin/$BRANCH_NAME origin/$TARGET_BRANCH -- $FORMFACTOR_DIR)
+cd $FORMFACTOR_DIR
 if [ -n "$NEW_FORMFACTOR_FILES" ]; then  
   for file in $NEW_FORMFACTOR_FILES; do
     if [[ $file == *.dat || $file == *.xff ]]; then
