@@ -292,7 +292,7 @@
                 "ORDERPARAMETER": {
                     "POPC": {}
                 },
-                "FORMFACTOR": "10.1016/j.bbamem.2011.07.022/2"
+                "FORMFACTOR": {}
             },
             "FF_SOURCE": "http://www.fos.su.se/~sasha/SLipids/",
             "COMPOSITION": {
@@ -558,7 +558,7 @@
                 "ORDERPARAMETER": {
                     "POPC": {}
                 },
-                "FORMFACTOR": "10.1016/j.bbamem.2011.07.022/2"
+                "FORMFACTOR": {}
             },
             "FF_SOURCE": "http://www.fos.su.se/~sasha/SLipids/Downloads.html",
             "COMPOSITION": {
@@ -1237,7 +1237,7 @@
                 "ORDERPARAMETER": {
                     "POPC": {}
                 },
-                "FORMFACTOR": "10.1016/j.bbamem.2011.07.022/2"
+                "FORMFACTOR": {}
             },
             "FF_SOURCE": null,
             "COMPOSITION": {
@@ -1476,7 +1476,7 @@
                 "ORDERPARAMETER": {
                     "POPC": {}
                 },
-                "FORMFACTOR": "10.1016/j.bbamem.2011.07.022/2"
+                "FORMFACTOR": {}
             },
             "path": "244/97f/24497f8f740c4466d91660c34cb1c2295265ede5/24497f8f740c4466d91660c34cb1c2295265ede5/"
         }
@@ -1548,7 +1548,7 @@
                 "ORDERPARAMETER": {
                     "POPC": {}
                 },
-                "FORMFACTOR": "10.1016/j.bbamem.2011.07.022/2"
+                "FORMFACTOR": {}
             },
             "FF_SOURCE": null,
             "COMPOSITION": {
@@ -1597,7 +1597,7 @@
                 "ORDERPARAMETER": {
                     "POPC": {}
                 },
-                "FORMFACTOR": "10.1016/j.bbamem.2011.07.022/2"
+                "FORMFACTOR": {}
             },
             "FF_SOURCE": null,
             "COMPOSITION": {
@@ -1646,7 +1646,7 @@
                 "ORDERPARAMETER": {
                     "POPC": {}
                 },
-                "FORMFACTOR": "10.1016/j.bbamem.2011.07.022/2"
+                "FORMFACTOR": {}
             },
             "FF_SOURCE": null,
             "COMPOSITION": {
@@ -1695,7 +1695,7 @@
                 "ORDERPARAMETER": {
                     "POPC": {}
                 },
-                "FORMFACTOR": "10.1016/j.bbamem.2011.07.022/2"
+                "FORMFACTOR": {}
             },
             "FF_SOURCE": "http://mackerell.umaryland.edu/charmm_ff.shtml#gromacs",
             "COMPOSITION": {
@@ -1744,7 +1744,7 @@
                 "ORDERPARAMETER": {
                     "POPC": {}
                 },
-                "FORMFACTOR": "10.1016/j.bbamem.2011.07.022/2"
+                "FORMFACTOR": {}
             },
             "FF_SOURCE": "http://mackerell.umaryland.edu/charmm_ff.shtml#gromacs",
             "COMPOSITION": {
@@ -1871,7 +1871,7 @@
                 "ORDERPARAMETER": {
                     "POPC": {}
                 },
-                "FORMFACTOR": "10.1016/j.bbamem.2011.07.022/2"
+                "FORMFACTOR": {}
             },
             "path": "780/d37/780d3763c456a6837a6d65f48cc7e7b14e4a3a6e/780d3763c456a6837a6d65f48cc7e7b14e4a3a6e/"
         }
@@ -2170,7 +2170,7 @@
                 "ORDERPARAMETER": {
                     "POPC": {}
                 },
-                "FORMFACTOR": "10.1016/j.bbamem.2011.07.022/2"
+                "FORMFACTOR": {}
             },
             "ID": 154,
             "path": "eb4/ab4/eb4ab41fb73a8dfefe1cda75ecc5b036a169f04b/2e9d5a4f3e0a953aa3855e2470ebc83fb0a54dd7/"
@@ -2191,7 +2191,7 @@
                 "ORDERPARAMETER": {
                     "POPC": {}
                 },
-                "FORMFACTOR": "10.1016/j.bbamem.2011.07.022/2"
+                "FORMFACTOR": {}
             },
             "FF_SOURCE": "CHARMM-GUI",
             "COMPOSITION": {
@@ -2289,7 +2289,7 @@
                 "ORDERPARAMETER": {
                     "POPC": {}
                 },
-                "FORMFACTOR": "10.1016/j.bbamem.2011.07.022/2"
+                "FORMFACTOR": {}
             },
             "FF_SOURCE": null,
             "COMPOSITION": {
@@ -2338,7 +2338,7 @@
                 "ORDERPARAMETER": {
                     "POPC": {}
                 },
-                "FORMFACTOR": "10.1016/j.bbamem.2011.07.022/2"
+                "FORMFACTOR": {}
             },
             "FF_SOURCE": null,
             "COMPOSITION": {
@@ -2389,7 +2389,7 @@
                 "ORDERPARAMETER": {
                     "POPC": {}
                 },
-                "FORMFACTOR": "10.1016/j.bbamem.2011.07.022/2"
+                "FORMFACTOR": {}
             },
             "FF_SOURCE": "https://zenodo.org/record/1402417/",
             "COMPOSITION": {
@@ -2536,7 +2536,7 @@
                 "ORDERPARAMETER": {
                     "POPC": {}
                 },
-                "FORMFACTOR": "10.1016/j.bbamem.2011.07.022/2"
+                "FORMFACTOR": {}
             },
             "FF_SOURCE": "http://mackerell.umaryland.edu/charmm_ff.shtml#gromacs",
             "COMPOSITION": {
@@ -2585,7 +2585,7 @@
                 "ORDERPARAMETER": {
                     "POPC": {}
                 },
-                "FORMFACTOR": "10.1016/j.bbamem.2011.07.022/2"
+                "FORMFACTOR": {}
             },
             "FF_SOURCE": null,
             "COMPOSITION": {
@@ -2634,7 +2634,7 @@
                 "ORDERPARAMETER": {
                     "POPC": {}
                 },
-                "FORMFACTOR": "10.1016/j.bbamem.2011.07.022/2"
+                "FORMFACTOR": {}
             },
             "FF_SOURCE": null,
             "COMPOSITION": {
@@ -2845,7 +2845,7 @@
                 "ORDERPARAMETER": {
                     "POPC": {}
                 },
-                "FORMFACTOR": "10.1016/j.bbamem.2011.07.022/2"
+                "FORMFACTOR": {}
             },
             "FF_SOURCE": "http://mackerell.umaryland.edu/charmm_ff.shtml#gromacs",
             "COMPOSITION": {
@@ -3001,7 +3001,7 @@
                 "ORDERPARAMETER": {
                     "POPC": {}
                 },
-                "FORMFACTOR": "10.1016/j.bbamem.2011.07.022/2"
+                "FORMFACTOR": {}
             },
             "FF_SOURCE": "??",
             "COMPOSITION": {
@@ -3136,7 +3136,7 @@
                 "ORDERPARAMETER": {
                     "POPC": {}
                 },
-                "FORMFACTOR": "10.1016/j.bbamem.2011.07.022/2"
+                "FORMFACTOR": {}
             },
             "ID": 90,
             "path": "f31/0bd/f310bd1589844f2402c3096357d1ba41b57d8829/07ade0eade753c9826df16a5e5707e5db67f44d8/"
@@ -3236,7 +3236,7 @@
                 "ORDERPARAMETER": {
                     "POPC": {}
                 },
-                "FORMFACTOR": "10.1016/j.bbamem.2011.07.022/2"
+                "FORMFACTOR": {}
             },
             "path": "fb8/2e4/fb82e4f256fd9c13a9a29a32fbd1f9a8d2191ef6/fb82e4f256fd9c13a9a29a32fbd1f9a8d2191ef6/"
         }
@@ -3417,7 +3417,7 @@
                 "ORDERPARAMETER": {
                     "POPC": {}
                 },
-                "FORMFACTOR": "10.1016/j.bbamem.2011.07.022/2"
+                "FORMFACTOR": {}
             },
             "FF_SOURCE": "CHARMM-GUI v1.6",
             "COMPOSITION": {
@@ -3765,7 +3765,7 @@
                 "ORDERPARAMETER": {
                     "POPC": {}
                 },
-                "FORMFACTOR": "10.1016/j.bbamem.2011.07.022/2"
+                "FORMFACTOR": {}
             },
             "ID": 734,
             "path": "e97/2fb/e972fb7afc0ab78c7004c0971d5055b2a0cdc51f/e972fb7afc0ab78c7004c0971d5055b2a0cdc51f/"
@@ -3971,7 +3971,7 @@
                 "ORDERPARAMETER": {
                     "POPC": {}
                 },
-                "FORMFACTOR": "10.1016/j.bbamem.2011.07.022/2"
+                "FORMFACTOR": {}
             },
             "ID": 602,
             "path": "752/7ec/7527ecdcca76b1db5593639e4e84069b65570f68/5fe5e17ca65737161140a6149290095af1f7056f/"
@@ -4476,7 +4476,7 @@
                 "ORDERPARAMETER": {
                     "POPC": {}
                 },
-                "FORMFACTOR": "10.1016/j.bbamem.2011.07.022/2"
+                "FORMFACTOR": {}
             },
             "FF_SOURCE": "??",
             "COMPOSITION": {
@@ -4687,7 +4687,7 @@
                 "ORDERPARAMETER": {
                     "POPC": {}
                 },
-                "FORMFACTOR": "10.1016/j.bbamem.2011.07.022/2"
+                "FORMFACTOR": {}
             },
             "FF_SOURCE": null,
             "COMPOSITION": {
@@ -7043,7 +7043,7 @@
             "EXPERIMENT": {
                 "ORDERPARAMETER": {
                     "POPG": {},
-                    "POPC": { "10.1002/j.1460-2075.1987.tb02595.x": "10.1002/j.1460-2075.1987.tb02595.x/4" }
+                    "POPC": {}
                 },
                 "FORMFACTOR": {}
             },
@@ -7193,7 +7193,7 @@
             "EXPERIMENT": {
                 "ORDERPARAMETER": {
                     "POPG": {},
-                    "POPC": { "10.1002/j.1460-2075.1987.tb02595.x": "10.1002/j.1460-2075.1987.tb02595.x/4" }
+                    "POPC": {}
                 },
                 "FORMFACTOR": {}
             },
@@ -7293,7 +7293,7 @@
             "EXPERIMENT": {
                 "ORDERPARAMETER": {
                     "POPG": {},
-                    "POPC": { "10.1002/j.1460-2075.1987.tb02595.x": "10.1002/j.1460-2075.1987.tb02595.x/4" }
+                    "POPC": {}
                 },
                 "FORMFACTOR": {}
             },
