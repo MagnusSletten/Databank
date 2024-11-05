@@ -18,10 +18,10 @@ jobs:
         run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
       - name: Build Docker image
-        run: docker build -t nmrlipids/${{ inputs.docker_image_name }} -f Docker/${{ inputs.docker_image_name }} .
+        run: sudo docker build -t nmrlipids/${{ inputs.docker_image_name }} -f Docker/${{ inputs.docker_image_name }} .
 
       - name: Push Docker image
-        run: docker push nmrlipids/${{ inputs.docker_image_name }}
+        run: sudo docker push nmrlipids/${{ inputs.docker_image_name }}
 
 
      
