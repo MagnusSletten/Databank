@@ -10,18 +10,20 @@ on:
 jobs:
   build_and_push:
     runs-on: nrec-large
-    steps:
+    steps:      
       - name: Check out the repository
         uses: actions/checkout@v4
-
-      - name: Log in to DockerHub
-        run: echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin docker.io
 
       - name: Build Docker image
         run: sudo docker build -t nmrlipids/${{ inputs.docker_image_name }} -f Docker/${{ inputs.docker_image_name }} .
 
+      - name: Tag Docker Image
+        run: sudo docker tag nmrlipids/${{ inputs.docker_image_name }} nmrlipids/${{ inputs.docker_image_name }}:latest
+
       - name: Push Docker image
-        run: sudo docker push nmrlipids/${{ inputs.docker_image_name }}
+        run: |
+          sudo docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin <<< "${{ secrets.DOCKERHUB_TOKEN }}"
+          sudo docker push nmrlipids/${{ inputs.docker_image_name }}:latest
 
 
      
