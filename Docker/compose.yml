@@ -18,9 +18,7 @@ services:
   tests:
     image: nmrlipids/core
     command: /bin/bash -c "git clone --branch $BRANCH_NAME https://github.com/MagnusSletten/Databank.git /app/Databank && cd /app/Databank/Scripts/tests/ && source /usr/local/gromacs/bin/GMXRC && pytest -vs"
-    environment:
-      - GITHUB_TOKEN
-      - BRANCH_NAME
+  
 
   add_data:
     image: nmrlipids/core

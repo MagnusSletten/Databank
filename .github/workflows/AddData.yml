@@ -41,11 +41,9 @@ jobs:
         working-directory: ./Docker  # Navigate to the Docker directory where compose.yml is located
         shell: bash  # Specify bash as the shell for this step
         run: |
-          sudo docker compose pull add_data
           sudo docker compose run --rm \
-            -e REPO_URL \
-            -e BRANCH_NAME \
-            -e GITHUB_TOKEN \
-            -e TARGET_BRANCH \
+            -e REPO_URL="${{ env.REPO_URL }}" \
+            -e BRANCH_NAME="${{ env.BRANCH_NAME }}" \
+            -e GITHUB_TOKEN="${{ env.GITHUB_TOKEN }}" \
+            -e TARGET_BRANCH="${{ env.TARGET_BRANCH }}" \
             add_data
-
