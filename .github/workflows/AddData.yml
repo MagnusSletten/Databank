@@ -38,12 +38,12 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Pull and run Docker Compose
-        working-directory: ./Docker  # Navigate to the Docker directory where compose.yml is located
-        shell: bash  # Specify bash as the shell for this step
+        working-directory: ./Docker
+        shell: bash
         run: |
-          sudo docker compose run --rm \
-            -e REPO_URL="${{ env.REPO_URL }}" \
-            -e BRANCH_NAME="${{ env.BRANCH_NAME }}" \
-            -e GITHUB_TOKEN="${{ env.GITHUB_TOKEN }}" \
-            -e TARGET_BRANCH="${{ env.TARGET_BRANCH }}" \
-            add_data
+          echo "REPO_URL=${{ env.REPO_URL }}" >> .env
+          echo "BRANCH_NAME=${{ env.BRANCH_NAME }}" >> .env
+          echo "GITHUB_TOKEN=${{ env.GITHUB_TOKEN }}" >> .env
+          echo "TARGET_BRANCH=${{ env.TARGET_BRANCH }}" >> .env
+          sudo docker compose --env-file .env pull add_data
+          sudo docker compose --env-file .env run --rm add_data
