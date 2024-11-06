@@ -41,17 +41,16 @@ jobs:
         working-directory: ./Docker
         shell: bash
         run: |
-          # Export environment variables
+          # Export environment variables in the shell
           export REPO_URL="${{ env.REPO_URL }}"
           export BRANCH_NAME="${{ env.BRANCH_NAME }}"
           export GITHUB_TOKEN="${{ env.GITHUB_TOKEN }}"
           export TARGET_BRANCH="${{ env.TARGET_BRANCH }}"
 
-          REPO_URL="${{ env.REPO_URL }}" \
-          BRANCH_NAME="${{ env.BRANCH_NAME }}" \
-          GITHUB_TOKEN="${{ env.GITHUB_TOKEN }}" \
-          TARGET_BRANCH="${{ env.TARGET_BRANCH }}" \
-          sudo docker compose run --rm add_data
-
-          # Run docker compose with the environment variables set in the shell
-          sudo docker compose run --rm add_data
+          # Run docker compose with the environment variables explicitly passed via -e flags
+          sudo docker compose run --rm \
+            -e REPO_URL="${{ env.REPO_URL }}" \
+            -e BRANCH_NAME="${{ env.BRANCH_NAME }}" \
+            -e GITHUB_TOKEN="${{ env.GITHUB_TOKEN }}" \
+            -e TARGET_BRANCH="${{ env.TARGET_BRANCH }}" \
+            add_data
