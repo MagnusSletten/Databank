@@ -1,0 +1,18 @@
+version: '3'
+services:
+  recompute_databank:
+    image: nmrlipids/core
+    entrypoint: ["/bin/bash", "-c", "git clone https://x-access-token:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git --branch=$BRANCH_NAME && cd Databank && python Scripts/DockerScripts/DispatchRecompute.py"]
+
+  recompute_instance:
+    image: nmrlipids/core
+    command: /bin/bash -c "source /usr/local/gromacs/bin/GMXRC && git clone https://x-access-token:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git Databank && cd Databank && git fetch origin && git branch -r && git checkout $BRANCH_NAME && Scripts/DockerScripts/RecomputeSimdata.sh"
+
+  tests:
+    image: nmrlipids/core
+    command: /bin/bash -c "git clone --branch $BRANCH_NAME https://github.com/MagnusSletten/Databank.git /app/Databank && cd /app/Databank/Scripts/tests/ && source /usr/local/gromacs/bin/GMXRC && pytest -vs"
+
+  add_data:
+    image: nmrlipids/core
+    command: /bin/bash -c "source /usr/local/gromacs/bin/GMXRC && git clone https://x-access-token:$GITHUB_TOKEN@github.com/MagnusSletten/Databank.git --branch=$BRANCH_NAME Databank && cd Databank && git fetch origin && git branch -r && Scripts/DockerScripts/RunnerGitConfig.sh && Scripts/DockerScripts/GetNewExperimentData.sh && Scripts/DockerScripts/GetNewSimData.sh"
+

@@ -24,20 +24,23 @@ on:
         required: true
         default: "default"
 
-
 jobs:
   AddData:
     runs-on: nrec-large
     steps:
-      - name: Pull Docker image
-        run: |
-          sudo docker pull nmrlipids/add_data
+      - name: Check out repository
+        uses: actions/checkout@v4
 
-      - name: Run the Docker container with environment variables
+      - name: Pull and run Docker Compose
+        working-directory: ./Docker  # Navigate to the Docker directory where compose.yml is located
         run: |
-          sudo docker run --rm \
-          --env REPO_URL=https://github.com/${{ github.repository }}.git \
-          --env BRANCH_NAME=${{ inputs.working_branch_name }} \
-          --env GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
-          --env TARGET_BRANCH=${{ inputs.target_branch_name }} \
-          nmrlipids/add_data
+          # Pull the required image for add_data service
+          sudo docker-compose pull add_data
+
+          # Run only the add_data service from compose.yml with environment variables passed from GitHub Actions
+          sudo docker-compose run --rm \
+            -e REPO_URL=https://github.com/${{ github.repository }}.git \
+            -e BRANCH_NAME=${{ inputs.working_branch_name }} \
+            -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+            -e TARGET_BRANCH=${{ inputs.target_branch_name }} \
+            add_data
