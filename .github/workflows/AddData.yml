@@ -41,9 +41,16 @@ jobs:
         working-directory: ./Docker
         shell: bash
         run: |
-          echo "REPO_URL=${{ env.REPO_URL }}" >> .env
-          echo "BRANCH_NAME=${{ env.BRANCH_NAME }}" >> .env
-          echo "GITHUB_TOKEN=${{ env.GITHUB_TOKEN }}" >> .env
-          echo "TARGET_BRANCH=${{ env.TARGET_BRANCH }}" >> .env
-          sudo docker compose --env-file .env pull add_data
-          sudo docker compose --env-file .env run --rm add_data
+          # Set environment variables inline for docker compose
+          REPO_URL="${{ env.REPO_URL }}" \
+          BRANCH_NAME="${{ env.BRANCH_NAME }}" \
+          GITHUB_TOKEN="${{ env.GITHUB_TOKEN }}" \
+          TARGET_BRANCH="${{ env.TARGET_BRANCH }}" \
+          sudo docker compose pull add_data
+          
+          # Run the service with the variables set
+          REPO_URL="${{ env.REPO_URL }}" \
+          BRANCH_NAME="${{ env.BRANCH_NAME }}" \
+          GITHUB_TOKEN="${{ env.GITHUB_TOKEN }}" \
+          TARGET_BRANCH="${{ env.TARGET_BRANCH }}" \
+          sudo docker compose run --rm add_data
