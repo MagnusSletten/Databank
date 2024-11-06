@@ -46,5 +46,5 @@ jobs:
             -e REPO_URL="https://github.com/MagnusSletten/Databank.git" \
             -e BRANCH_NAME="${{ inputs.working_branch_name}}" \
             -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
-            -e TARGET_BRANCH="${{ env.TARGET_BRANCH }}" \
+            -e TARGET_BRANCH="${{ inputs.target_branch_name }}" \
             add_data
