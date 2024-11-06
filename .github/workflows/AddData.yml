@@ -39,6 +39,7 @@ jobs:
 
       - name: Pull and run Docker Compose
         working-directory: ./Docker  # Navigate to the Docker directory where compose.yml is located
+        shell: bash  # Specify bash as the shell for this step
         run: |
           sudo docker compose pull add_data
           sudo docker compose run --rm \
