@@ -27,5 +27,5 @@ services:
       BRANCH_NAME: ${BRANCH_NAME}
       GITHUB_TOKEN: ${GITHUB_TOKEN}
       TARGET_BRANCH: ${TARGET_BRANCH}
-    command: /bin/bash -c "source /usr/local/gromacs/bin/GMXRC && git clone https://x-access-token:$GITHUB_TOKEN@github.com/MagnusSletten/Databank.git --branch=$BRANCH_NAME Databank && cd Databank && Scripts/DockerScripts/RunnerGitConfig.sh && Scripts/DockerScripts/GetNewExperimentData.sh && Scripts/DockerScripts/GetNewSimData.sh"
+    command: /bin/bash -c "source /usr/local/gromacs/bin/GMXRC && git clone https://x-access-token:${GITHUB_TOKEN}@github.com/MagnusSletten/Databank.git --branch=${BRANCH_NAME} Databank && cd Databank && Scripts/DockerScripts/RunnerGitConfig.sh && Scripts/DockerScripts/GetNewExperimentData.sh && Scripts/DockerScripts/GetNewSimData.sh"
 
