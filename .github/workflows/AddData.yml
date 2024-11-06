@@ -34,13 +34,10 @@ jobs:
       - name: Pull and run Docker Compose
         working-directory: ./Docker  # Navigate to the Docker directory where compose.yml is located
         run: |
-          # Pull the required image for add_data service
-          sudo docker-compose pull add_data
-
-          # Run only the add_data service from compose.yml with environment variables passed from GitHub Actions
-          sudo docker-compose run --rm \
-            -e REPO_URL=https://github.com/${{ github.repository }}.git \
-            -e BRANCH_NAME=${{ inputs.working_branch_name }} \
-            -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
-            -e TARGET_BRANCH=${{ inputs.target_branch_name }} \
-            add_data
+              sudo docker compose pull add_data
+              sudo docker compose run --rm \
+                -e REPO_URL=https://github.com/MagnusSletten/Databank.git \
+                -e BRANCH_NAME=bot/info_yaml_20241106101755 \
+                -e GITHUB_TOKEN=*** \
+                -e TARGET_BRANCH=dev_pipeline_compose \
+                add_data
