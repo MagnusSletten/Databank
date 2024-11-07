@@ -10,6 +10,10 @@ on:
         description: "The maximum number of acceptable failed tests"
         required: false
         default: "0"  # Default to 0 to stop on a single failure
+      branch_name:
+        description: "The branch name to use for cloning the repository"
+        required: false
+        default: "main"  # Default to main if no branch specified
 
 jobs:
   build:
@@ -17,6 +21,8 @@ jobs:
     steps:      
       - name: Check out the repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.branch_name }}
 
       - name: Build Docker image
         run: sudo docker build -t nmrlipids/${{ inputs.docker_image_name }} -f Docker/${{ inputs.docker_image_name }} .
@@ -29,6 +35,6 @@ jobs:
         shell: bash
         run: |
           sudo docker compose run --rm \
-            -e BRANCH_NAME="${{ github.head_ref }}" \
+            -e BRANCH_NAME="${{ inputs.branch_name }}" \
             -e ACCEPT_FAILED="${{ inputs.accept_failed }}" \
             tests
