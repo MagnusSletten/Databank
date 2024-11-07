@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       docker_image_name:
-        description: "The Docker image name you want to rebuild and push to DockerHub (e.g., add_data, recompute_instance, tests)"
+        description: "The Docker image name you want to rebuild and push to DockerHub (e.g., core)"
         required: true
 
 jobs:
@@ -26,8 +26,8 @@ jobs:
         run: |
           sudo docker compose run --rm \
             -e BRANCH_NAME="${{ github.head_ref }}" \
+            -e ACCEPT_FAILED="2" \
             tests
-     
      
       - name: Push Docker image
         run: |

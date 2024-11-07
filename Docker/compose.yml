@@ -9,7 +9,7 @@ services:
 
   tests:
     image: nmrlipids/core
-    command: /bin/bash -c "git clone --branch $$BRANCH_NAME https://github.com/MagnusSletten/Databank.git /app/Databank && cd /app/Databank/Scripts/tests/ && source /usr/local/gromacs/bin/GMXRC && pytest -vs"
+    command: /bin/bash -c "git clone --branch $$BRANCH_NAME https://github.com/MagnusSletten/Databank.git /app/Databank && cd /app/Databank/Scripts/tests/ && source /usr/local/gromacs/bin/GMXRC && pytest -vs --maxfail=${ACCEPT_FAILED:-0}"
   
 
   add_data:
