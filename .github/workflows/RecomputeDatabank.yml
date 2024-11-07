@@ -59,16 +59,20 @@ jobs:
     runs-on: nrec-large
     needs: Make_New_branch
     steps:
-      - name: Pull Latest Docker Image
-        run: sudo docker pull nmrlipids/recompute_databank
+      - name: Pull latest Docker images
+        working-directory: ./Docker
+        shell: bash
+        run: |
+          # Pull the latest images for Docker Compose
+          sudo docker compose pull
 
       - name: Run Docker to Calculate and Dispatch Child Workflows
         run: |
-          sudo docker run --rm \
+          sudo compose run --rm \
             --env NUMBER_OF_RUNS=${{ github.event.inputs.number_of_runs }} \
             --env START_INDEX=${{ github.event.inputs.start_index }} \
             --env END_INDEX=${{ github.event.inputs.end_index }} \
             --env WORKING_BRANCH_NAME=${{ github.event.inputs.working_branch_name }} \
             --env GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
             --env GITHUB_REPOSITORY="${{ github.repository }}" \
-            nmrlipids/recompute_databank
+            recompute_databank
