@@ -38,3 +38,8 @@ jobs:
             -e BRANCH_NAME="${{ inputs.branch_name }}" \
             -e ACCEPT_FAILED="${{ inputs.accept_failed }}" \
             tests
+      
+      - name: Push Docker image
+        run: |
+          sudo docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin <<< "${{ secrets.DOCKERHUB_TOKEN }}"
+          sudo docker push nmrlipids/${{ inputs.docker_image_name }}:latest
