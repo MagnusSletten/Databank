@@ -68,7 +68,7 @@ jobs:
 
       - name: Run Docker to Calculate and Dispatch Child Workflows
         run: |
-          sudo compose run --rm \
+          sudo docker compose run --rm \
             --env NUMBER_OF_RUNS=${{ github.event.inputs.number_of_runs }} \
             --env START_INDEX=${{ github.event.inputs.start_index }} \
             --env END_INDEX=${{ github.event.inputs.end_index }} \
