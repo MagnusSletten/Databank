@@ -6,6 +6,10 @@ on:
       docker_image_name:
         description: "The Docker image name you want to rebuild and push to DockerHub (e.g., core)"
         required: true
+      accept_failed:
+        description: "The maximum number of acceptable failed tests"
+        required: false
+        default: "0"  # Default to 0 to stop on a single failure
 
 jobs:
   build:
@@ -26,13 +30,5 @@ jobs:
         run: |
           sudo docker compose run --rm \
             -e BRANCH_NAME="${{ github.head_ref }}" \
-            -e ACCEPT_FAILED="2" \
+            -e ACCEPT_FAILED="${{ inputs.accept_failed }}" \
             tests
-     
-      - name: Push Docker image
-        run: |
-          sudo docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin <<< "${{ secrets.DOCKERHUB_TOKEN }}"
-          sudo docker push nmrlipids/${{ inputs.docker_image_name }}:latest
-
-
-     
