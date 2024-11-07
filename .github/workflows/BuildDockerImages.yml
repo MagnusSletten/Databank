@@ -8,7 +8,7 @@ on:
         required: true
 
 jobs:
-  build_and_push:
+  build:
     runs-on: nrec-large
     steps:      
       - name: Check out the repository
@@ -20,6 +20,15 @@ jobs:
       - name: Tag Docker Image
         run: sudo docker tag nmrlipids/${{ inputs.docker_image_name }} nmrlipids/${{ inputs.docker_image_name }}:latest
 
+      - name: Test
+        working-directory: ./Docker
+        shell: bash
+        run: |
+          sudo docker compose run --rm \
+            -e BRANCH_NAME="${{ github.head_ref }}" \
+            tests
+     
+     
       - name: Push Docker image
         run: |
           sudo docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin <<< "${{ secrets.DOCKERHUB_TOKEN }}"

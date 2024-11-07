@@ -30,6 +30,13 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+      
+      - name: Pull latest Docker images
+        working-directory: ./Docker
+        shell: bash
+        run: |
+          # Pull the latest images for Docker Compose
+          sudo docker compose pull
 
       - name: Pull and run Docker Compose
         working-directory: ./Docker
