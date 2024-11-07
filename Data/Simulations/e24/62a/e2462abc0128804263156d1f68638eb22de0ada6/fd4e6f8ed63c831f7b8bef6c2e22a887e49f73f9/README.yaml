@@ -1,46 +1,45 @@
-FF_DATE: ??
-TYPEOFSYSTEM: lipid bilayer
-SYSTEM: POPC:POPG(7:3)_T310K
-TEMPERATURE: 310.0
-NUMBER_OF_ATOMS: 141100
-EXPERIMENT:
-  ORDERPARAMETER:
-    POPG: {}
-    POPC: {}
-  FORMFACTOR: {}
-FF_SOURCE: ??
-COMPOSITION:
-  POPG:
-    NAME: PGR
-    COUNT:
-    - 75
-    - 75
-    MAPPING: mappingPOPGlipid17.yaml
-  POPC:
-    NAME: PC
-    COUNT:
-    - 175
-    - 175
-    MAPPING: mappingPOPClipid17.yaml
-  SOL:
-    NAME: WAT
-    COUNT: 25000
-    MAPPING: mappingTIP3Plipid17.yaml
-  SOD:
-    NAME: Na+
-    COUNT: 150
-    MAPPING: mappingSODlipid17_2.yaml
-TIMELEFTOUT: 0
-TRJLENGTH: 100010.0
-DATEOFRUNNING: 01/10/2021
-FF: lipid17
-SOFTWARE: gromacs
-PREEQTIME: 400
 DOI: 10.5281/zenodo.3241243
-TRAJECTORY_SIZE: 5227930244
-TPR:
-- - md_0.tpr
+SYSTEM: POPC:POPG(7:3)_T310K
+SOFTWARE: gromacs
+FF: lipid17
+FF_SOURCE: ??
+FF_DATE: ??
 TRJ:
 - - total_4_500.xtc
+TPR:
+- - md_0.tpr
+PREEQTIME: 400
+TIMELEFTOUT: 0
 DIR_WRK: /media/osollila/Data/tmp/DATABANK/
-ID: 286
+COMPOSITION:
+  POPC:
+    NAME: PC
+    MAPPING: mappingPOPClipid17.yaml
+    COUNT:
+    - 175
+    - 175
+  POPG:
+    NAME: PGR
+    MAPPING: mappingPOPGlipid17.yaml
+    COUNT:
+    - 75
+    - 75
+  SOD:
+    NAME: Na+
+    MAPPING: mappingSODlipid17_2.yaml
+    COUNT: 150
+  SOL:
+    NAME: WAT
+    MAPPING: mappingTIP3Plipid17.yaml
+    COUNT: 25000
+TRAJECTORY_SIZE: 5227930244
+TRJLENGTH: 100010.0
+TEMPERATURE: 310.0
+NUMBER_OF_ATOMS: 141100
+DATEOFRUNNING: 07/11/2024
+TYPEOFSYSTEM: lipid bilayer
+EXPERIMENT:
+  ORDERPARAMETER:
+    POPC: {}
+    POPG: {}
+  FORMFACTOR: {}
