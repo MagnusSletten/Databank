@@ -67,6 +67,8 @@ jobs:
           sudo docker compose pull
 
       - name: Run Docker to Calculate and Dispatch Child Workflows
+        working-directory: ./Docker
+        shell: bash
         run: |
           sudo docker compose run --rm \
             --env NUMBER_OF_RUNS=${{ github.event.inputs.number_of_runs }} \
