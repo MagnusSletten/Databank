@@ -27,12 +27,6 @@ on:
 jobs:
   AddData:
     runs-on: nrec-large
-    env:  
-      REPO_URL: https://github.com/MagnusSletten/Databank.git
-      BRANCH_NAME: ${{ inputs.working_branch_name }}  # Using the working branch input
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      TARGET_BRANCH: ${{ inputs.target_branch_name }}  # Using the target branch input
-
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
