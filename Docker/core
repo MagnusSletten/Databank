@@ -1,6 +1,7 @@
 FROM debian:bookworm-slim
 
-ENV GROMACS_VERSION=2024.3
+ARG GROMACS_VERSION=2024.3
+ENV GROMACS_VERSION=${GROMACS_VERSION}
 
 #Note: This still needs a enviromental variable with the repo url.
 

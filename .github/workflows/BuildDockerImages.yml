@@ -25,7 +25,11 @@ jobs:
           ref: ${{ inputs.branch_name }}
 
       - name: Build Docker image
-        run: sudo docker build -t nmrlipids/${{ inputs.docker_image_name }} -f Docker/${{ inputs.docker_image_name }} .
+        run: |
+            sudo docker build \
+            -t nmrlipids/${{ inputs.docker_image_name }} \
+            --build-arg GROMACS_VERSION="${{ inputs.gromacs_version }}" \
+            -f Docker/${{ inputs.docker_image_name }} .
 
       - name: Tag Docker Image
         run: sudo docker tag nmrlipids/${{ inputs.docker_image_name }} nmrlipids/${{ inputs.docker_image_name }}:latest
