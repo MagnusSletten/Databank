@@ -22,8 +22,8 @@ services:
       echo '$${GITHUB_TOKEN}' | gh auth login --with-token &&
       
       # Create the pull request using consistent quoting
-      gh pr create --head "$${BRANCH_NAME}" --base "$${TARGET_BRANCH_NAME}" \
-        --title "$${GITHUB_ACTOR}'s New Data" --body "This PR brings in new data from $${GITHUB_ACTOR}"
+      gh pr create --head $${BRANCH_NAME} --base $${TARGET_BRANCH_NAME} \
+        --title \"$${GITHUB_ACTOR}'s New Data\" --body \"This PR brings in new data from $${GITHUB_ACTOR}\"
       "
           
   recompute_databank:
