@@ -43,7 +43,7 @@ RUN git clone --branch develop https://github.com/MDAnalysis/mdanalysis.git && \
     python3 setup.py install && \
     cd ../.. && rm -rf mdanalysis
 
-    # Install necessary dependencies and GitHub CLI
+# Install necessary dependencies and GitHub CLI
 RUN apt-get update && \
 apt-get install -y curl git && \
 curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg && \

@@ -28,7 +28,7 @@ services:
       git clone --branch $${BRANCH_NAME} https://github.com/MagnusSletten/Databank.git /app/Databank &&
       cd /app/Databank/Scripts/tests/ &&
       source /usr/local/gromacs/bin/GMXRC &&
-      pytest -vs --maxfail=${ACCEPT_FAILED:-0}
+      pytest -vs
       "
 
   add_data:
