@@ -1,6 +1,6 @@
 services:
   
-  add_branch:
+  add_branch_and_create_pr:
     image: nmrlipids/core
     command: |
       /bin/bash -c "
@@ -17,12 +17,7 @@ services:
 
       # Push the new branch to the main repository
       git push https://x-access-token:$${GITHUB_TOKEN}@github.com/$${GITHUB_REPOSITORY} $${BRANCH_NAME}:$${BRANCH_NAME}
-      "
 
-  create_pr:
-    image: nmrlipids/core
-    command: |
-      /bin/bash -c "
       # Authenticate with GitHub CLI
       echo '$${GITHUB_TOKEN}' | gh auth login --with-token &&
       
