@@ -10,8 +10,8 @@ services:
        
       # Fetch the PR branch from the fork and create a new branch based on it
       git fetch origin pull/$${PR_NUMBER}/head:$${BRANCH_NAME} &&
-      git checkout -b $${BRANCH_NAME} FETCH_HEAD &&
-      
+      git checkout $${BRANCH_NAME} &&
+          
       # Set Git username and email
       Scripts/DockerScripts/RunnerGitConfig.sh &&
 
