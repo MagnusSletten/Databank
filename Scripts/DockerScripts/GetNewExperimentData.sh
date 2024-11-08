@@ -1,12 +1,5 @@
 #!/bin/bash
 
-GITHUB_USERNAME="MagnusSletten_Bot"  
-GITHUB_EMAIL="magnus.elias.sletten@gmail.com"  
-
-git config user.name "GitHub Actions Bot"
-git config user.email "actions@github.com"
-
-
 DATABANK_ABS_PATH=$(pwd)
 ORDERPARAMETERS_DIR="Data/experiments/OrderParameters"
 FORMFACTOR_DIR="Data/experiments/FormFactors"
@@ -33,9 +26,10 @@ cd $DATABANK_ABS_PATH
 
 # Find new added formfactor files in this branch relative to the other branch mentioned here:
 NEW_FORMFACTOR_FILES=$(git diff --name-only origin/$BRANCH_NAME origin/$TARGET_BRANCH -- $FORMFACTOR_DIR)
+cd $FORMFACTOR_DIR
 if [ -n "$NEW_FORMFACTOR_FILES" ]; then  
   for file in $NEW_FORMFACTOR_FILES; do
-    if [[ $file == *.dat ]]; then
+    if [[ $file == *.dat || $file == *.xff ]]; then
       echo "Running data_to_json.py for formfactor files: $file"
       python3 "data_to_json.py" "$DATABANK_ABS_PATH/$file"
     fi

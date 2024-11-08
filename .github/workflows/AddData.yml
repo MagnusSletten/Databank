@@ -1,33 +1,51 @@
-name: Add data
+name: Add data 
+
 on:
-  pull_request_target:
-    types: [opened]
-    branches:
-      - dev_pipeline
-  
+  workflow_call:
+    inputs:
+      working_branch_name:
+        description: "The new branch where new files are added"
+        required: true
+        default: "default"
+        type: string 
+      target_branch_name:
+        description: "The final destination for files. This will be main at the end"
+        required: true
+        default: "default"
+        type: string 
+  workflow_dispatch:
+    inputs:
+      working_branch_name:
+        description: "The new branch where new files are added"
+        required: true
+        default: "default"
+      target_branch_name:
+        description: "The final destination for files. This will be main at the end"
+        required: true
+        default: "default"
+
 jobs:
-    Add_New_Branch_Create_Pr:
-      if: github.repository == 'MagnusSletten/Databank' && github.event.pull_request.head.repo.full_name != 'MagnusSletten/Databank'
-      uses: MagnusSletten/Databank/.github/workflows/AddBranchPullRequest.yml@dev_pipeline
-      with:
-        working_branch_name: ${{ github.event.pull_request.head.ref }}
-        target_branch_name: dev_pipeline
-        pr_number: ${{ github.event.pull_request.number }}
-      secrets: inherit 
-  
-    AddExperimentData:
-      needs: Add_New_Branch_Create_Pr
-      uses: MagnusSletten/Databank/.github/workflows/AddExperimentData.yml@dev_pipeline
-      with:
-        working_branch_name: pr-${{ github.event.pull_request.number }}-from-fork
-        target_branch_name: dev_pipeline
-      secrets: inherit 
-        
-    AddSimulationData:
-      needs: [AddExperimentData,Add_New_Branch_Create_Pr]  
-      uses: MagnusSletten/Databank/.github/workflows/AddSimulationData.yml@dev_pipeline
-      with:
-        working_branch_name: pr-${{ github.event.pull_request.number }}-from-fork
-        target_branch_name: dev_pipeline
-      secrets: inherit 
-       
+  AddData:
+    runs-on: nrec-large
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+      
+      - name: Pull latest Docker images
+        working-directory: ./Docker
+        shell: bash
+        run: |
+          # Pull the latest images for Docker Compose
+          sudo docker compose pull
+
+      - name: Pull and run Docker Compose
+        working-directory: ./Docker
+        shell: bash
+        run: |
+          # Run docker compose with the environment variables explicitly passed via -e flags
+          sudo docker compose run --rm \
+            -e REPO_URL="https://github.com/MagnusSletten/Databank.git" \
+            -e BRANCH_NAME="${{ inputs.working_branch_name}}" \
+            -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
+            -e TARGET_BRANCH="${{ inputs.target_branch_name }}" \
+            add_data

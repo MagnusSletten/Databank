@@ -1,3 +1,6 @@
+#This will used for an incoming pull request from a fork and it makes a new branch within our repository which is identical to the incoming branch 
+#with a given new branch name and create a pull request to target_branch_name
+
 name: Add new branch and pull request
 
 on:
@@ -8,7 +11,7 @@ on:
         required: true
         type: string
       target_branch_name:
-        description: "The final destination for files. This will be main at the end"
+        description: "The branch it will create a PR towards"
         required: true
         type: string
       pr_number:
@@ -17,37 +20,34 @@ on:
         type: string
 
 jobs:
-  Clean_Workspace:
+  Run_Add_Branch_and_Create_PR:
     runs-on: nrec-large
     steps:
       - name: Clean up workspace
         run: |
           # Delete all files in the workspace directory
           rm -rf $GITHUB_WORKSPACE/*
-  Copy_Fork_Create_PR:
-    runs-on: nrec-large
-    needs: Clean_Workspace 
-    steps:
-      - name: Checkout base repository
+        
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Fetch and checkout forked branch
+      - name: Run add_branch service to create the new branch
+        working-directory: ./Docker
         run: |
-          git fetch https://github.com/${{ github.event.pull_request.head.repo.full_name }} ${{ inputs.working_branch_name }}
-          git checkout -b pr-${{ inputs.pr_number }}-from-fork FETCH_HEAD
+          docker compose run --rm \
+            -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
+            -e GITHUB_REPOSITORY="${{ github.repository }}" \
+            -e BRANCH_NAME="${{ inputs.working_branch_name }}" \
+            -e PR_NUMBER="${{ inputs.pr_number }}" \
+            add_branch
 
-      - name: Push the new branch
+      - name: Run create_pr service to open the pull request
+        working-directory: ./Docker
         run: |
-          git push https://x-access-token:$${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} pr-${{ inputs.pr_number }}-from-fork:pr-${{ inputs.pr_number }}-from-fork
-
-      - name: Fetch new branch
-        run: |
-          git fetch origin pr-${{ inputs.pr_number }}-from-fork
-
-      - name: Authenticate gh
-        run: |
-          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
-
-      - name: Create pull request
-        run: |
-          gh pr create --head pr-${{ inputs.pr_number }}-from-fork --base ${{ inputs.target_branch_name }} --title "${{ github.actor }}'s New Data" --body "This PR brings in new data from ${{ github.actor }}"
+          docker compose run --rm \
+            -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
+            -e GITHUB_REPOSITORY="${{ github.repository }}" \
+            -e BRANCH_NAME="${{ inputs.working_branch_name }}" \
+            -e TARGET_BRANCH_NAME="${{ inputs.target_branch_name }}" \
+            -e GITHUB_ACTOR="${{ github.actor }}" \
+            create_pr

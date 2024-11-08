@@ -11,12 +11,22 @@ jobs:
         if: github.event.pull_request.head.repo.full_name == github.repository
         runs-on: nrec-large 
         steps:
-          - name: pull docker image
-            run: sudo docker pull lamadrama/lamafiles:1.9
+          - name: Check out repository
+            uses: actions/checkout@v4
           
-          - name: Run Docker container with volume
+          - name: Pull latest Docker images
+            working-directory: ./Docker
+            shell: bash
             run: |
-                  sudo docker run --rm -v "${{ github.workspace }}:/app/Databank" \
-                  --env BRANCH_NAME=${{ github.event.pull_request.head.ref }} \
-                  lamadrama/lamafiles:1.9
+              # Pull the latest images for Docker Compose
+              sudo docker compose pull
+    
+          - name: Pull and run Docker Compose
+            working-directory: ./Docker
+            shell: bash
+            run: |
+              # Run docker compose with the environment variables explicitly passed via -e flags
+              sudo docker compose run --rm \
+                -e BRANCH_NAME="${{ github.head_ref }}" \
+                tests
 

@@ -9,7 +9,7 @@ on:
         default: "default"
         type: string  
       start_index:
-        description: "Starting index "
+        description: "Starting index"
         required: true
         type: number  
       end_index:
@@ -21,16 +21,22 @@ jobs:
   AddSimData:
     runs-on: nrec-large
     steps:
-      - name: Pull Docker image
-        run: |
-          sudo docker pull nmrlipids/project:recomputeinstance1.0
+      - name: Check out repository
+        uses: actions/checkout@v4
 
-      - name: Run the Docker container with environment variables
+      - name: Pull Docker images
         run: |
-          sudo docker run --rm \
-          --env GITHUB_REPOSITORY="${{ github.repository }}" \
-          --env BRANCH_NAME=${{ inputs.working_branch_name }} \
-          --env GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
-          --env start_index=${{ inputs.start_index }} \
-          --env end_index=${{ inputs.end_index }} \
-          nmrlipids/project:recomputeinstance1.0
+          sudo docker pull nmrlipids/core
+
+      - name: Run Docker Compose
+        working-directory: ./Docker  # Navigate to the Docker directory where compose.yml is located
+        shell: bash
+        run: |
+          # Run docker compose with the environment variables explicitly passed via -e flags
+          sudo docker compose run --rm \
+            -e GITHUB_REPOSITORY="${{ github.repository }}" \
+            -e BRANCH_NAME="${{ inputs.working_branch_name }}" \
+            -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
+            -e start_index="${{ inputs.start_index }}" \
+            -e end_index="${{ inputs.end_index }}" \
+            recompute_instance
