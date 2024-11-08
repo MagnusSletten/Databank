@@ -31,7 +31,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+<<<<<<< HEAD
       - name: Run add_branch service to create the new branch
+=======
+      - name: Run add_branch_and_create_pr service to create the branch and open the pull request
+>>>>>>> dev_pipeline
         working-directory: ./Docker
         run: |
           sudo docker compose run --rm \
@@ -39,6 +43,7 @@ jobs:
             -e GITHUB_REPOSITORY="${{ github.repository }}" \
             -e BRANCH_NAME="${{ inputs.working_branch_name }}" \
             -e PR_NUMBER="${{ inputs.pr_number }}" \
+<<<<<<< HEAD
             add_branch
 
       - name: Run create_pr service to open the pull request
@@ -51,3 +56,8 @@ jobs:
             -e TARGET_BRANCH_NAME="${{ inputs.target_branch_name }}" \
             -e GITHUB_ACTOR="${{ github.actor }}" \
             create_pr
+=======
+            -e TARGET_BRANCH_NAME="${{ inputs.target_branch_name }}" \
+            -e GITHUB_ACTOR="${{ github.actor }}" \
+            add_branch_and_create_pr
+>>>>>>> dev_pipeline

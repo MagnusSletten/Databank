@@ -1,6 +1,6 @@
 services:
   
-  add_branch:
+  add_branch_and_create_pr:
     image: nmrlipids/core
     command: |
       /bin/bash -c "
@@ -8,29 +8,20 @@ services:
       git clone https://x-access-token:$${GITHUB_TOKEN}@github.com/$${GITHUB_REPOSITORY}.git Databank &&
       cd Databank &&
       
+      # Fetch the PR branch from the fork and create a new branch based on it:
+      git fetch origin pull/$${PR_NUMBER}/head:$${BRANCH_NAME} &&
+      git checkout $${BRANCH_NAME} &&
+          
       # Set Git username and email
       Scripts/DockerScripts/RunnerGitConfig.sh &&
-      
-      # Fetch the PR branch from the fork and create a new branch based on it
-      git fetch origin pull/$${PR_NUMBER}/head:$${BRANCH_NAME} &&
-      git checkout -b $${BRANCH_NAME} FETCH_HEAD &&
-      
-      # Push the new branch to the main repository
-      git push https://x-access-token:$${GITHUB_TOKEN}@github.com/$${GITHUB_REPOSITORY} $${BRANCH_NAME}:$${BRANCH_NAME}
-      "
 
-  create_pr:
-    image: nmrlipids/core
-    command: |
-      /bin/bash -c "
-      # Authenticate with GitHub CLI
-      echo '$${GITHUB_TOKEN}' | gh auth login --with-token &&
-      
-      # Create a pull request from the new branch to the target branch
-      gh pr create --head $${BRANCH_NAME} --base $${TARGET_BRANCH_NAME} \
-      --title '${GITHUB_ACTOR}'s New Data' --body 'This PR brings in new data from $${GITHUB_ACTOR}'
+      # Push the new branch to the main repository
+      git push https://x-access-token:$${GITHUB_TOKEN}@github.com/$${GITHUB_REPOSITORY} $${BRANCH_NAME}:$${BRANCH_NAME} &&
+
+      #Create pr:
+      gh pr create --head $${BRANCH_NAME} --base $${TARGET_BRANCH_NAME} --title \"$${GITHUB_ACTOR}'s New Data\" --body \"This PR brings in new data from $${GITHUB_ACTOR}\"
       "
-      
+          
   recompute_databank:
     image: nmrlipids/core
     command: |
