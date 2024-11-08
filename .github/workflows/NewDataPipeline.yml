@@ -3,7 +3,7 @@ on:
   pull_request_target:
     types: [opened]
     branches:
-      - dev_pipeline
+      - dev_pipeline_compose
   
 jobs:
     NewBranchAndPr:
