@@ -34,7 +34,7 @@ jobs:
       - name: Run add_branch service to create the new branch
         working-directory: ./Docker
         run: |
-          docker compose run --rm \
+          sudo docker compose run --rm \
             -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
             -e GITHUB_REPOSITORY="${{ github.repository }}" \
             -e BRANCH_NAME="${{ inputs.working_branch_name }}" \
@@ -44,7 +44,7 @@ jobs:
       - name: Run create_pr service to open the pull request
         working-directory: ./Docker
         run: |
-          docker compose run --rm \
+          sudo docker compose run --rm \
             -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
             -e GITHUB_REPOSITORY="${{ github.repository }}" \
             -e BRANCH_NAME="${{ inputs.working_branch_name }}" \
