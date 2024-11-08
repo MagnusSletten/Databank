@@ -32,7 +32,6 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Run add_branch service to create the new branch
-        working-directory: ./Docker
         run: |
           sudo docker compose run --rm \
             -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
@@ -42,7 +41,6 @@ jobs:
             add_branch
 
       - name: Run create_pr service to open the pull request
-        working-directory: ./Docker
         run: |
           sudo docker compose run --rm \
             -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
