@@ -4,26 +4,44 @@ on:
   workflow_dispatch:
     inputs:
       docker_image_name:
-        description: "The Docker image name you want to rebuild and push to DockerHub (e.g., add_data, recompute_instance, tests)"
+        description: "The Docker image name you want to rebuild and push to DockerHub (e.g., core)"
         required: true
+      gromacs_version:
+        description: "The version of gromacs used"
+        required: false
+        default: "2024.4"  # Default to 0 to stop on a single failure
+      branch_name:
+        description: "The branch name to use for cloning the repository"
+        required: false
+        default: "main"  # Default to main if no branch specified
 
 jobs:
-  build_and_push:
+  build:
     runs-on: nrec-large
     steps:      
       - name: Check out the repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.branch_name }}
 
       - name: Build Docker image
-        run: sudo docker build -t nmrlipids/${{ inputs.docker_image_name }} -f Docker/${{ inputs.docker_image_name }} .
+        run: |
+            sudo docker build --no-cache \
+            -t nmrlipids/${{ inputs.docker_image_name }} \
+            --build-arg GROMACS_VERSION="${{ inputs.gromacs_version }}" \
+            -f Docker/${{ inputs.docker_image_name }} .
 
       - name: Tag Docker Image
         run: sudo docker tag nmrlipids/${{ inputs.docker_image_name }} nmrlipids/${{ inputs.docker_image_name }}:latest
 
+      - name: Test
+        working-directory: ./Docker
+        shell: bash
+        run: |
+          sudo docker compose run --rm \
+            -e BRANCH_NAME="${{ inputs.branch_name }}" \
+       
       - name: Push Docker image
         run: |
           sudo docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin <<< "${{ secrets.DOCKERHUB_TOKEN }}"
           sudo docker push nmrlipids/${{ inputs.docker_image_name }}:latest
-
-
-     

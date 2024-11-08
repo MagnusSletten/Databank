@@ -11,7 +11,7 @@ on:
         required: true
         type: string
       target_branch_name:
-        description: "The branch it will create a PR towards to. "
+        description: "The branch it will create a PR towards"
         required: true
         type: string
       pr_number:
@@ -20,36 +20,34 @@ on:
         type: string
 
 jobs:
-  Clean_Workspace:
+  Run_Add_Branch_and_Create_PR:
     runs-on: nrec-large
     steps:
       - name: Clean up workspace
         run: |
           # Delete all files in the workspace directory
           rm -rf $GITHUB_WORKSPACE/*
-  Copy_Fork_Create_PR:
-    runs-on: nrec-large
-    needs: Clean_Workspace 
-    steps:
-      - name: Checkout base repository
+        
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Fetch and checkout forked branch
+      - name: Run add_branch service to create the new branch
+        working-directory: ./Docker
         run: |
-          #This fetches the branch from pull request number and creates new branch with branch name:
-          git fetch origin pull/${{ inputs.pr_number }}/head:${{inputs.working_branch_name}}
-          git checkout ${{inputs.working_branch_name}}
+          sudo docker compose run --rm \
+            -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
+            -e GITHUB_REPOSITORY="${{ github.repository }}" \
+            -e BRANCH_NAME="${{ inputs.working_branch_name }}" \
+            -e PR_NUMBER="${{ inputs.pr_number }}" \
+            add_branch
 
-
-      - name: Push the new branch
+      - name: Run create_pr service to open the pull request
+        working-directory: ./Docker
         run: |
-          git push https://x-access-token:$${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} ${{inputs.working_branch_name}}:${{inputs.working_branch_name}}
-
-      - name: Authenticate gh
-        run: |
-          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
-
-      - name: Create pull request
-        run: |
-          gh pr create --head ${{inputs.working_branch_name}} --base ${{ inputs.target_branch_name }} \
-          --title "${{ github.actor }}'s New Data" --body "This PR brings in new data from ${{ github.actor }}"
+          sudo docker compose run --rm \
+            -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
+            -e GITHUB_REPOSITORY="${{ github.repository }}" \
+            -e BRANCH_NAME="${{ inputs.working_branch_name }}" \
+            -e TARGET_BRANCH_NAME="${{ inputs.target_branch_name }}" \
+            -e GITHUB_ACTOR="${{ github.actor }}" \
+            create_pr
