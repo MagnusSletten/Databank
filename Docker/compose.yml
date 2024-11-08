@@ -16,14 +16,14 @@ services:
       /Scripts/DockerScripts/RunnerGitConfig.sh &&
 
       # Push the new branch to the main repository
-      git push https://x-access-token:$${GITHUB_TOKEN}@github.com/$${GITHUB_REPOSITORY} $${BRANCH_NAME}:$${BRANCH_NAME} &&
+      git push https://x-access-token:$${GITHUB_TOKEN}@github.com/$${GITHUB_REPOSITORY} $${BRANCH_NAME}:$${BRANCH_NAME}
 
       # Authenticate with GitHub CLI
       echo '$${GITHUB_TOKEN}' | gh auth login --with-token &&
       
-      # Create the pull request using consistent quoting
-      gh pr create --head "$${BRANCH_NAME}" --base "$${TARGET_BRANCH_NAME}" \
-        --title "$${GITHUB_ACTOR}'s New Data" --body "This PR brings in new data from $${GITHUB_ACTOR}"
+      # Create a pull request from the new branch to the target branch
+      gh pr create --head $${BRANCH_NAME} --base $${TARGET_BRANCH_NAME} \
+      --title \"${GITHUB_ACTOR}'s New Data\" --body \"This PR brings in new data from $${GITHUB_ACTOR}\"
       "
           
   recompute_databank:
