@@ -28,24 +28,19 @@ jobs:
   AddData:
     runs-on: nrec-large
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-      
-      - name: Pull latest Docker images
-        working-directory: ./Docker
-        shell: bash
-        run: |
-          # Pull the latest images for Docker Compose
-          sudo docker compose pull
 
-      - name: Pull and run Docker Compose
-        working-directory: ./Docker
-        shell: bash
+      - name: Pull Docker image
         run: |
-          # Run docker compose with the environment variables explicitly passed via -e flags
-          sudo docker compose run --rm \
-            -e REPO_URL="https://github.com/MagnusSletten/Databank.git" \
-            -e BRANCH_NAME="${{ inputs.working_branch_name}}" \
-            -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
-            -e TARGET_BRANCH="${{ inputs.target_branch_name }}" \
-            add_data
+            sudo docker pull nmrlipids/core
+      
+      - name: Computing new data
+        run: |
+            sudo docker run --rm \
+              -e REPO_URL="https://github.com/MagnusSletten/Databank.git" \
+              -e BRANCH_NAME="${{ inputs.working_branch_name}}" \
+              -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
+              -e TARGET_BRANCH="${{ inputs.target_branch_name }}" \
+              nmrlipids/core \
+              /bin/bash -c "git pull && Scripts/DockerScripts/AddData.sh"
+
+        
