@@ -25,7 +25,7 @@ jobs:
         run: |
           sudo docker pull nmrlipids/core
 
-      - name: Run Docker to Calculate and Dispatch Child Workflows
+      - name: Run docker image to recompute files
         run: |
             sudo docker run --rm \
             -e GITHUB_REPOSITORY="${{ github.repository }}" \
