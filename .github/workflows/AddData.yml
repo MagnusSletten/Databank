@@ -41,6 +41,6 @@ jobs:
               -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
               -e TARGET_BRANCH="${{ inputs.target_branch_name }}" \
               nmrlipids/core \
-              /bin/bash -c "git pull && Scripts/DockerScripts/AddData.sh"
+              /bin/bash -c "git pull && Scripts/WorkflowScripts/DockerRunInstructions/AddData.sh"
 
         

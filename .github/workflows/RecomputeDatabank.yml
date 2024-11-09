@@ -74,5 +74,5 @@ jobs:
             --env GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
             --env GITHUB_REPOSITORY="${{ github.repository }}" \
             nmrlipids/utils \
-            /bin/bash -c "git pull && Scripts/DockerScripts/DispatchRecompute.sh"
+            /bin/bash -c "git pull && Scripts/WorkflowScripts/DockerRunInstructions/DispatchRecompute.sh"
 

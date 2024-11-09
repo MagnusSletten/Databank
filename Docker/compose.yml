@@ -13,7 +13,7 @@ services:
       git checkout $${BRANCH_NAME} &&
           
       # Set Git username and email
-      Scripts/DockerScripts/RunnerGitConfig.sh &&
+      Scripts/WorkflowScripts/RunnerGitConfig.sh &&
 
       # Push the new branch to the main repository
       git push https://x-access-token:$${GITHUB_TOKEN}@github.com/$${GITHUB_REPOSITORY} $${BRANCH_NAME}:$${BRANCH_NAME} &&
@@ -28,7 +28,7 @@ services:
       /bin/bash -c "
       git clone https://x-access-token:$${GITHUB_TOKEN}@github.com/$${GITHUB_REPOSITORY}.git --branch=$${BRANCH_NAME} Databank &&
       cd Databank &&
-      python Scripts/DockerScripts/DispatchRecompute.py
+      python Scripts/WorkflowScripts/DispatchRecompute.py
       "
 
   recompute_instance:
@@ -41,7 +41,7 @@ services:
       git fetch origin &&
       git branch -r &&
       git checkout $${BRANCH_NAME} &&
-      Scripts/DockerScripts/RecomputeSimdata.sh
+      Scripts/WorkflowScripts/RecomputeSimdata.sh
       "
 
   tests:
@@ -60,7 +60,7 @@ services:
       source /usr/local/gromacs/bin/GMXRC &&
       git clone https://x-access-token:$${GITHUB_TOKEN}@github.com/MagnusSletten/Databank.git --branch=$${BRANCH_NAME} Databank &&
       cd Databank &&
-      Scripts/DockerScripts/RunnerGitConfig.sh &&
-      Scripts/DockerScripts/GetNewExperimentData.sh &&
-      Scripts/DockerScripts/GetNewSimData.sh
+      Scripts/WorkflowScripts/RunnerGitConfig.sh &&
+      Scripts/WorkflowScripts/GetNewExperimentData.sh &&
+      Scripts/WorkflowScripts/GetNewSimData.sh
       "
