@@ -70,7 +70,7 @@ jobs:
             --env NUMBER_OF_RUNS=${{ github.event.inputs.number_of_runs }} \
             --env START_INDEX=${{ github.event.inputs.start_index }} \
             --env END_INDEX=${{ github.event.inputs.end_index }} \
-            --env WORKING_BRANCH_NAME=${{ github.event.inputs.working_branch_name }} \
+            --env BRANCH_NAME=${{ github.event.inputs.working_branch_name }} \
             --env GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
             --env GITHUB_REPOSITORY="${{ github.repository }}" \
             nmrlipids/utils \

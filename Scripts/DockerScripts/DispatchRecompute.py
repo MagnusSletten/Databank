@@ -7,7 +7,7 @@ def main():
     number_of_runs = int(os.getenv('NUMBER_OF_RUNS'))
     start_index = int(os.getenv('START_INDEX'))
     end_index = int(os.getenv('END_INDEX'))
-    working_branch_name = os.getenv('WORKING_BRANCH_NAME')
+    working_branch_name = os.getenv('BRANCH_NAME')
     
     # Calculate total number of items
     total_items = end_index - start_index + 1
