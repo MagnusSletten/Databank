@@ -34,4 +34,4 @@ jobs:
             -e start_index="${{ inputs.start_index }}" \
             -e end_index="${{ inputs.end_index }}" \
             nmrlipids/core \
-            /bin/bash -c "git pull && Scripts/DockerScripts/RecomputeInstructions.sh
+            /bin/bash -c "git pull && Scripts/DockerScripts/RecomputeInstructions.sh"
