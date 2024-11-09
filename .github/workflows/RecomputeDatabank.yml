@@ -52,7 +52,7 @@ jobs:
   
       - name: Create Pull Request
         run: |
-            gh pr create --head ${{ inputs.working_branch_name }} --base dev_pipeline --title "This is a recompute of data started by ${{github.actor}}" --body "The recompute includes files starting from index ${{inputs.start_index}} and ending with index ${{inputs.end_index}} "
+            gh pr create --head ${{ inputs.working_branch_name }} --base ${{ inputs.target_branch_name }} --title "This is a recompute of data started by ${{github.actor}}" --body "The recompute includes files starting from index ${{inputs.start_index}} and ending with index ${{inputs.end_index}} "
       
   
   Run-dispatches:   
