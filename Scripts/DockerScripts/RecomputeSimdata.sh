@@ -3,12 +3,6 @@
 # Directory path:
 TARGET_DIR="Scripts/BuildDatabank/info_files"
 
-GITHUB_USERNAME="MagnusSletten_Bot"  
-GITHUB_EMAIL="magnus.elias.sletten@gmail.com"  
-
-# Set git config for the bot account
-git config --global user.name "$GITHUB_USERNAME"
-git config --global user.email "$GITHUB_EMAIL"
 
 # Path to AddData.py:
 ADD_DATA_SCRIPT="Scripts/BuildDatabank/AddData.py"
