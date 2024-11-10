@@ -50,6 +50,6 @@ cd "$BUILDDATABANKPATH"
 cd "$DATABANK_ABS_PATH"
 git status
 git pull
-git add .
+git add ../../Data/Simulations/*/*/*/*/README.yaml
 git commit -m "Files recomputed" || { echo "git commit failed"; exit 1; }
 git push https://x-access-token:$GITHUB_TOKEN@github.com/MagnusSletten/Databank.git || { echo "git push failed"; exit 1; }
