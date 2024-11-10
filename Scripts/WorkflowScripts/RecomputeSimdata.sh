@@ -28,7 +28,7 @@ sorted_files=($(find "$BUILDDATABANKPATH/info_files" -name "*.yaml" | sort -V))
 # Calculate the subset of files based on $start_index and $end_index
 subset_files=("${sorted_files[@]:$start_index:$(($end_index - $start_index + 1))}")
 
-# Initialize an array to store failed files
+# Initialize an array to store failed files with error messages
 failed_files=()
 
 # Process each file in the subset
@@ -38,11 +38,14 @@ for file in "${subset_files[@]}"; do
     echo "Running AddData.py for $file in folder $folder"
     cd "$BUILDDATABANKPATH"
     
-    # Run AddData.py and check if it fails
-    if ! python3 "AddData.py" -f "$file" -w "$WORK_DIR"; then
+    # Run AddData.py and capture the error message if it fails
+    error_message=$(python3 "AddData.py" -f "$file" -w "$WORK_DIR" 2>&1)
+    if [[ $? -ne 0 ]]; then
       echo "AddData.py failed for $file"
-      failed_files+=("$file")  # Add the filename to the failed_files list
+      failed_files+=("$file: $error_message")  # Add the filename and error message to the failed_files list
     fi
+    
+    # Clear the working directory
     rm -rf "$WORK_DIR/"*
   fi
 done
