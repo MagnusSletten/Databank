@@ -47,7 +47,7 @@ for file in "${subset_files[@]}"; do
 done
 
 cd "$DATABANK_ABS_PATH"
-
+git pull
 # After the loop, log all failed files with a single timestamp if there are any
 if [ ${#failed_files[@]} -ne 0 ]; then
   timestamp=$(date "+%Y-%m-%d %H:%M:%S")
