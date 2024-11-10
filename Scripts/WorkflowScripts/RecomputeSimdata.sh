@@ -28,16 +28,37 @@ sorted_files=($(find "$BUILDDATABANKPATH/info_files" -name "*.yaml" | sort -V))
 # Calculate the subset of files based on $start_index and $end_index
 subset_files=("${sorted_files[@]:$start_index:$(($end_index - $start_index + 1))}")
 
+# Initialize an array to store failed files
+failed_files=()
+
 # Process each file in the subset
 for file in "${subset_files[@]}"; do
   if [[ $file == *.yaml ]]; then
     folder=$(dirname "$file") 
     echo "Running AddData.py for $file in folder $folder"
     cd "$BUILDDATABANKPATH"
-    python3 "AddData.py" -f "$file" -w "$WORK_DIR" || { echo "AddData.py failed"; exit 1; }
-   
+    
+    # Run AddData.py and check if it fails
+    if ! python3 "AddData.py" -f "$file" -w "$WORK_DIR"; then
+      echo "AddData.py failed for $file"
+      failed_files+=("$file")  # Add the filename to the failed_files list
+
+      # Append failure with timestamp to the log file
+      timestamp=$(date "+%Y-%m-%d %H:%M:%S")
+      echo "$timestamp - AddData.py failed for $file" >> Data/Logs/recomputeLogs.txt
+    fi
   fi
 done
+
+# After the loop, check if there are any failed files
+if [ ${#failed_files[@]} -ne 0 ]; then
+  echo "The following files failed to process:"
+  for failed_file in "${failed_files[@]}"; do
+    echo "$failed_file"
+  done
+else
+  echo "All files processed successfully."
+fi
 
 # If no new files were detected
 if [[ ${#subset_files[@]} -eq 0 ]]; then
