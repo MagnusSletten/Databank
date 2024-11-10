@@ -1,51 +1,46 @@
-AUTHORS_CONTACT: Martinez-Seara, Hector
-FF_DATE: null
-SYSTEM: DPPC_512_NaCl_150mM_325K_cutoff09
-TYPEOFSYSTEM: lipid bilayer
-TEMPERATURE: 325.0
+DOI: 10.5281/zenodo.1009027
+SOFTWARE: gromacs
+TRJ:
+- - DPPC_512_NaCl_150mM_325K_cutoff09_md.xtc
+TPR:
+- - DPPC_512_NaCl_150mM_325K_cutoff09_md.tpr
+PREEQTIME: 0
+TIMELEFTOUT: 0
+DIR_WRK: /media/osollila/Data/tmp/DATABANK/
 PUBLICATION: null
-NUMBER_OF_ATOMS: 128110
-EXPERIMENT:
-  ORDERPARAMETER:
-    DPPC: {}
-  FORMFACTOR: {}
+AUTHORS_CONTACT: Martinez-Seara, Hector
+SYSTEM: DPPC_512_NaCl_150mM_325K_cutoff09
+SOFTWARE_VERSION: 5.0.4
+FF: CHARMM36
 FF_SOURCE: CHARMM-GUI v1.6
+FF_DATE: null
+CPT:
+- - DPPC_512_NaCl_150mM_325K_cutoff09_md.cpt
+LOG: null
+TOP:
+- - DPPC_512_NaCl_150mM_325K_cutoff09_md.top
 COMPOSITION:
   DPPC:
     NAME: DPPC
+    MAPPING: mappingDPPCcharmm.yaml
     COUNT:
     - 256
     - 256
-    MAPPING: mappingDPPCcharmm.yaml
-  SOD:
-    NAME: NA
-    COUNT: 55
-    MAPPING: mappingNA.yaml
   SOL:
     NAME: SOL
-    COUNT: 20480
     MAPPING: mappingSPCwater.yaml
+    COUNT: 20480
+  SOD:
+    NAME: NA
+    MAPPING: mappingNA.yaml
+    COUNT: 55
   CLA:
     NAME: CL
-    COUNT: 55
     MAPPING: mappingCL.yaml
-TIMELEFTOUT: 0
-CPT:
-- - DPPC_512_NaCl_150mM_325K_cutoff09_md.cpt
-TRJLENGTH: 500100.0
+    COUNT: 55
 TRAJECTORY_SIZE: 2396893284
-SOFTWARE_VERSION: 5.0.4
-FF: CHARMM36
-TOP:
-- - DPPC_512_NaCl_150mM_325K_cutoff09_md.top
-PREEQTIME: 0
-DOI: 10.5281/zenodo.1009027
-DATEOFRUNNING: 04/10/2021
-TPR:
-- - DPPC_512_NaCl_150mM_325K_cutoff09_md.tpr
-TRJ:
-- - DPPC_512_NaCl_150mM_325K_cutoff09_md.xtc
-LOG: null
-SOFTWARE: gromacs
-DIR_WRK: /media/osollila/Data/tmp/DATABANK/
-ID: 486
+TRJLENGTH: 500100.0
+TEMPERATURE: 325.0
+NUMBER_OF_ATOMS: 128110
+DATEOFRUNNING: 10/11/2024
+TYPEOFSYSTEM: lipid bilayer
