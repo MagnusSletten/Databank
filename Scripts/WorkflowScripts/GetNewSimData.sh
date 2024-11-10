@@ -54,17 +54,17 @@ cd "$DATABANK_ABS_PATH"
 git status
 
 
-git add ../../Data/Simulations/*/*/*/*/README.yaml
-git add ../../Data/Simulations/*/*/*/*/apl.json
-git add ../../Data/Simulations/*/*/*/*/*OrderParameters.json
-git add ../../Data/Simulations/*/*/*/*/FormFactor.json
-git add ../../Data/Simulations/*/*/*/*/TotalDensity.json
-git add ../../Data/Simulations/*/*/*/*/thickness.json
-git add ../../Data/Simulations/*/*/*/*/eq_times.json
-git add ../../Data/Simulations/*/*/*/*/*OrderParameters_quality.json
-git add ../../Data/Simulations/*/*/*/*/FormFactorQuality.json
-git add ../../Data/Simulations/*/*/*/*/*FragmentQuality.json
-git add ../../Data/Simulations/*/*/*/*/SYSTEM_quality.json
+git add Data/Simulations/*/*/*/*/README.yaml
+git add Data/Simulations/*/*/*/*/apl.json
+git add Data/Simulations/*/*/*/*/*OrderParameters.json
+git add Data/Simulations/*/*/*/*/FormFactor.json
+git add Data/Simulations/*/*/*/*/TotalDensity.json
+git add Data/Simulations/*/*/*/*/thickness.json
+git add Data/Simulations/*/*/*/*/eq_times.json
+git add Data/Simulations/*/*/*/*/*OrderParameters_quality.json
+git add Data/Simulations/*/*/*/*/FormFactorQuality.json
+git add Data/Simulations/*/*/*/*/*FragmentQuality.json
+git add Data/Simulations/*/*/*/*/SYSTEM_quality.jsonn
 
 git commit -m "Automated push by NREC with new simulation data" || { echo "git commit failed"; exit 1; }
 git push https://x-access-token:$GITHUB_TOKEN@github.com/MagnusSletten/Databank.git || { echo "git push failed"; exit 1; }
