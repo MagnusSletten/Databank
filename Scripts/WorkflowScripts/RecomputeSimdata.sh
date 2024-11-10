@@ -43,6 +43,7 @@ for file in "${subset_files[@]}"; do
       echo "AddData.py failed for $file"
       failed_files+=("$file")  # Add the filename to the failed_files list
     fi
+    rm -rf "$WORK_DIR/"*
   fi
 done
 
