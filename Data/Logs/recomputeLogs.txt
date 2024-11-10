@@ -1,0 +1,403 @@
+2024-11-10 18:06:31 - The following files failed to process:
+/Databank/Scripts/BuildDatabank/info_files/509/info.yaml: 11/10/2024 06:06:05 PM [INFO]: Simulation uses supported software 'GROMACS'
+11/10/2024 06:06:05 PM [INFO]: found 3 ressources to download: md_dt100_OK_centered.xtc, md.tpr, start.gro
+11/10/2024 06:06:05 PM [INFO]: all entries in simulation are understood and will be further processed
+11/10/2024 06:06:05 PM [WARNING]: --work_dir override, ignoring 'DIR_WRK' from configuration file: /home/lara/Databank
+11/10/2024 06:06:05 PM [INFO]: The data will be processed in directory path '/tmp/databank_workdir/zenodo.1402437_download'
+11/10/2024 06:06:05 PM [INFO]: Validating file: md_dt100_OK_centered.xtc..
+11/10/2024 06:06:05 PM [INFO]: Validating file: md.tpr..
+11/10/2024 06:06:06 PM [INFO]: Validating file: start.gro..
+11/10/2024 06:06:06 PM [INFO]: Now downloading 3 files ...
+md_dt100_OK_centered.xtc: 0.00B [00:00, ?B/s]md_dt100_OK_centered.xtc:   0%|          | 8.00k/498M [00:00<6:37:24, 21.9kB/s]md_dt100_OK_centered.xtc:   0%|          | 112k/498M [00:00<28:15, 308kB/s]    md_dt100_OK_centered.xtc:   0%|          | 1.03M/498M [00:00<02:58, 2.92MB/s]md_dt100_OK_centered.xtc:   1%|▏         | 6.80M/498M [00:00<00:26, 19.1MB/s]md_dt100_OK_centered.xtc:   3%|▎         | 16.3M/498M [00:00<00:12, 41.6MB/s]md_dt100_OK_centered.xtc:   5%|▌         | 27.0M/498M [00:00<00:08, 61.2MB/s]md_dt100_OK_centered.xtc:   7%|▋         | 36.1M/498M [00:00<00:06, 70.4MB/s]md_dt100_OK_centered.xtc:   9%|▉         | 44.8M/498M [00:01<00:06, 75.3MB/s]md_dt100_OK_centered.xtc:  11%|█         | 53.2M/498M [00:01<00:05, 79.0MB/s]md_dt100_OK_centered.xtc:  13%|█▎        | 62.9M/498M [00:01<00:05, 84.5MB/s]md_dt100_OK_centered.xtc:  15%|█▍        | 72.5M/498M [00:01<00:05, 87.9MB/s]md_dt100_OK_centered.xtc:  16%|█▋        | 82.0M/498M [00:01<00:04, 90.1MB/s]md_dt100_OK_centered.xtc:  18%|█▊        | 90.8M/498M [00:01<00:04, 90.0MB/s]md_dt100_OK_centered.xtc:  20%|██        | 99.8M/498M [00:01<00:04, 90.3MB/s]md_dt100_OK_centered.xtc:  22%|██▏       | 108M/498M [00:01<00:04, 82.6MB/s] md_dt100_OK_centered.xtc:  23%|██▎       | 116M/498M [00:01<00:04, 83.8MB/s]md_dt100_OK_centered.xtc:  25%|██▍       | 124M/498M [00:02<00:04, 82.0MB/s]md_dt100_OK_centered.xtc:  26%|██▋       | 131M/498M [00:02<00:04, 78.5MB/s]md_dt100_OK_centered.xtc:  28%|██▊       | 138M/498M [00:02<00:04, 76.5MB/s]md_dt100_OK_centered.xtc:  29%|██▉       | 146M/498M [00:02<00:04, 76.9MB/s]md_dt100_OK_centered.xtc:  31%|███       | 153M/498M [00:02<00:04, 75.8MB/s]md_dt100_OK_centered.xtc:  32%|███▏      | 160M/498M [00:02<00:04, 74.3MB/s]md_dt100_OK_centered.xtc:  34%|███▎      | 167M/498M [00:02<00:04, 73.0MB/s]md_dt100_OK_centered.xtc:  35%|███▍      | 174M/498M [00:02<00:04, 72.0MB/s]md_dt100_OK_centered.xtc:  36%|███▋      | 180M/498M [00:02<00:04, 70.6MB/s]md_dt100_OK_centered.xtc:  38%|███▊      | 187M/498M [00:02<00:04, 69.9MB/s]md_dt100_OK_centered.xtc:  39%|███▉      | 194M/498M [00:03<00:04, 70.0MB/s]md_dt100_OK_centered.xtc:  41%|████      | 202M/498M [00:03<00:04, 72.8MB/s]md_dt100_OK_centered.xtc:  42%|████▏     | 210M/498M [00:03<00:03, 76.7MB/s]md_dt100_OK_centered.xtc:  44%|████▍     | 219M/498M [00:03<00:03, 79.1MB/s]md_dt100_OK_centered.xtc:  45%|████▌     | 226M/498M [00:03<00:03, 79.0MB/s]md_dt100_OK_centered.xtc:  47%|████▋     | 234M/498M [00:03<00:03, 78.8MB/s]md_dt100_OK_centered.xtc:  49%|████▊     | 241M/498M [00:03<00:03, 77.6MB/s]md_dt100_OK_centered.xtc:  50%|█████     | 249M/498M [00:03<00:03, 77.5MB/s]md_dt100_OK_centered.xtc:  52%|█████▏    | 257M/498M [00:03<00:03, 78.3MB/s]md_dt100_OK_centered.xtc:  53%|█████▎    | 265M/498M [00:04<00:03, 78.1MB/s]md_dt100_OK_centered.xtc:  55%|█████▍    | 272M/498M [00:04<00:03, 76.2MB/s]md_dt100_OK_centered.xtc:  56%|█████▌    | 279M/498M [00:04<00:02, 76.4MB/s]md_dt100_OK_centered.xtc:  58%|█████▊    | 286M/498M [00:04<00:02, 75.3MB/s]md_dt100_OK_centered.xtc:  59%|█████▉    | 295M/498M [00:04<00:02, 79.3MB/s]md_dt100_OK_centered.xtc:  61%|██████▏   | 305M/498M [00:04<00:02, 86.3MB/s]md_dt100_OK_centered.xtc:  63%|██████▎   | 314M/498M [00:04<00:02, 88.4MB/s]md_dt100_OK_centered.xtc:  65%|██████▍   | 323M/498M [00:04<00:02, 87.2MB/s]md_dt100_OK_centered.xtc:  67%|██████▋   | 331M/498M [00:04<00:02, 86.6MB/s]md_dt100_OK_centered.xtc:  68%|██████▊   | 340M/498M [00:04<00:01, 87.4MB/s]md_dt100_OK_centered.xtc:  70%|██████▉   | 348M/498M [00:05<00:01, 86.7MB/s]md_dt100_OK_centered.xtc:  72%|███████▏  | 357M/498M [00:05<00:01, 86.5MB/s]md_dt100_OK_centered.xtc:  74%|███████▎  | 366M/498M [00:05<00:01, 89.1MB/s]md_dt100_OK_centered.xtc:  75%|███████▌  | 375M/498M [00:05<00:01, 87.5MB/s]md_dt100_OK_centered.xtc:  77%|███████▋  | 383M/498M [00:05<00:01, 86.6MB/s]md_dt100_OK_centered.xtc:  79%|███████▊  | 391M/498M [00:05<00:01, 85.7MB/s]md_dt100_OK_centered.xtc:  80%|████████  | 399M/498M [00:05<00:01, 84.9MB/s]md_dt100_OK_centered.xtc:  82%|████████▏ | 407M/498M [00:05<00:01, 83.4MB/s]md_dt100_OK_centered.xtc:  83%|████████▎ | 415M/498M [00:05<00:01, 82.6MB/s]md_dt100_OK_centered.xtc:  85%|████████▍ | 423M/498M [00:05<00:00, 80.9MB/s]md_dt100_OK_centered.xtc:  87%|████████▋ | 431M/498M [00:06<00:00, 80.8MB/s]md_dt100_OK_centered.xtc:  88%|████████▊ | 439M/498M [00:06<00:00, 81.3MB/s]md_dt100_OK_centered.xtc:  90%|████████▉ | 448M/498M [00:06<00:00, 85.1MB/s]md_dt100_OK_centered.xtc:  92%|█████████▏| 456M/498M [00:06<00:00, 85.1MB/s]md_dt100_OK_centered.xtc:  94%|█████████▎| 466M/498M [00:06<00:00, 88.1MB/s]md_dt100_OK_centered.xtc:  95%|█████████▌| 475M/498M [00:06<00:00, 89.3MB/s]md_dt100_OK_centered.xtc:  97%|█████████▋| 483M/498M [00:06<00:00, 89.1MB/s]md_dt100_OK_centered.xtc:  99%|█████████▊| 492M/498M [00:06<00:00, 87.3MB/s]md_dt100_OK_centered.xtc: 498MB [00:06, 75.9MB/s]                           
+md.tpr: 0.00B [00:00, ?B/s]md.tpr:   1%|          | 8.00k/1.46M [00:00<01:05, 23.3kB/s]md.tpr:   7%|▋         | 112k/1.46M [00:00<00:04, 322kB/s]  md.tpr:  60%|██████    | 904k/1.46M [00:00<00:00, 2.57MB/s]md.tpr: 1.47MB [00:00, 2.75MB/s]                           
+start.gro: 0.00B [00:00, ?B/s]start.gro:   0%|          | 8.00k/2.02M [00:00<01:38, 21.5kB/s]start.gro:   5%|▌         | 104k/2.02M [00:00<00:07, 282kB/s]  start.gro:  48%|████▊     | 984k/2.02M [00:00<00:00, 2.70MB/s]start.gro: 2.02MB [00:00, 3.41MB/s]                           
+11/10/2024 06:06:15 PM [INFO]: Download of 3 files was successful
+11/10/2024 06:06:15 PM [INFO]: calculating sha1 hash of 'md_dt100_OK_centered.xtc'...
+  0%|          | 0/127446 [00:00<?, ?it/s]  9%|▉         | 11545/127446 [00:00<00:01, 115446.53it/s] 18%|█▊        | 23391/127446 [00:00<00:00, 117218.22it/s] 28%|██▊       | 35407/127446 [00:00<00:00, 118558.44it/s] 37%|███▋      | 47436/127446 [00:00<00:00, 119238.70it/s] 47%|████▋     | 59369/127446 [00:00<00:00, 119268.69it/s] 56%|█████▌    | 71408/127446 [00:00<00:00, 119647.83it/s] 65%|██████▌   | 83374/127446 [00:00<00:00, 119649.05it/s] 75%|███████▍  | 95339/127446 [00:00<00:00, 119560.73it/s] 84%|████████▍ | 107310/127446 [00:00<00:00, 119607.14it/s] 94%|█████████▎| 119473/127446 [00:01<00:00, 120229.49it/s]100%|██████████| 127446/127446 [00:01<00:00, 119540.22it/s]
+11/10/2024 06:06:16 PM [INFO]: calculating sha1 hash of 'md.tpr'...
+  0%|          | 0/375 [00:00<?, ?it/s]100%|██████████| 375/375 [00:00<00:00, 116301.69it/s]
+11/10/2024 06:06:16 PM [INFO]: calculating sha1 hash of 'start.gro'...
+  0%|          | 0/518 [00:00<?, ?it/s]100%|██████████| 518/518 [00:00<00:00, 115223.24it/s]
+11/10/2024 06:06:16 PM [INFO]: Summary of downloaded files:
+
+11/10/2024 06:06:16 PM [INFO]: Calculating the numbers of lipid molecules in each leaflet based on the center of mass of the membrane and lipids.
+11/10/2024 06:06:16 PM [INFO]: If a lipid molecule is split to multiple residues, the centre of mass of the headgroup is used.
+11/10/2024 06:06:16 PM [INFO]: MDAnalysis tries to use /tmp/databank_workdir/zenodo.1402437_download/md.tpr and /tmp/databank_workdir/zenodo.1402437_download/md_dt100_OK_centered.xtc
+11/10/2024 06:06:16 PM [INFO]: Gromacs version   : b'VERSION 4.5.3'
+11/10/2024 06:06:16 PM [INFO]: tpx version       : 73
+11/10/2024 06:06:16 PM [INFO]: tpx generation    : 23
+11/10/2024 06:06:16 PM [INFO]: tpx precision     : 4
+11/10/2024 06:06:16 PM [INFO]: tpx file_tag      : release
+11/10/2024 06:06:16 PM [INFO]: tpx natoms        : 47112
+11/10/2024 06:06:16 PM [INFO]: tpx ngtc          : 3
+11/10/2024 06:06:16 PM [INFO]: tpx fep_state     : 0
+11/10/2024 06:06:16 PM [INFO]: tpx lambda        : 0.0
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'POPC' lipids
+/usr/local/lib/python3.11/dist-packages/MDAnalysis/core/groups.py:3218: UserWarning: Empty string to select atoms, empty group returned.
+  warnings.warn("Empty string to select atoms, empty group returned.",
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'POPG' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'POPS' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'POPE' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'PYPC' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'PAzePCprot' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'PAzePCdeprot' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'DMPC' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'DPPC' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'DPPE' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'DPPG' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'DEPC' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'DRPC' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'DYPC' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'DLPC' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'DLIPC' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'DOG' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'DOPC' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'DOPE' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'DDOPC' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'DOPS' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'DSPC' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'DAPC' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'DMTAP' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'SDG' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'SDPE' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'SOPC' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'POPI' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'SAPI' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'SAPI24' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'SAPI25' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'SLPI' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'CER' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'CER180' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'CHOL' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'DCHOL' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'DHMDMAB' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'SLiPC' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'SM16' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'SM18' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'TOCL' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'TLCL_0H' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'GM1' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'DPPGK' lipids
+11/10/2024 06:06:17 PM [INFO]: Calculating number of 'GB3' lipids
+11/10/2024 06:06:17 PM [INFO]: Center of the mass of the membrane: 41.68400521363064
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: resname DOPC
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup [<Residue DOPC, 1>, <Residue DOPC, 2>, <Residue DOPC, 3>, ..., <Residue DOPC, 126>, <Residue DOPC, 127>, <Residue DOPC, 128>]>
+11/10/2024 06:06:17 PM [INFO]: Number of 'DOPC' in upper leaflet: 64
+11/10/2024 06:06:17 PM [INFO]: Number of 'DOPC' in lower leaflet: 64
+11/10/2024 06:06:17 PM [INFO]: resname DOPE
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup [<Residue DOPE, 129>, <Residue DOPE, 130>, <Residue DOPE, 131>, ..., <Residue DOPE, 254>, <Residue DOPE, 255>, <Residue DOPE, 256>]>
+11/10/2024 06:06:17 PM [INFO]: Number of 'DOPE' in upper leaflet: 64
+11/10/2024 06:06:17 PM [INFO]: Number of 'DOPE' in lower leaflet: 64
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: 
+11/10/2024 06:06:17 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:17 PM [INFO]: Number of 'SOL': 11096
+11/10/2024 06:06:17 PM [INFO]: Number of frames: 3001
+11/10/2024 06:06:17 PM [INFO]: Timestep: 100.0
+11/10/2024 06:06:17 PM [INFO]: Exporting information with gmx dump
+                       :-) GROMACS - gmx dump, 2024.3 (-:
+
+Executable:   /usr/local/gromacs/bin/gmx
+Data prefix:  /usr/local/gromacs
+Working dir:  /Databank/Scripts/BuildDatabank
+Command line:
+  gmx dump -s /tmp/databank_workdir/zenodo.1402437_download/md.tpr
+
+Reading file /tmp/databank_workdir/zenodo.1402437_download/md.tpr, VERSION 4.5.3 (single precision)
+Reading file /tmp/databank_workdir/zenodo.1402437_download/md.tpr, VERSION 4.5.3 (single precision)
+Note: file tpx version 73, software tpx version 133
+
+GROMACS reminds you: "You can get into a habit of thought in which you enjoy making fun of all those other people who don't see things as clearly as you do. We have to guard carefully against it." (Carl Sagan)
+
+11/10/2024 06:06:17 PM [INFO]: Parameters read from input files:
+11/10/2024 06:06:17 PM [INFO]: TEMPERATURE: 300.0
+11/10/2024 06:06:17 PM [INFO]: LENGTH OF THE TRAJECTORY: 300100.0
+Traceback (most recent call last):
+  File "/Databank/Scripts/BuildDatabank/AddData.py", line 530, in <module>
+    stop = input(
+           ^^^^^^
+EOFError: EOF when reading a line
+/Databank/Scripts/BuildDatabank/info_files/510/info.yaml: 11/10/2024 06:06:18 PM [INFO]: Simulation uses supported software 'GROMACS'
+11/10/2024 06:06:18 PM [INFO]: found 3 ressources to download: md_dt100_OK_centered.xtc, md.tpr, start.gro
+11/10/2024 06:06:18 PM [INFO]: all entries in simulation are understood and will be further processed
+11/10/2024 06:06:18 PM [WARNING]: --work_dir override, ignoring 'DIR_WRK' from configuration file: /home/lara/Databank
+11/10/2024 06:06:18 PM [INFO]: The data will be processed in directory path '/tmp/databank_workdir/zenodo.1402441_download'
+11/10/2024 06:06:18 PM [INFO]: Validating file: md_dt100_OK_centered.xtc..
+11/10/2024 06:06:19 PM [INFO]: Validating file: md.tpr..
+11/10/2024 06:06:19 PM [INFO]: Validating file: start.gro..
+11/10/2024 06:06:19 PM [INFO]: Now downloading 3 files ...
+md_dt100_OK_centered.xtc: 0.00B [00:00, ?B/s]md_dt100_OK_centered.xtc:   0%|          | 8.00k/494M [00:00<6:45:15, 21.3kB/s]md_dt100_OK_centered.xtc:   0%|          | 112k/494M [00:00<28:33, 302kB/s]    md_dt100_OK_centered.xtc:   0%|          | 856k/494M [00:00<03:43, 2.32MB/s]md_dt100_OK_centered.xtc:   1%|▏         | 6.62M/494M [00:00<00:27, 18.7MB/s]md_dt100_OK_centered.xtc:   3%|▎         | 16.5M/494M [00:00<00:11, 41.9MB/s]md_dt100_OK_centered.xtc:   6%|▌         | 27.8M/494M [00:00<00:08, 60.9MB/s]md_dt100_OK_centered.xtc:   8%|▊         | 39.1M/494M [00:01<00:06, 74.2MB/s]md_dt100_OK_centered.xtc:  10%|█         | 50.4M/494M [00:01<00:05, 82.9MB/s]md_dt100_OK_centered.xtc:  12%|█▏        | 61.6M/494M [00:01<00:05, 89.5MB/s]md_dt100_OK_centered.xtc:  15%|█▍        | 72.3M/494M [00:01<00:04, 93.4MB/s]md_dt100_OK_centered.xtc:  17%|█▋        | 83.7M/494M [00:01<00:04, 96.8MB/s]md_dt100_OK_centered.xtc:  19%|█▉        | 95.1M/494M [00:01<00:04, 100MB/s] md_dt100_OK_centered.xtc:  21%|██▏       | 106M/494M [00:01<00:03, 102MB/s] md_dt100_OK_centered.xtc:  24%|██▍       | 118M/494M [00:01<00:03, 104MB/s]md_dt100_OK_centered.xtc:  26%|██▌       | 129M/494M [00:01<00:03, 104MB/s]md_dt100_OK_centered.xtc:  29%|██▊       | 141M/494M [00:02<00:03, 105MB/s]md_dt100_OK_centered.xtc:  31%|███       | 151M/494M [00:02<00:03, 104MB/s]md_dt100_OK_centered.xtc:  33%|███▎      | 161M/494M [00:02<00:03, 103MB/s]md_dt100_OK_centered.xtc:  35%|███▍      | 172M/494M [00:02<00:03, 104MB/s]md_dt100_OK_centered.xtc:  37%|███▋      | 183M/494M [00:02<00:03, 105MB/s]md_dt100_OK_centered.xtc:  39%|███▉      | 194M/494M [00:02<00:02, 105MB/s]md_dt100_OK_centered.xtc:  42%|████▏     | 206M/494M [00:02<00:02, 106MB/s]md_dt100_OK_centered.xtc:  44%|████▍     | 217M/494M [00:02<00:02, 106MB/s]md_dt100_OK_centered.xtc:  46%|████▌     | 228M/494M [00:02<00:02, 108MB/s]md_dt100_OK_centered.xtc:  48%|████▊     | 239M/494M [00:03<00:02, 106MB/s]md_dt100_OK_centered.xtc:  51%|█████     | 250M/494M [00:03<00:02, 106MB/s]md_dt100_OK_centered.xtc:  53%|█████▎    | 259M/494M [00:03<00:02, 104MB/s]md_dt100_OK_centered.xtc:  55%|█████▍    | 270M/494M [00:03<00:02, 104MB/s]md_dt100_OK_centered.xtc:  57%|█████▋    | 279M/494M [00:03<00:02, 102MB/s]md_dt100_OK_centered.xtc:  59%|█████▊    | 289M/494M [00:03<00:02, 102MB/s]md_dt100_OK_centered.xtc:  60%|██████    | 299M/494M [00:03<00:02, 101MB/s]md_dt100_OK_centered.xtc:  62%|██████▏   | 307M/494M [00:03<00:02, 96.3MB/s]md_dt100_OK_centered.xtc:  64%|██████▍   | 317M/494M [00:03<00:01, 97.2MB/s]md_dt100_OK_centered.xtc:  66%|██████▌   | 327M/494M [00:03<00:01, 96.4MB/s]md_dt100_OK_centered.xtc:  68%|██████▊   | 336M/494M [00:04<00:01, 94.7MB/s]md_dt100_OK_centered.xtc:  70%|██████▉   | 346M/494M [00:04<00:01, 95.6MB/s]md_dt100_OK_centered.xtc:  72%|███████▏  | 355M/494M [00:04<00:01, 95.0MB/s]md_dt100_OK_centered.xtc:  74%|███████▍  | 365M/494M [00:04<00:01, 96.1MB/s]md_dt100_OK_centered.xtc:  76%|███████▌  | 374M/494M [00:04<00:01, 96.3MB/s]md_dt100_OK_centered.xtc:  77%|███████▋  | 383M/494M [00:04<00:01, 93.4MB/s]md_dt100_OK_centered.xtc:  79%|███████▉  | 391M/494M [00:04<00:01, 90.9MB/s]md_dt100_OK_centered.xtc:  81%|████████  | 401M/494M [00:04<00:01, 94.2MB/s]md_dt100_OK_centered.xtc:  83%|████████▎ | 411M/494M [00:04<00:00, 96.3MB/s]md_dt100_OK_centered.xtc:  85%|████████▌ | 422M/494M [00:04<00:00, 100MB/s] md_dt100_OK_centered.xtc:  87%|████████▋ | 432M/494M [00:05<00:00, 101MB/s]md_dt100_OK_centered.xtc:  89%|████████▉ | 440M/494M [00:05<00:00, 97.6MB/s]md_dt100_OK_centered.xtc:  91%|█████████ | 450M/494M [00:05<00:00, 98.2MB/s]md_dt100_OK_centered.xtc:  93%|█████████▎| 458M/494M [00:05<00:00, 84.7MB/s]md_dt100_OK_centered.xtc:  95%|█████████▍| 468M/494M [00:05<00:00, 88.9MB/s]md_dt100_OK_centered.xtc:  96%|█████████▋| 477M/494M [00:05<00:00, 88.7MB/s]md_dt100_OK_centered.xtc:  98%|█████████▊| 486M/494M [00:05<00:00, 91.9MB/s]md_dt100_OK_centered.xtc: 494MB [00:05, 88.8MB/s]                           
+md.tpr: 0.00B [00:00, ?B/s]md.tpr:   1%|          | 8.00k/1.45M [00:00<01:10, 21.6kB/s]md.tpr:   9%|▊         | 128k/1.45M [00:00<00:03, 350kB/s]  md.tpr:  71%|███████▏  | 1.04M/1.45M [00:00<00:00, 2.94MB/s]md.tpr: 1.46MB [00:00, 2.62MB/s]                            
+start.gro: 0.00B [00:00, ?B/s]start.gro:   0%|          | 8.00k/2.01M [00:00<01:42, 20.5kB/s]start.gro:   6%|▌         | 120k/2.01M [00:00<00:06, 315kB/s]  start.gro:  50%|█████     | 1.01M/2.01M [00:00<00:00, 2.74MB/s]start.gro: 2.02MB [00:00, 3.46MB/s]                            
+11/10/2024 06:06:28 PM [INFO]: Download of 3 files was successful
+11/10/2024 06:06:28 PM [INFO]: calculating sha1 hash of 'md_dt100_OK_centered.xtc'...
+  0%|          | 0/126466 [00:00<?, ?it/s]  6%|▌         | 7857/126466 [00:00<00:01, 78567.83it/s] 15%|█▌        | 19524/126466 [00:00<00:01, 100976.56it/s] 25%|██▍       | 31318/126466 [00:00<00:00, 108719.06it/s] 34%|███▍      | 43134/126466 [00:00<00:00, 112445.94it/s] 44%|████▎     | 55045/126466 [00:00<00:00, 114845.77it/s] 53%|█████▎    | 66965/126466 [00:00<00:00, 116325.16it/s] 62%|██████▏   | 78930/126466 [00:00<00:00, 117409.76it/s] 72%|███████▏  | 90919/126466 [00:00<00:00, 118198.82it/s] 81%|████████▏ | 102959/126466 [00:00<00:00, 118884.57it/s] 91%|█████████ | 114878/126466 [00:01<00:00, 118976.88it/s]100%|██████████| 126466/126466 [00:01<00:00, 115254.98it/s]
+11/10/2024 06:06:29 PM [INFO]: calculating sha1 hash of 'md.tpr'...
+  0%|          | 0/373 [00:00<?, ?it/s]100%|██████████| 373/373 [00:00<00:00, 112811.90it/s]
+11/10/2024 06:06:29 PM [INFO]: calculating sha1 hash of 'start.gro'...
+  0%|          | 0/515 [00:00<?, ?it/s]100%|██████████| 515/515 [00:00<00:00, 113460.79it/s]
+11/10/2024 06:06:29 PM [INFO]: Summary of downloaded files:
+
+11/10/2024 06:06:29 PM [INFO]: Calculating the numbers of lipid molecules in each leaflet based on the center of mass of the membrane and lipids.
+11/10/2024 06:06:29 PM [INFO]: If a lipid molecule is split to multiple residues, the centre of mass of the headgroup is used.
+11/10/2024 06:06:29 PM [INFO]: MDAnalysis tries to use /tmp/databank_workdir/zenodo.1402441_download/md.tpr and /tmp/databank_workdir/zenodo.1402441_download/md_dt100_OK_centered.xtc
+11/10/2024 06:06:29 PM [INFO]: Gromacs version   : b'VERSION 4.5.3'
+11/10/2024 06:06:29 PM [INFO]: tpx version       : 73
+11/10/2024 06:06:29 PM [INFO]: tpx generation    : 23
+11/10/2024 06:06:29 PM [INFO]: tpx precision     : 4
+11/10/2024 06:06:29 PM [INFO]: tpx file_tag      : release
+11/10/2024 06:06:29 PM [INFO]: tpx natoms        : 46856
+11/10/2024 06:06:29 PM [INFO]: tpx ngtc          : 3
+11/10/2024 06:06:29 PM [INFO]: tpx fep_state     : 0
+11/10/2024 06:06:29 PM [INFO]: tpx lambda        : 0.0
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'POPC' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'POPG' lipids
+/usr/local/lib/python3.11/dist-packages/MDAnalysis/core/groups.py:3218: UserWarning: Empty string to select atoms, empty group returned.
+  warnings.warn("Empty string to select atoms, empty group returned.",
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'POPS' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'POPE' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'PYPC' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'PAzePCprot' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'PAzePCdeprot' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'DMPC' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'DPPC' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'DPPE' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'DPPG' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'DEPC' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'DRPC' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'DYPC' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'DLPC' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'DLIPC' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'DOG' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'DOPC' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'DOPE' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'DDOPC' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'DOPS' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'DSPC' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'DAPC' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'DMTAP' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'SDG' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'SDPE' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'SOPC' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'POPI' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'SAPI' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'SAPI24' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'SAPI25' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'SLPI' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'CER' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'CER180' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'CHOL' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'DCHOL' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'DHMDMAB' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'SLiPC' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'SM16' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'SM18' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'TOCL' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'TLCL_0H' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'GM1' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'DPPGK' lipids
+11/10/2024 06:06:30 PM [INFO]: Calculating number of 'GB3' lipids
+11/10/2024 06:06:30 PM [INFO]: Center of the mass of the membrane: 42.474850755362944
+11/10/2024 06:06:30 PM [INFO]: resname POPC
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup [<Residue POPC, 1>, <Residue POPC, 2>, <Residue POPC, 3>, ..., <Residue POPC, 126>, <Residue POPC, 127>, <Residue POPC, 128>]>
+11/10/2024 06:06:30 PM [INFO]: Number of 'POPC' in upper leaflet: 64
+11/10/2024 06:06:30 PM [INFO]: Number of 'POPC' in lower leaflet: 64
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: resname DOPE
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup [<Residue DOPE, 129>, <Residue DOPE, 130>, <Residue DOPE, 131>, ..., <Residue DOPE, 254>, <Residue DOPE, 255>, <Residue DOPE, 256>]>
+11/10/2024 06:06:30 PM [INFO]: Number of 'DOPE' in upper leaflet: 64
+11/10/2024 06:06:30 PM [INFO]: Number of 'DOPE' in lower leaflet: 64
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: 
+11/10/2024 06:06:30 PM [INFO]: <ResidueGroup []>
+11/10/2024 06:06:30 PM [INFO]: Number of 'SOL': 11096
+11/10/2024 06:06:30 PM [INFO]: Number of frames: 3001
+11/10/2024 06:06:30 PM [INFO]: Timestep: 100.0
+11/10/2024 06:06:30 PM [INFO]: Exporting information with gmx dump
+                       :-) GROMACS - gmx dump, 2024.3 (-:
+
+Executable:   /usr/local/gromacs/bin/gmx
+Data prefix:  /usr/local/gromacs
+Working dir:  /Databank/Scripts/BuildDatabank
+Command line:
+  gmx dump -s /tmp/databank_workdir/zenodo.1402441_download/md.tpr
+
+Reading file /tmp/databank_workdir/zenodo.1402441_download/md.tpr, VERSION 4.5.3 (single precision)
+Reading file /tmp/databank_workdir/zenodo.1402441_download/md.tpr, VERSION 4.5.3 (single precision)
+Note: file tpx version 73, software tpx version 133
+
+GROMACS reminds you: "I Don't Want to Calm Down" (Throwing Muses)
+
+11/10/2024 06:06:30 PM [INFO]: Parameters read from input files:
+11/10/2024 06:06:30 PM [INFO]: TEMPERATURE: 300.0
+11/10/2024 06:06:30 PM [INFO]: LENGTH OF THE TRAJECTORY: 300100.0
+Traceback (most recent call last):
+  File "/Databank/Scripts/BuildDatabank/AddData.py", line 530, in <module>
+    stop = input(
+           ^^^^^^
+EOFError: EOF when reading a line
