@@ -39,7 +39,7 @@ for file in "${subset_files[@]}"; do
     cd "$BUILDDATABANKPATH"
     
     # Run AddData.py and capture the error message if it fails
-    error_message=$(python3 "AddData.py" -f "$file" -w "$WORK_DIR" 2>&1 >/dev/null)
+    error_message=$(python3 "AddData.py" -f "$file" -w "$WORK_DIR" 2>&1 1>/dev/null)
     if [[ $? -ne 0 ]]; then
       echo "AddData.py failed for $file"
       failed_files+=("$file: $error_message")  # Add the filename and error message to the failed_files list
