@@ -42,33 +42,31 @@ for file in "${subset_files[@]}"; do
     if ! python3 "AddData.py" -f "$file" -w "$WORK_DIR"; then
       echo "AddData.py failed for $file"
       failed_files+=("$file")  # Add the filename to the failed_files list
-
-      # Append failure with timestamp to the log file
-      timestamp=$(date "+%Y-%m-%d %H:%M:%S")
-      echo "$timestamp - AddData.py failed for $file" >> Data/Logs/recomputeLogs.txt
     fi
   fi
 done
 
-# After the loop, check if there are any failed files
+cd "$DATABANK_ABS_PATH"
+
+# After the loop, log all failed files with a single timestamp if there are any
 if [ ${#failed_files[@]} -ne 0 ]; then
-  echo "The following files failed to process:"
+  timestamp=$(date "+%Y-%m-%d %H:%M:%S")
+  echo "$timestamp - The following files failed to process:" >> Data/Logs/recomputeLogs.txt
   for failed_file in "${failed_files[@]}"; do
-    echo "$failed_file"
+    echo "$failed_file" >> Data/Logs/recomputeLogs.txt
+    echo "$failed_file"  # Optionally, print to console as well
   done
 else
   echo "All files processed successfully."
 fi
+
 
 # If no new files were detected
 if [[ ${#subset_files[@]} -eq 0 ]]; then
   echo "No new files detected in $BUILDDATABANKPATH for the specified range."
 fi
 
-cd "$BUILDDATABANKPATH"
 
-# Push changes to the repository:
-cd "$DATABANK_ABS_PATH"
 git status
 git pull
 git add Data/Logs/*
