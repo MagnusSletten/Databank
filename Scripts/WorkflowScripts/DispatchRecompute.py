@@ -7,7 +7,7 @@ def main():
     number_of_runs = int(os.getenv('NUMBER_OF_RUNS'))
     start_index = int(os.getenv('START_INDEX'))
     end_index = int(os.getenv('END_INDEX'))
-    working_branch_name = os.getenv('WORKING_BRANCH_NAME')
+    working_branch_name = os.getenv('BRANCH_NAME')
     
     # Calculate total number of items
     total_items = end_index - start_index + 1
@@ -31,7 +31,7 @@ def main():
         try:
             # Run the GitHub CLI command to dispatch the workflow
             result = subprocess.run([
-                "gh", "workflow", "run", "RecomputeInstance.yml", "--ref", "dev_pipeline",
+                "gh", "workflow", "run", "RecomputeInstance.yml", "--ref", "dev_pipeline_compose",
                 "--field", f"working_branch_name={working_branch_name}",
                 "--field", f"start_index={current_start}",
                 "--field", f"end_index={current_end}"

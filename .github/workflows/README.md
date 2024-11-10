@@ -41,7 +41,7 @@ The workflow can be triggered manually with the `workflow_dispatch` event, allow
 
 #### Inputs
 
-- `docker_image_name` (required): The name of the Docker image you want to rebuild and push. This should match the image names in the repository (e.g., `add_data`, `recompute_instance`, `tests`).
+- `docker_image_name` (required): The name of the Docker image you want to rebuild and push. This should match the image names in the repository (e.g., `core`, `util`).
 
 #### Steps in the Workflow
 

@@ -21,22 +21,17 @@ jobs:
   AddSimData:
     runs-on: nrec-large
     steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
       - name: Pull Docker images
         run: |
           sudo docker pull nmrlipids/core
 
-      - name: Run Docker Compose
-        working-directory: ./Docker  # Navigate to the Docker directory where compose.yml is located
-        shell: bash
+      - name: Run docker image to recompute files
         run: |
-          # Run docker compose with the environment variables explicitly passed via -e flags
-          sudo docker compose run --rm \
+            sudo docker run --rm \
             -e GITHUB_REPOSITORY="${{ github.repository }}" \
             -e BRANCH_NAME="${{ inputs.working_branch_name }}" \
             -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
             -e start_index="${{ inputs.start_index }}" \
             -e end_index="${{ inputs.end_index }}" \
-            recompute_instance
+            nmrlipids/core \
+            /bin/bash -c "git pull && Scripts/WorkflowScripts/DockerRunInstructions/RecomputeInstructions.sh"

@@ -2,8 +2,8 @@ FROM debian:bookworm-slim
 
 ARG GROMACS_VERSION=2024.3
 ENV GROMACS_VERSION=${GROMACS_VERSION}
-
-#Note: This still needs a enviromental variable with the repo url.
+ARG REPO_URL="https://github.com/MagnusSletten/Databank"
+ARG START_BRANCH_NAME="dev_pipeline_compose"
 
 RUN apt-get update && apt-get install -y \
     bash \
@@ -55,16 +55,17 @@ apt-get install -y gh && \
 apt-get clean && \
 rm -rf /var/lib/apt/lists/*
 
-# Add a non-root user 'runner'
+# Clone the specified branch of the repository
+RUN git clone --branch ${START_BRANCH_NAME} ${REPO_URL} /Databank
+
+#Add a non-root user 'runner'
 RUN useradd -m -s /bin/bash runner
 
+RUN chown -R runner:runner /Databank
 # Create a symbolic link for python -> python3
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
-
-WORKDIR /app
-
-
-RUN chown -R runner:runner /app
-
+# Switch to the non-root user 'runner'
 USER runner
+
+WORKDIR /Databank
