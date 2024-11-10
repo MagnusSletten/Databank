@@ -22,9 +22,8 @@ git pull origin "$BRANCH_NAME" || { echo "git pull failed"; exit 1; }
 WORK_DIR="/tmp/databank_workdir"
 mkdir -p "$WORK_DIR" || { echo "Failed to create work directory"; exit 1; }
 
-# Get sorted list of all .yaml files in BUILDDATABANKPATH
-sorted_files=($(find "$BUILDDATABANKPATH/info_files" -name "*.yaml"))
-
+# Get list of all .yaml files and sort by numeric folder names
+sorted_files=($(find "$BUILDDATABANKPATH/info_files" -name "*.yaml" | sort -t '/' -k5,5n))
 
 # Calculate the subset of files based on $start_index and $end_index
 subset_files=("${sorted_files[@]:$start_index:$(($end_index - $start_index + 1))}")
