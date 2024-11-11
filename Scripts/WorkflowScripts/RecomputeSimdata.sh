@@ -38,6 +38,9 @@ for file in "${subset_files[@]}"; do
     echo "Running AddData.py for $file in folder $folder"
     cd "$BUILDDATABANKPATH"
     
+    # Reset error_message at the start of each iteration
+    error_message=""
+    
     # Run AddData.py and capture the error message if it fails
     error_message=$(python3 "AddData.py" -f "$file" -w "$WORK_DIR" 2>&1 1>/dev/null)
     if [[ $? -ne 0 ]]; then
@@ -49,6 +52,7 @@ for file in "${subset_files[@]}"; do
     rm -rf "$WORK_DIR/"*
   fi
 done
+
 
 cd "$DATABANK_ABS_PATH"
 git pull
