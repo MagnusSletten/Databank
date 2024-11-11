@@ -37,15 +37,12 @@ for file in "${subset_files[@]}"; do
     folder=$(dirname "$file") 
     echo "Running AddData.py for $file in folder $folder"
     cd "$BUILDDATABANKPATH"
-    
-    # Reset error_message at the start of each iteration
-    error_message=""
-    
+   
     # Run AddData.py and capture the error message if it fails
-    error_message=$(python3 "AddData.py" -f "$file" -w "$WORK_DIR" 2>&1 1>/dev/null)
+    python3 "AddData.py" -f "$file" -w "$WORK_DIR" 
     if [[ $? -ne 0 ]]; then
       echo "AddData.py failed for $file"
-      failed_files+=("$file: $error_message")  # Add the filename and error message to the failed_files list
+      failed_files+=$file  # Add the filename and error message to the failed_files list
     fi
     
     # Clear the working directory
