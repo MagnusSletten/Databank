@@ -3,13 +3,13 @@ name: Recompute Databank
 on:
   workflow_dispatch:
     inputs:
-      target_branch_name:
+      base_branch:
         description: "The branch which has the files that are going to be recomputed."
         required: true
         default: "main"
         type: string
       working_branch_name:
-        description: "The new branch where new files are added. A pull request to target_branch_name is then made from working_branch_name"
+        description: "The new branch where new files are added. A pull request to base_branch is then made from working_branch_name"
         required: true
         default: "default"
         type: string 
@@ -25,6 +25,7 @@ on:
         description: "Number of individual runners being used"
         required: true
         type: number 
+
 jobs:
   Make_New_branch:
     runs-on: nrec-large
@@ -34,7 +35,7 @@ jobs:
           sudo docker run --rm \
             -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
             -e BRANCH_NAME="${{ inputs.working_branch_name }}" \
-            -e BASE_BRANCH="${{ inputs.target_branch_name }}" \
+            -e BASE_BRANCH="${{ inputs.base_branch }}" \
             -e START_INDEX="${{ inputs.start_index }}" \
             -e END_INDEX="${{ inputs.end_index }}" \
             nmrlipids/core \
@@ -58,8 +59,6 @@ jobs:
                            --body \"Recompute includes files from index ${START_INDEX} to index ${END_INDEX}\"
             "
 
-
-
   Run-dispatches:   
     runs-on: nrec-large
     needs: Make_New_branch
@@ -80,4 +79,3 @@ jobs:
             --env GITHUB_REPOSITORY="${{ github.repository }}" \
             nmrlipids/utils \
             /bin/bash -c "git pull && Scripts/WorkflowScripts/DockerRunInstructions/DispatchRecompute.sh"
-
