@@ -32,16 +32,12 @@ jobs:
     steps:
       - name: Pull Docker image
         run: |
-            sudo docker pull nmrlipids/core
+          sudo docker pull nmrlipids/core
+
       - name: Run Docker to Create, Push Branch, and Make PR
         run: |
           sudo docker run --rm \
             -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
-            -e BRANCH_NAME="${{ inputs.working_branch_name }}" \
-            -e BASE_BRANCH="${{ inputs.base_branch }}" \
-            -e START_INDEX="${{ inputs.start_index }}" \
-            -e END_INDEX="${{ inputs.end_index }}" \
-            -e GITHUB_REPOSITORY="${{ github.repository }}" \
             nmrlipids/core \
             bash -c "
               git pull && git checkout ${{ inputs.base_branch }} &&
@@ -55,14 +51,15 @@ jobs:
               git commit --allow-empty -m 'Initial placeholder commit' &&
               
               # Push the empty commit to the remote branch
-              git push https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY} &&
+              git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} &&
               
               # Create a pull request from the new branch to the base branch
-              gh pr create --head \"${BRANCH_NAME}\" \
-                           --base \"${BASE_BRANCH}\" \
-                           --title \"Recompute started by ${GITHUB_ACTOR}\" \
-                           --body \"Recompute includes files from index ${START_INDEX} to index ${END_INDEX}\"
+              gh pr create --head \"${{ inputs.working_branch_name }}\" \
+                           --base \"${{ inputs.base_branch }}\" \
+                           --title \"Recompute started by ${{ github.actor }}\" \
+                           --body \"Recompute includes files from index ${{ inputs.start_index }} to index ${{ inputs.end_index }}\"
             "
+
 
   Run-dispatches:   
     runs-on: nrec-large
