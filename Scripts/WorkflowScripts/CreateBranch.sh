@@ -2,7 +2,7 @@
 
 #Creates a new branch identical to a given base branch within the repository:
 
-# Ensure base branch is up-to-date and exists locally
+# Checks out branch and pull updates
 git checkout ${BASE_BRANCH} || { echo "Base branch ${BASE_BRANCH} not found"; exit 1; }
 git pull origin ${BASE_BRANCH} || { echo "Failed to pull latest ${BASE_BRANCH}"; exit 1; }
 

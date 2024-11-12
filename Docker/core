@@ -33,6 +33,7 @@ RUN wget https://ftp.gromacs.org/gromacs/gromacs-$GROMACS_VERSION.tar.gz && \
 
 
 RUN echo "source /usr/local/gromacs/bin/GMXRC" >> /etc/profile
+RUN echo "source /usr/local/gromacs/bin/GMXRC" >> /etc/bash.bashrc
 
 
 RUN pip3 install --break-system-packages pytest tqdm pyyaml pandas buildh Cython
