@@ -1,2 +1,4 @@
 2024-11-12 10:49:41 - The following files failed to process:
 /Databank/Scripts/BuildDatabank/info_files/509/info.yaml/Databank/Scripts/BuildDatabank/info_files/510/info.yaml
+2024-11-12 10:50:12 - The following files failed to process:
+/Databank/Scripts/BuildDatabank/info_files/512/info.yaml
