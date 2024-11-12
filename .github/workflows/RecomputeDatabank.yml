@@ -40,6 +40,7 @@ jobs:
             -e END_INDEX="${{ inputs.end_index }}" \
             nmrlipids/core \
             bash -c "
+              git pull && git checkout ${{ inputs.base_branch }} &&
               # Configure Git with existing script
               Scripts/WorkflowScripts/RunnerGitConfig.sh &&
               
