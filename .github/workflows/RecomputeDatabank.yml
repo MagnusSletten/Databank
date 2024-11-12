@@ -30,6 +30,9 @@ jobs:
   Make_New_branch:
     runs-on: nrec-large
     steps:
+      - name: Pull Docker image
+        run: |
+            sudo docker pull nmrlipids/core
       - name: Run Docker to Create, Push Branch, and Make PR
         run: |
           sudo docker run --rm \
