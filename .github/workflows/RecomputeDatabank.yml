@@ -41,6 +41,7 @@ jobs:
             -e BASE_BRANCH="${{ inputs.base_branch }}" \
             -e START_INDEX="${{ inputs.start_index }}" \
             -e END_INDEX="${{ inputs.end_index }}" \
+            -e GITHUB_REPOSITORY="${{ github.repository }}" \
             nmrlipids/core \
             bash -c "
               git pull && git checkout ${{ inputs.base_branch }} &&
