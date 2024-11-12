@@ -34,31 +34,38 @@ jobs:
         run: |
           sudo docker pull nmrlipids/core
 
-      - name: Run Docker to Create, Push Branch, and Make PR
-        run: |
-          sudo docker run --rm \
-            -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
-            nmrlipids/core \
-            bash -c "
-              git pull && git checkout ${{ inputs.base_branch }} &&
-              # Configure Git with existing script
-              Scripts/WorkflowScripts/RunnerGitConfig.sh &&
-              
-              # Create the new branch and push it to the repository
-              Scripts/WorkflowScripts/CreateBranch.sh &&
-              
-              # Add an empty commit to initialize or update the branch as needed
-              git commit --allow-empty -m 'Initial placeholder commit' &&
-              
-              # Push the empty commit to the remote branch
-              git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} &&
-              
-              # Create a pull request from the new branch to the base branch
-              gh pr create --head \"${{ inputs.working_branch_name }}\" \
-                           --base \"${{ inputs.base_branch }}\" \
-                           --title \"Recompute started by ${{ github.actor }}\" \
-                           --body \"Recompute includes files from index ${{ inputs.start_index }} to index ${{ inputs.end_index }}\"
-            "
+          - name: Run Docker to Create, Push Branch, and Make PR
+          run: |
+            sudo docker run --rm \
+              -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
+              -e BRANCH_NAME="${{ inputs.working_branch_name }}" \
+              -e BASE_BRANCH="${{ inputs.base_branch }}" \
+              -e START_INDEX="${{ inputs.start_index }}" \
+              -e END_INDEX="${{ inputs.end_index }}" \
+              -e GITHUB_REPOSITORY="${{ github.repository }}" \
+              nmrlipids/core \
+              bash -c "
+                git pull && git checkout '${{ inputs.base_branch }}' &&
+                
+                # Configure Git with existing script
+                Scripts/WorkflowScripts/RunnerGitConfig.sh &&
+                
+                # Create the new branch and push it to the repository
+                Scripts/WorkflowScripts/CreateBranch.sh &&
+                
+                # Add an empty commit to initialize 
+                git commit --allow-empty -m 'Initial placeholder commit' &&
+                
+                # Push the empty commit to the remote branch
+                git push https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }} &&
+                
+                # Create a pull request from the new branch to the base branch
+                gh pr create --head '${{ inputs.working_branch_name }}' \
+                             --base '${{ inputs.base_branch }}' \
+                             --title 'Recompute started by ${{ github.actor }}' \
+                             --body 'Recompute includes files from index ${{ inputs.start_index }} to index ${{ inputs.end_index }}'
+              "
+        
 
 
   Run-dispatches:   
