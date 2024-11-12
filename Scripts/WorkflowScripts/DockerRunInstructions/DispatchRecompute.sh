@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Update the repository to ensure it’s up to date
+# Pull latest changes
 git pull || { echo "Failed to pull latest changes"; exit 1; }
 
 # Check out the specified branch

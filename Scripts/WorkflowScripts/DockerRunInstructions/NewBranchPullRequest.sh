@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#This script creates branch in repository identical to one coming from a pull request from a fork. Then it creates a pull request to variable BRANCH_NAME
+
 # Update the repository to ensure it’s up to date
 git pull  || { echo "Failed to pull latest changes"; exit 1; }
 
