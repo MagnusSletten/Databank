@@ -35,13 +35,16 @@ jobs:
         run: sudo docker tag nmrlipids/${{ inputs.docker_image_name }} nmrlipids/${{ inputs.docker_image_name }}:latest
 
       - name: Test
-        working-directory: ./Docker
         shell: bash
         run: |
-          sudo docker compose run --rm \
+          sudo docker run --rm \
             -e BRANCH_NAME="${{ inputs.branch_name }}" \
+            nmrlipids/${{ inputs.docker_image_name }} \
+            bash -c "Scripts/WorkflowScripts/DockerRunInstructions/Runtests.sh"
+      
        
       - name: Push Docker image
         run: |
-          sudo docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin <<< "${{ secrets.DOCKERHUB_TOKEN }}"
+          echo "${{ secrets.DOCKERHUB_TOKEN }}" | sudo docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
           sudo docker push nmrlipids/${{ inputs.docker_image_name }}:latest
+      
