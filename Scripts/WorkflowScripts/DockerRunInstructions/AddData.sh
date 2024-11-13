@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Source GROMACS environment to ensure gmx command is available
-#ource /usr/local/gromacs/bin/GMXRC || { echo "Failed to source GROMACS environment"; exit 1; }
-
 # Update the repository to ensure it’s up to date
 git pull || { echo "Failed to pull latest changes"; exit 1; }
 
