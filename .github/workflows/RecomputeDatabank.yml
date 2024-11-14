@@ -3,13 +3,13 @@ name: Recompute Databank
 on:
   workflow_dispatch:
     inputs:
-      target_branch_name:
+      base_branch:
         description: "The branch which has the files that are going to be recomputed."
         required: true
         default: "main"
         type: string
       working_branch_name:
-        description: "The new branch where new files are added. A pull request to target_branch_name is then made from working_branch_name"
+        description: "The new branch where new files are added. A pull request to base_branch is then made from working_branch_name"
         required: true
         default: "default"
         type: string 
@@ -30,31 +30,44 @@ jobs:
   Make_New_branch:
     runs-on: nrec-large
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-        with:
-          ref: ${{inputs.target_branch_name}}  
-      - name: Set Git User Identity
+      - name: Pull Docker image
         run: |
-          git config user.name "GitHub Actions Bot"
-          git config user.email "actions@github.com"
-      - name: Create and Push the New Branch
+          sudo docker pull nmrlipids/core
+
+      - name: Run Docker to Create, Push Branch, and Make PR
         run: |
-          # Create a new branch from the current checked out branch
-          git checkout -b ${{ inputs.working_branch_name }}
-          # Create an empty commit to initialize the branch
-          git commit --allow-empty -m "Initial placeholder commit"
-          # Push the new branch to the remote repository
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} ${{ inputs.working_branch_name }}
-      - name: Authenticate gh
-        run: |
-            echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
-  
-      - name: Create Pull Request
-        run: |
-            gh pr create --head ${{ inputs.working_branch_name }} --base ${{ inputs.target_branch_name }} --title "This is a recompute of data started by ${{github.actor}}" --body "The recompute includes files starting from index ${{inputs.start_index}} and ending with index ${{inputs.end_index}} "
+          sudo docker run --rm \
+            -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
+            -e BRANCH_NAME="${{ inputs.working_branch_name }}" \
+            -e BASE_BRANCH="${{ inputs.base_branch }}" \
+            -e START_INDEX="${{ inputs.start_index }}" \
+            -e END_INDEX="${{ inputs.end_index }}" \
+            -e GITHUB_REPOSITORY="${{ github.repository }}" \
+            nmrlipids/core \
+            bash -c "
+              git pull && git checkout '${{ inputs.base_branch }}' &&
+              
+              # Configure Git with existing script
+              Scripts/WorkflowScripts/RunnerGitConfig.sh &&
+              
+              # Create the new branch and push it to the repository
+              Scripts/WorkflowScripts/CreateBranch.sh &&
+              
+              # Add an empty commit to initialize 
+              git commit --allow-empty -m 'Initial placeholder commit' &&
+              
+              # Push the empty commit to the remote branch
+              git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} &&
+              
+              # Create a pull request from the new branch to the base branch
+              gh pr create --head '${{ inputs.working_branch_name }}' \
+                            --base '${{ inputs.base_branch }}' \
+                            --title 'Recompute started by ${{ github.actor }}' \
+                            --body 'Recompute includes files from index ${{ inputs.start_index }} to index ${{ inputs.end_index }}'
+            "
       
-  
+
+
   Run-dispatches:   
     runs-on: nrec-large
     needs: Make_New_branch
@@ -75,4 +88,3 @@ jobs:
             --env GITHUB_REPOSITORY="${{ github.repository }}" \
             nmrlipids/utils \
             /bin/bash -c "git pull && Scripts/WorkflowScripts/DockerRunInstructions/DispatchRecompute.sh"
-
