@@ -11,22 +11,16 @@ jobs:
         if: github.event.pull_request.head.repo.full_name == github.repository
         runs-on: nrec-large 
         steps:
-          - name: Check out repository
-            uses: actions/checkout@v4
-          
           - name: Pull latest Docker images
-            working-directory: ./Docker
-            shell: bash
             run: |
               # Pull the latest images for Docker Compose
-              sudo docker compose pull
+              sudo docker pull nmrlipids/core
     
-          - name: Pull and run Docker Compose
-            working-directory: ./Docker
+          - name: Run Docker tests 
             shell: bash
             run: |
-              # Run docker compose with the environment variables explicitly passed via -e flags
-              sudo docker compose run --rm \
-                -e BRANCH_NAME="${{ github.head_ref }}" \
-                tests
-
+                sudo docker run --rm \
+                  -e BRANCH_NAME="${{ github.head_ref }}" \
+                  nmrlipids/core \
+                  bash -c "git pull && Scripts/WorkflowScripts/DockerRunInstructions/Runtests.sh"
+            

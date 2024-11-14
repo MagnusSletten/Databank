@@ -3,7 +3,7 @@ FROM debian:bookworm-slim
 ARG GROMACS_VERSION=2024.3
 ENV GROMACS_VERSION=${GROMACS_VERSION}
 ARG REPO_URL="https://github.com/MagnusSletten/Databank"
-ARG START_BRANCH_NAME="dev_pipeline_compose"
+ARG START_BRANCH_NAME="dev_pipeline"
 
 RUN apt-get update && apt-get install -y \
     bash \
@@ -22,24 +22,22 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN wget https://ftp.gromacs.org/gromacs/gromacs-$GROMACS_VERSION.tar.gz && \
+    RUN wget https://ftp.gromacs.org/gromacs/gromacs-$GROMACS_VERSION.tar.gz && \
     tar xfz gromacs-$GROMACS_VERSION.tar.gz && \
     rm gromacs-$GROMACS_VERSION.tar.gz && \
     cd gromacs-$GROMACS_VERSION && \
     mkdir build && cd build && \
     cmake .. -DGMX_BUILD_OWN_FFTW=ON -DGMX_GPU=OFF -DGMX_MPI=OFF && \
     make -j$(nproc) && \
-    make install
-
-
-RUN echo "source /usr/local/gromacs/bin/GMXRC" >> /etc/profile
+    make install && \
+    cd ../.. && rm -rf gromacs-$GROMACS_VERSION
 
 
 RUN pip3 install --break-system-packages pytest tqdm pyyaml pandas buildh Cython
 
 WORKDIR /app 
 # Clone the MDAnalysis repository
-RUN git clone --branch develop https://github.com/MDAnalysis/mdanalysis.git && \
+RUN git clone --branch develop --depth 1 https://github.com/MDAnalysis/mdanalysis.git && \
     cd mdanalysis/package && \
     python3 setup.py install && \
     cd ../.. && rm -rf mdanalysis
@@ -60,6 +58,8 @@ RUN git clone --branch ${START_BRANCH_NAME} ${REPO_URL} /Databank
 
 #Add a non-root user 'runner'
 RUN useradd -m -s /bin/bash runner
+
+ENV PATH="/usr/local/gromacs/bin:${PATH}"
 
 RUN chown -R runner:runner /Databank
 # Create a symbolic link for python -> python3

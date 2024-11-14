@@ -40,6 +40,7 @@ jobs:
               -e BRANCH_NAME="${{ inputs.working_branch_name}}" \
               -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
               -e TARGET_BRANCH="${{ inputs.target_branch_name }}" \
+              -e TQDM_DISABLE=True \
               nmrlipids/core \
               /bin/bash -c "git pull && Scripts/WorkflowScripts/DockerRunInstructions/AddData.sh"
 
