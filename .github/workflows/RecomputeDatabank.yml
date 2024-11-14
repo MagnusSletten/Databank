@@ -21,7 +21,7 @@ on:
         description: "End index"
         required: true
         type: number 
-      number_of_runs: 
+      number_of_runners: 
         description: "Number of individual runners being used"
         required: true
         type: number 
@@ -80,7 +80,7 @@ jobs:
       - name: Run Docker to Calculate and Dispatch Child Workflows
         run: |
           sudo docker run --rm \
-            --env NUMBER_OF_RUNS=${{ github.event.inputs.number_of_runs }} \
+            --env number_of_runners=${{ github.event.inputs.number_of_runners }} \
             --env START_INDEX=${{ github.event.inputs.start_index }} \
             --env END_INDEX=${{ github.event.inputs.end_index }} \
             --env BRANCH_NAME=${{ github.event.inputs.working_branch_name }} \
