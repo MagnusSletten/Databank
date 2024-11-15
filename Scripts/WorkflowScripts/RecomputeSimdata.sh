@@ -58,7 +58,7 @@ if [ ${#failed_files[@]} -ne 0 ]; then
   timestamp=$(date "+%Y-%m-%d %H:%M:%S")
   echo "$timestamp - The following files failed to process:" >> Data/Logs/recomputeLogs.txt
   for failed_file in "${failed_files[@]}"; do
-    echo "$failed_file" >> Data/Logs/recomputeLogs.txt
+    echo "$failed_file\n" >> Data/Logs/recomputeLogs.txt
     echo "$failed_file"  # Optionally, print to console as well
   done
 else
