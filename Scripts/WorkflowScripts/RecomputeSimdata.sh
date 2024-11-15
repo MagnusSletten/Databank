@@ -38,11 +38,11 @@ for file in "${subset_files[@]}"; do
     echo "Running AddData.py for $file in folder $folder"
     cd "$BUILDDATABANKPATH"
    
-    # Run AddData.py and capture the error message if it fails
+    # Run AddData.py and add failed files to array:
     python3 "AddData.py" -f "$file" -w "$WORK_DIR" 
     if [[ $? -ne 0 ]]; then
       echo "AddData.py failed for $file"
-      failed_files+=$file  # Add the filename and error message to the failed_files list
+      failed_files+=("$file")  # Correctly add the file to the array
     fi
     
     # Clear the working directory
@@ -50,17 +50,12 @@ for file in "${subset_files[@]}"; do
   fi
 done
 
-
-cd "$DATABANK_ABS_PATH"
-git pull
-# After the loop, log all failed files with a single timestamp if there are any
+# Log all failed files with a single timestamp if there are any
 if [ ${#failed_files[@]} -ne 0 ]; then
   timestamp=$(date "+%Y-%m-%d %H:%M:%S")
   echo "$timestamp - The following files failed to process:" >> Data/Logs/recomputeLogs.txt
   for failed_file in "${failed_files[@]}"; do
-    echo -e "$failed_file\n" >> Data/Logs/recomputeLogs.txt
-    echo "$failed_file"  # Optionally, print to console as well
-  done
+    echo "$failed_file" >> Data/Logs/recomputeLogs.txt  
 else
   echo "All files processed successfully."
 fi
