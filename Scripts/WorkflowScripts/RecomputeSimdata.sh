@@ -49,7 +49,7 @@ for file in "${subset_files[@]}"; do
     rm -rf "$WORK_DIR/"*
   fi
 done
-
+cd $DATABANK_ABS_PATH
 # Log all failed files with a single timestamp if there are any
 if [ ${#failed_files[@]} -ne 0 ]; then
   timestamp=$(date "+%Y-%m-%d %H:%M:%S")
