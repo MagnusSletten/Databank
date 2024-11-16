@@ -1,0 +1,14 @@
+name: BuildDockerImages
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: nrec-large
+    steps:      
+      - name: Log in test 
+        run: |
+          echo "${{ secrets.DOCKERHUB_TOKEN }}" | sudo docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+ 
+      
