@@ -74,7 +74,7 @@ jobs:
     steps:
       - name: Pull Docker image
         run: |
-            sudo docker pull nmrlipids/utils
+            sudo docker pull nmrlipids/core
       
 
       - name: Run Docker to Calculate and Dispatch Child Workflows
@@ -86,5 +86,14 @@ jobs:
             --env BRANCH_NAME=${{ github.event.inputs.working_branch_name }} \
             --env GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
             --env GITHUB_REPOSITORY="${{ github.repository }}" \
-            nmrlipids/utils \
-            /bin/bash -c "git pull && Scripts/WorkflowScripts/DockerRunInstructions/DispatchRecompute.sh"
+            nmrlipids/core \
+            /bin/bash -c "
+                # Pull latest changes
+                git pull || { echo 'Failed to pull latest changes'; exit 1; }
+
+                # Check out the specified branch
+                git checkout ${{ github.event.inputs.working_branch_name }}  || { echo 'Failed to check out branch ${{ github.event.inputs.working_branch_name }} ; exit 1; }
+
+                # Run DispatchRecompute.py
+                python Scripts/WorkflowScripts/DispatchRecompute.py || { echo 'Dispatch Recompute failed'; exit 1; }
+              "
