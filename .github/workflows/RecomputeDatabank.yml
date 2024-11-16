@@ -89,11 +89,11 @@ jobs:
             nmrlipids/core \
             /bin/bash -c "
                 # Pull latest changes
-                git pull || { echo 'Failed to pull latest changes'; exit 1; }
+                git pull || { echo "Failed to pull latest changes"; exit 1; }
 
                 # Check out the specified branch
-                git checkout ${{ github.event.inputs.working_branch_name }}  || { echo 'Failed to check out branch ${{ github.event.inputs.working_branch_name }} ; exit 1; }
+                git checkout ${{ github.event.inputs.working_branch_name }}  || { echo "Failed to check out branch ${{ github.event.inputs.working_branch_name }}" ; exit 1; }
 
                 # Run DispatchRecompute.py
-                python Scripts/WorkflowScripts/DispatchRecompute.py || { echo 'Dispatch Recompute failed'; exit 1; }
+                python Scripts/WorkflowScripts/DispatchRecompute.py || { echo "Dispatch Recompute failed"; exit 1; }
               "
