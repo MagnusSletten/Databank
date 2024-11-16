@@ -1,4 +1,4 @@
-name: BuildDockerImages
+name: Docker Log-in Test
 
 on:
   workflow_dispatch:
