@@ -73,5 +73,8 @@ ENV PATH="/usr/local/gromacs/bin:${PATH}"
 # Switch to the non-root user
 USER runner
 
+# Create a symbolic link for python -> python3
+RUN ln -s /usr/bin/python3 /usr/bin/python
+
 # Set the working directory inside the container
 WORKDIR /Databank
