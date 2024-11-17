@@ -1,0 +1,20 @@
+Metadata-Version: 2.1
+Name: DatabankLib
+Version: 1.1.0
+Summary: NMRLipid databank main package
+Home-page: https://github.com/NMRlipids/Databank
+Author: NMRlipids open collaboration
+Author-email: samuli.ollila@helsinki.fi
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.7
+License-File: LICENSE.txt
+Requires-Dist: buildh>=1.6.1
+Requires-Dist: ipython>=8.0.0
+Requires-Dist: MDAnalysis>=2.7.0
+Requires-Dist: numpy>=1.20.0
+Requires-Dist: pandas>=2.0.0
+Requires-Dist: PyYAML>=6.0.0
+Requires-Dist: tqdm>=4.5.0
+Requires-Dist: periodictable>=1.5.0
