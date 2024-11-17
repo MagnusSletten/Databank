@@ -64,6 +64,9 @@ RUN git clone --branch develop --depth 1 https://github.com/MDAnalysis/mdanalysi
 # Add a non-root user 'runner'
 RUN useradd -m -s /bin/bash runner
 
+# Create a symbolic link for python -> python3
+RUN ln -s /usr/bin/python3 /usr/bin/python
+
 # Set permissions for the non-root user
 RUN chown -R runner:runner /Databank
 
@@ -72,9 +75,6 @@ ENV PATH="/usr/local/gromacs/bin:${PATH}"
 
 # Switch to the non-root user
 USER runner
-
-# Create a symbolic link for python -> python3
-RUN ln -s /usr/bin/python3 /usr/bin/python
 
 # Set the working directory inside the container
 WORKDIR /Databank
