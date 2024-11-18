@@ -2,10 +2,10 @@
 FROM debian:bookworm-slim
 
 # Define arguments for GROMACS version and repository details
-ARG GROMACS_VERSION=2024.4
+ARG GROMACS_VERSION=2024.3
 ENV GROMACS_VERSION=${GROMACS_VERSION}
 ARG REPO_URL="https://github.com/MagnusSletten/Databank"
-ARG START_BRANCH_NAME="dev_pipeline_compose"
+ARG START_BRANCH_NAME="modularize-r3"
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -61,7 +61,7 @@ rm -rf /var/lib/apt/lists/*
 RUN git clone --branch develop --depth 1 https://github.com/MDAnalysis/mdanalysis.git && \
     cd mdanalysis/package && \
     pip install --no-cache-dir --break-system-packages -e . 
-# Add a non-root user 'runner'
+#Add a non-root user 'runner'
 RUN useradd -m -s /bin/bash runner
 
 # Create a symbolic link for python -> python3
