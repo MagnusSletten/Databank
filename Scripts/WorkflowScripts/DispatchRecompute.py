@@ -1,21 +1,30 @@
 import os
 import subprocess
 import sys
+from DatabankLib.core import initialize_databank
 
 def main():
-    # Read inputs from environment variables or arguments
-    number_of_runners = int(os.getenv('number_of_runners'))
-    start_index = int(os.getenv('START_INDEX'))
-    end_index = int(os.getenv('END_INDEX'))
-    working_branch_name = os.getenv('BRANCH_NAME')
+    # Read inputs from environment variables
+    number_of_runners = int(os.getenv('number_of_runners', 1))  # Default to 1 runner
+    start_index = int(os.getenv('START_INDEX', 0))  # Default start index to 0
+    end_index = int(os.getenv('END_INDEX', -1))  # Default end index to -1 (must be set)
+    working_branch_name = os.getenv('BRANCH_NAME', 'main')  # Default branch name to 'main'
 
-    # Check if end_index is -1, and set it to the last folder index based on the total count in info_files
-    if end_index == -1:
-        info_files_dir = 'Scripts/BuildDatabank/info_files'
-        folders = [name for name in os.listdir(info_files_dir) if os.path.isdir(os.path.join(info_files_dir, name))]
-        end_index = len(folders) - 1  # Set end_index based on the folder count
-    
-    
+    # Initialize databank to retrieve systems
+    systems = initialize_databank()
+    total_systems = len(systems)
+
+    #If the ending index is set to -1 it will default to using all files to the end
+    if(end_index ==-1):
+        end_index = total_systems-1
+
+
+    # Validate range of indices
+    if start_index < 0 or end_index >= total_systems:
+        raise IndexError(f"Start or end index is out of range. Valid range is 0 to {total_systems - 1}.")
+    if end_index < start_index:
+        raise ValueError("END_INDEX must be greater than or equal to START_INDEX.")
+
     # Calculate total number of items
     total_items = end_index - start_index + 1
 
@@ -28,8 +37,8 @@ def main():
     for i in range(0, number_of_runners):
         # Calculate end index for this chunk
         current_chunk_size = chunk_size
-        if i == 0:
-            current_chunk_size += remainder
+        if i < remainder:
+            current_chunk_size += 1  # Distribute remainder to the first chunks
 
         current_end = current_start + current_chunk_size - 1
 
@@ -46,9 +55,11 @@ def main():
             print(result.stdout)
 
         except subprocess.CalledProcessError as e:
-            print(f"Error dispatching workflow: {e}")
+            print(f"Error dispatching workflow for indices {current_start}-{current_end}: {e}")
             print(f"Command output: {e.output}")
             print(f"Command stderr: {e.stderr}")
+
+        # Update the start index for the next chunk
         current_start = current_end + 1
 
 
