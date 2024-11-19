@@ -29,19 +29,29 @@ def delete_json_files_in_range(start_index, end_index):
 
 def run_calc_properties():
     """
-    Run the calcProperties.sh script after deleting JSON files.
+    Change to the 'Scripts/AnalyzeDatabank' directory and run calcProperties.sh.
     """
     try:
-        # Set the relative path to the shell script
-        script_path = os.path.join('Scripts', 'AnalyzeDatabank', 'calcProperties.sh')
-        
-        # Run the script using subprocess
+        # Define the directory containing calcProperties.sh
+        analyze_dir = os.path.join('Scripts', 'AnalyzeDatabank')
+
+        # Change the working directory
+        os.chdir(analyze_dir)
+        print(f"Changed directory to: {os.getcwd()}")
+
+        # Run the calcProperties.sh script
         print("Running calcProperties.sh...")
-        subprocess.run(["bash", script_path], check=True)
+        subprocess.run(["bash", "calcProperties.sh"], check=True)
         print("calcProperties.sh executed successfully.")
     
+    except FileNotFoundError as fnfe:
+        print(f"File not found: {fnfe}")
+        sys.exit(1)
     except subprocess.CalledProcessError as e:
         print(f"Error running calcProperties.sh: {e}")
+        sys.exit(1)
+    except Exception as e:
+        print(f"Unexpected error: {e}")
         sys.exit(1)
 
 if __name__ == "__main__":
