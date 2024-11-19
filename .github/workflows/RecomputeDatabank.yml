@@ -21,7 +21,7 @@ on:
         description: "End index"
         required: true
         type: number 
-      number_of_runs: 
+      number_of_runners: 
         description: "Number of individual runners being used"
         required: true
         type: number 
@@ -74,17 +74,21 @@ jobs:
     steps:
       - name: Pull Docker image
         run: |
-            sudo docker pull nmrlipids/utils
+            sudo docker pull nmrlipids/core
       
 
       - name: Run Docker to Calculate and Dispatch Child Workflows
         run: |
           sudo docker run --rm \
-            --env NUMBER_OF_RUNS=${{ github.event.inputs.number_of_runs }} \
+            --env number_of_runners=${{ github.event.inputs.number_of_runners }} \
             --env START_INDEX=${{ github.event.inputs.start_index }} \
             --env END_INDEX=${{ github.event.inputs.end_index }} \
             --env BRANCH_NAME=${{ github.event.inputs.working_branch_name }} \
             --env GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
             --env GITHUB_REPOSITORY="${{ github.repository }}" \
-            nmrlipids/utils \
-            /bin/bash -c "git pull && Scripts/WorkflowScripts/DockerRunInstructions/DispatchRecompute.sh"
+            nmrlipids/core \
+            /bin/bash -c '
+                git pull || { echo "Failed to pull latest changes"; exit 1; }
+                git checkout ${{ github.event.inputs.working_branch_name }} || { echo "Failed to check out branch ${{ github.event.inputs.working_branch_name }}"; exit 1; }
+                python Scripts/WorkflowScripts/DispatchRecompute.py || { echo "Dispatch Recompute failed"; exit 1; }
+            '

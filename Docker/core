@@ -1,10 +1,13 @@
+# Use a slim Debian base image
 FROM debian:bookworm-slim
 
-ARG GROMACS_VERSION=2024.3
+# Define arguments for GROMACS version and repository details
+ARG GROMACS_VERSION=2024.4
 ENV GROMACS_VERSION=${GROMACS_VERSION}
 ARG REPO_URL="https://github.com/MagnusSletten/Databank"
 ARG START_BRANCH_NAME="dev_pipeline"
 
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     bash \
     git \
@@ -22,7 +25,8 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-    RUN wget https://ftp.gromacs.org/gromacs/gromacs-$GROMACS_VERSION.tar.gz && \
+# Install GROMACS
+RUN wget https://ftp.gromacs.org/gromacs/gromacs-$GROMACS_VERSION.tar.gz && \
     tar xfz gromacs-$GROMACS_VERSION.tar.gz && \
     rm gromacs-$GROMACS_VERSION.tar.gz && \
     cd gromacs-$GROMACS_VERSION && \
@@ -32,15 +36,14 @@ RUN apt-get update && apt-get install -y \
     make install && \
     cd ../.. && rm -rf gromacs-$GROMACS_VERSION
 
-
-RUN pip3 install --break-system-packages pytest tqdm pyyaml pandas buildh Cython
-
+# Clone the repository and install python packages from the requirements file:
+WORKDIR /Databank
+RUN git clone --branch ${START_BRANCH_NAME} ${REPO_URL} . && \
+    pip install --break-system-packages --no-cache-dir -r Scripts/DatabankLib/requirements.txt && \
+    pip install --break-system-packages -e . && \
+    pip install --break-system-packages pytest Cython  
+    
 WORKDIR /app 
-# Clone the MDAnalysis repository
-RUN git clone --branch develop --depth 1 https://github.com/MDAnalysis/mdanalysis.git && \
-    cd mdanalysis/package && \
-    python3 setup.py install && \
-    cd ../.. && rm -rf mdanalysis
 
 # Install necessary dependencies and GitHub CLI
 RUN apt-get update && \
@@ -53,19 +56,25 @@ apt-get install -y gh && \
 apt-get clean && \
 rm -rf /var/lib/apt/lists/*
 
-# Clone the specified branch of the repository
-RUN git clone --branch ${START_BRANCH_NAME} ${REPO_URL} /Databank
 
+# Clone the MDAnalysis repository
+RUN git clone --branch develop --depth 1 https://github.com/MDAnalysis/mdanalysis.git && \
+    cd mdanalysis/package && \
+    pip install --no-cache-dir --break-system-packages -e . 
 #Add a non-root user 'runner'
 RUN useradd -m -s /bin/bash runner
 
-ENV PATH="/usr/local/gromacs/bin:${PATH}"
-
-RUN chown -R runner:runner /Databank
 # Create a symbolic link for python -> python3
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
-# Switch to the non-root user 'runner'
+# Set permissions for the non-root user
+RUN chown -R runner:runner /Databank
+
+# Set environment variables
+ENV PATH="/usr/local/gromacs/bin:${PATH}"
+
+# Switch to the non-root user
 USER runner
 
+# Set the working directory inside the container
 WORKDIR /Databank

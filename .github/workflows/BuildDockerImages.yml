@@ -9,11 +9,11 @@ on:
       gromacs_version:
         description: "The version of gromacs used"
         required: false
-        default: "2024.4"  # Default to 0 to stop on a single failure
+        default: "2024.4"  
       branch_name:
         description: "The branch name to use for cloning the repository"
         required: false
-        default: "main"  # Default to main if no branch specified
+        default: "main"  
 
 jobs:
   build:
