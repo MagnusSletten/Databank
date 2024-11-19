@@ -32,8 +32,8 @@ def run_calc_properties():
     Run the calcProperties.sh script after deleting JSON files.
     """
     try:
-        # Set the path to the shell script
-        script_path = os.path.join(NMLDB_SIMU_PATH, 'Scripts', 'AnalyzeDatabank', 'calcProperties.sh')
+        # Set the relative path to the shell script
+        script_path = os.path.join('Scripts', 'AnalyzeDatabank', 'calcProperties.sh')
         
         # Run the script using subprocess
         print("Running calcProperties.sh...")
@@ -64,20 +64,3 @@ if __name__ == "__main__":
         print(f"Error: {e}")
         sys.exit(1)
 
-
-if __name__ == "__main__":
-    try:
-        # Get start and end indices from environment variables
-        start_index = int(os.environ.get("START_INDEX", -1))
-        end_index = int(os.environ.get("END_INDEX", -1))
-
-        # Ensure indices are provided
-        if start_index == -1 or end_index == -1:
-            raise ValueError("START_INDEX and END_INDEX environment variables must be set.")
-
-        # Call the delete method with the provided indices
-        delete_json_files_in_range(start_index, end_index)
-
-    except Exception as e:
-        print(f"Error: {e}")
-        sys.exit(1)
