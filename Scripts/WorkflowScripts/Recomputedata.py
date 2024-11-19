@@ -3,16 +3,17 @@ from DatabankLib import NMLDB_SIMU_PATH  # Ensure this constant is accessible
 import os
 import sys 
 import subprocess
+
 def delete_json_files_in_range(start_index, end_index):
     # Initialize the databank and retrieve systems
     systems = initialize_databank()
 
     # Ensure the indices are within range
-    if start_index < 0 or end_index > len(systems):
+    if start_index < 0 or end_index >= len(systems):
         raise IndexError("Start or end index is out of range")
 
-    # Iterate over the specified range of systems
-    for system in systems[start_index:end_index]:
+    # Iterate over the specified range of systems (inclusive of end_index)
+    for system in systems[start_index:end_index + 1]:
         # Construct the full path
         system_path = os.path.join(NMLDB_SIMU_PATH, system["path"])
         print(f"Processing folder: {system_path}")
