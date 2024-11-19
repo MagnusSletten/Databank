@@ -31,6 +31,9 @@ You can initiate recomputes of simulation data using the workflow file: `Recompu
 
 This setup enables parallel processing, with each runner working on a distinct subset of files.
 
+**Logging of failed files within recompute**:
+If certain files fails during the recompute then the process is not cancelled, instead the names of the failed files are added to the logging file: `Data/Logs/recomputeLog.txt`
+
 
 ## Docker Image Builder Workflow
 
@@ -43,10 +46,14 @@ The workflow can be triggered manually with the `workflow_dispatch` event, allow
 
 - `docker_image_name` (required): The name of the Docker image you want to rebuild and push. This should match the image names in the repository (e.g., `core`, `util`).
 
+- `gromacs_version` (default is 2024.4): The version of gromacs used in the build
+
+- `default branch` (default is main): This is the branch the docker container starts from. 
+
 #### Steps in the Workflow
 
 1. **Log in to Docker Hub**:
-   - Uses Docker Hub credentials (stored as `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN` secrets) to authenticate before building and pushing images.
+   - Uses Docker Hub credentials (stored as `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN` secrets) to authenticate before building and pushing images. These need to be added for this workflow to be functional. 
 
 2. **Build Docker Image**:
    - Builds the specified Docker image based on the input provided. The image is tagged using the `nmrlipids/` prefix and the `latest` tag by default.
@@ -56,12 +63,23 @@ The workflow can be triggered manually with the `workflow_dispatch` event, allow
 
 #### Example Usage
 
-To manually trigger the workflow, go to the **Actions** tab in your GitHub repository, select `BuildDockerImages`, and click **Run workflow**. Enter the `docker_image_name` (e.g., `add_data`) to specify which image to rebuild.
+To manually trigger the workflow, go to the **Actions** tab in your GitHub repository, select `BuildDockerImages`, and click **Run workflow**. Enter the `docker_image_name` (e.g., `core`) to specify which image to rebuild.
 
 #### Repository Structure
 
 Dockerfiles are located in the `Docker` folder at the root of the repository, with names matching the Docker image names:
-- `add_data` for the `nmrlipids/add_data` Docker image
-- `recompute_instance` for the `nmrlipids/recompute_instance` Docker image
-- `tests` for the `nmrlipids/tests` Docker image
+- `core` for the `nmrlipids/core` Docker image
+- `utils` for the `nmrlipids/utils` Docker image
+
+
+### Docker image details:
+The main dockerimage contains software needed to run methods from the repository as well as working with github. It also contains the repository itself within the `Databank` directory which is the default folder for the container. Commands sent directly the container can therefore interact with the repository directly without changing folder. 
+Some work done by github actions uses different scripts contained within the repository. For the scripts we have two directories:
+
+`WorkflowScripts` and the subdirectory: `DockerRunInstructions`
+
+`WorkflowScripts`: scripts within this folder do individual tasks like creating a new branch or configuring the Git config. These scripts are then used in different ways within the instructions found in `DockerRunInstructions`. Different tasks done by the runners require different combinations of smaller tasks which is why this organisation of folders was used. With this setup only one command needs to be sent to the docker container within the workflow files directly. 
+
+
+
 
