@@ -22,7 +22,7 @@ mkdir -p "$WORK_DIR" || { echo "Failed to create work directory"; exit 1; }
 
 # Find new added files in this branch relative to the target branch:
 NEW_FILES=$(git diff --name-status origin/"$BRANCH_NAME" origin/"$TARGET_BRANCH" | grep "info_files" | awk '{print $2}')
-
+cd "$BUILDDATABANKPATH"
 
 # If new files exist:
 if [ -n "$NEW_FILES" ]; then
@@ -31,16 +31,15 @@ if [ -n "$NEW_FILES" ]; then
   for file in $NEW_FILES; do
     if [[ $file == *.yaml ]]; then
       echo "Running AddData.py for $file"
-      cd "$BUILDDATABANKPATH"
       python3 "AddData.py" -f "$DATABANK_ABS_PATH/$file" -w "$WORK_DIR" || { echo "AddData.py failed"; exit 1; }
-      cd "$DATABANK_ABS_PATH/Scripts/AnalyzeDatabank"
-      ./calcProperties.sh || { echo "calcProperties.sh failed"; exit 1; }
-    
     fi
   done
 else
   echo "No new files detected in $TARGET_DIR."
 fi
+
+cd "$DATABANK_ABS_PATH/Scripts/AnalyzeDatabank"
+./calcProperties.sh || { echo "calcProperties.sh failed"; exit 1; }
 
 cd "$BUILDDATABANKPATH"
 python searchDATABANK.py || { echo "searchDATABANK.py failed"; exit 1; }

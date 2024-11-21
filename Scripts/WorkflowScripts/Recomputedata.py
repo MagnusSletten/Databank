@@ -1,32 +1,28 @@
 from DatabankLib.core import initialize_databank  # Replace with your actual module name
 from DatabankLib import NMLDB_SIMU_PATH  # Ensure this constant is accessible
 import os
-import sys 
+import sys
 import subprocess
 
-def delete_json_files_in_range(start_index, end_index):
-    # Initialize the databank and retrieve systems
-    systems = initialize_databank()
+def delete_json_files_for_system(system):
+    """
+    Deletes JSON files in the specified system's folder.
+    """
+    # Construct the full path
+    system_path = os.path.join(NMLDB_SIMU_PATH, system["path"])
+    print(f"Processing folder: {system_path}")
 
-    # Ensure the indices are within range
-    if start_index < 0 or end_index >= len(systems):
-        raise IndexError("Start or end index is out of range")
+    # Delete JSON files in the system's folder
+    try:
+        for filename in os.listdir(system_path):
+            if filename.endswith('.json'):
+                file_path = os.path.join(system_path, filename)
+                os.remove(file_path)
+                print(f"Deleted: {file_path}")
+    except Exception as e:
+        print(f"Error processing {system_path}: {e}")
+        raise
 
-    # Iterate over the specified range of systems (inclusive of end_index)
-    for system in systems[start_index:end_index + 1]:
-        # Construct the full path
-        system_path = os.path.join(NMLDB_SIMU_PATH, system["path"])
-        print(f"Processing folder: {system_path}")
-
-        # Delete JSON files in the system's folder
-        try:
-            for filename in os.listdir(system_path):
-                if filename.endswith('.json'):
-                    file_path = os.path.join(system_path, filename)
-                    os.remove(file_path)
-                    print(f"Deleted: {file_path}")
-        except Exception as e:
-            print(f"Error processing {system_path}: {e}")
 
 def run_calc_properties():
     """
@@ -44,32 +40,68 @@ def run_calc_properties():
         print("Running calcProperties.sh...")
         subprocess.run(["bash", "calcProperties.sh"], check=True)
         print("calcProperties.sh executed successfully.")
-    
-    except FileNotFoundError as fnfe:
-        print(f"File not found: {fnfe}")
-        sys.exit(1)
     except subprocess.CalledProcessError as e:
         print(f"Error running calcProperties.sh: {e}")
-        sys.exit(1)
+        raise
     except Exception as e:
         print(f"Unexpected error: {e}")
-        sys.exit(1)
+        raise
+
+
+def pull_and_push_changes():
+    """
+    Pulls the latest changes and pushes new changes after processing.
+    """
+    try:
+        print("Pulling latest changes...")
+        subprocess.run(["bash", "PullPush.sh"], check=True)
+        print("Changes pushed successfully.")
+    except subprocess.CalledProcessError as e:
+        print(f"Error during PullPush.sh: {e}")
+        raise
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        raise
+
 
 if __name__ == "__main__":
     try:
-        # Get start and end indices from environment variables
-        start_index = int(os.environ.get("START_INDEX", -1))
-        end_index = int(os.environ.get("END_INDEX", -1))
+        # Retrieve indices as strings
+        start_index_str = os.environ.get("START_INDEX")
+        end_index_str = os.environ.get("END_INDEX")
 
         # Ensure indices are provided
-        if start_index == -1 or end_index == -1:
+        if start_index_str is None or end_index_str is None:
             raise ValueError("START_INDEX and END_INDEX environment variables must be set.")
 
-        # Call the delete method with the provided indices
-        delete_json_files_in_range(start_index, end_index)
+        # Convert indices to integers
+        start_index = int(start_index_str)
+        end_index = int(end_index_str)
 
-        # Run the calcProperties.sh script after deleting files
-        run_calc_properties()
+        
+        # Initialize the databank and retrieve systems
+        systems = initialize_databank()
+        if(end_index ==-1):
+            end_index = len(systems)-1
+
+        # Ensure the indices are within range
+        if start_index < 0 or end_index >= len(systems):
+            raise IndexError("Start or end index is out of range")
+
+        # Process systems one by one
+        for i in range(start_index, end_index + 1):
+            print(f"Processing index {i}...")
+
+            # Delete JSON files for the current system
+            delete_json_files_for_system(systems[i])
+
+            # Run calcProperties.sh after deleting files
+            run_calc_properties()
+
+            # Pull and push changes
+            pull_and_push_changes()
+
+            print(f"Index {i} processed successfully.")
 
     except Exception as e:
         print(f"Error: {e}")
