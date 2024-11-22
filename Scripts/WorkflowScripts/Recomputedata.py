@@ -65,7 +65,6 @@ def pull_and_push_changes():
         print(f"Unexpected error: {e}")
         raise
 
-
 if __name__ == "__main__":
     try:
         # Retrieve indices as strings
@@ -80,11 +79,10 @@ if __name__ == "__main__":
         start_index = int(start_index_str)
         end_index = int(end_index_str)
 
-        
         # Initialize the databank and retrieve systems
         systems = initialize_databank()
-        if(end_index ==-1):
-            end_index = len(systems)-1
+        if end_index == -1:
+            end_index = len(systems) - 1
 
         # Ensure the indices are within range
         if start_index < 0 or end_index >= len(systems):
@@ -106,6 +104,5 @@ if __name__ == "__main__":
             print(f"Index {i} processed successfully.")
 
     except Exception as e:
-        print(f"Error: {e}")
+        print(f"Error processing index {i}: {e}")
         sys.exit(1)
-
