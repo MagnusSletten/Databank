@@ -99,7 +99,7 @@ if __name__ == "__main__":
             run_calc_properties()
 
             # Pull and push changes
-            pull_and_push_changes()
+            #pull_and_push_changes()
 
             print(f"Index {i} processed successfully.")
 
