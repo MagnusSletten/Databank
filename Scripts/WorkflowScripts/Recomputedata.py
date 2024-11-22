@@ -81,8 +81,6 @@ if __name__ == "__main__":
 
         # Initialize the databank and retrieve systems
         systems = initialize_databank()
-        if end_index == -1:
-            end_index = len(systems) - 1
 
         # Ensure the indices are within range
         if start_index < 0 or end_index >= len(systems):
