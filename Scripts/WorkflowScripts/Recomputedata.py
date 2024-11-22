@@ -1,5 +1,7 @@
 from DatabankLib.core import initialize_databank  # Replace with your actual module name
-from DatabankLib import NMLDB_SIMU_PATH  # Ensure this constant is accessible
+from DatabankLib import NMLDB_ROOT_PATH, NMLDB_SIMU_PATH
+
+
 import os
 import sys
 import subprocess
@@ -30,7 +32,7 @@ def run_calc_properties():
     """
     try:
         # Define the directory containing calcProperties.sh
-        analyze_dir = os.path.join('Scripts', 'AnalyzeDatabank')
+        analyze_dir = os.path.join(NMLDB_ROOT_PATH,'Scripts', 'AnalyzeDatabank')
 
         # Change the working directory
         os.chdir(analyze_dir)
