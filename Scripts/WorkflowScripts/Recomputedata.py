@@ -69,12 +69,15 @@ def pull_and_push_changes():
     """
     Pulls the latest changes and pushes new changes after processing.
     """
+    analyze_dir = os.path.join(NMLDB_ROOT_PATH, 'Scripts', 'AnalyzeDatabank')
+    script_path = os.path.join(analyze_dir, "PullPush.sh")
+    
     try:
         print("Pulling latest changes...", flush=True)
-        subprocess.run(["bash", "PullPush.sh"], check=True)
+        subprocess.run(["bash", script_path], check=True)
         print("Changes pushed successfully.", flush=True)
     except subprocess.CalledProcessError as e:
-        print(f"Error during PullPush.sh: {e}", flush=True)
+        print(f"Error during PullPush.sh execution: {e}", flush=True)
         raise
     except Exception as e:
         print(f"Unexpected error: {e}", flush=True)
