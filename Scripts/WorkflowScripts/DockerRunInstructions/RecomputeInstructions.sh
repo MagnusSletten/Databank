@@ -8,5 +8,5 @@ git checkout "${BRANCH_NAME}" || { echo "Failed to check out branch ${BRANCH_NAM
 Scripts/WorkflowScripts/RunnerGitConfig.sh || { echo "Failed to configure git"; exit 1; }
 
 # Run the recompute script
-Scripts/WorkflowScripts/RecomputeSimdata.sh || { echo "Failed to run RecomputeSimdata.sh"; exit 1; }
+Scripts/WorkflowScripts/RecomputeSimdata.py || { echo "Failed to run RecomputeSimdata.sh"; exit 1; }
 
