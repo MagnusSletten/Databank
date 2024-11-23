@@ -98,6 +98,7 @@ if __name__ == "__main__":
 
         # Initialize the databank and retrieve systems
         systems = initialize_databank()
+        systems.sort(key=lambda x: x["path"])
 
         # Ensure the indices are within range
         if start_index < 0 or end_index >= len(systems):
