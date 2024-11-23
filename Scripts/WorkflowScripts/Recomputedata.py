@@ -86,7 +86,7 @@ if __name__ == "__main__":
         # Retrieve indices as strings
         start_index_str = os.environ.get("START_INDEX")
         end_index_str = os.environ.get("END_INDEX")
-        print(f"This will recompute from {start_index_str} to {end_index_str} ")
+        print(f"This will recompute from {start_index_str} to {end_index_str} ",flush=True)
 
         # Ensure indices are provided
         if start_index_str is None or end_index_str is None:
@@ -105,7 +105,7 @@ if __name__ == "__main__":
 
         # Process systems one by one
         for i in range(start_index, end_index + 1):
-            print(f"Processing index {i}...")
+            print(f"Processing index {i}...",flush=True)
 
             # Delete JSON files for the current system
             delete_json_files_for_system(systems[i])
