@@ -82,8 +82,11 @@ def pull_and_push_changes():
 
 if __name__ == "__main__":
     try: 
-        #Configure git:
-        subprocess.run("./RunnerGitConfig.sh", check=True)
+         # Define the workflow scripts directory
+        workflowScriptsDir = os.path.join(NMLDB_ROOT_PATH, 'Scripts', 'WorkflowScripts')
+
+        # Configure git by running the RunnerGitConfig.sh script
+        subprocess.run([os.path.join(workflowScriptsDir, "RunnerGitConfig.sh")],check=True)
         # Retrieve indices as strings
         start_index_str = os.environ.get("START_INDEX")
         end_index_str = os.environ.get("END_INDEX")
