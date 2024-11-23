@@ -1,7 +1,7 @@
 from DatabankLib.core import initialize_databank  # Replace with your actual module name
 from DatabankLib import NMLDB_ROOT_PATH, NMLDB_SIMU_PATH
 
-
+import glob 
 import os
 import sys
 import subprocess
@@ -48,7 +48,6 @@ def run_calc_properties():
     except Exception as e:
         print(f"Unexpected error: {e}", flush=True)
         raise
-
 def git_commit_simulation_folder(folder_name, index):
     """
     Pulls the latest changes, adds only JSON files from the specific simulation folder, and commits changes.
@@ -60,11 +59,17 @@ def git_commit_simulation_folder(folder_name, index):
         print("Successfully pulled latest changes.", flush=True)
 
         # Construct the path to JSON files in the specific folder
-        json_files_path = os.path.join(NMLDB_SIMU_PATH, folder_name, "*.json")
+        json_files_path = os.path.join("Data", "Simulations", folder_name, "*.json")
 
-        # Stage only JSON files from the specific folder
-        subprocess.run(["git", "add", json_files_path], shell=True, check=True)
-        print(f"Staged JSON files in {json_files_path}", flush=True)
+        # Use glob to find matching JSON files
+        matching_files = glob.glob(json_files_path)
+        if not matching_files:
+            print(f"No JSON files found in {json_files_path}. Skipping commit.", flush=True)
+            return
+
+        # Add only the matching JSON files
+        subprocess.run(["git", "add"] + matching_files, check=True)
+        print(f"Staged JSON files: {matching_files}", flush=True)
 
         # Commit changes
         commit_message = f"Processed simulation folder: {folder_name} at index: {index}"
@@ -76,7 +81,6 @@ def git_commit_simulation_folder(folder_name, index):
     except Exception as e:
         print(f"Unexpected error during Git operations: {e}", flush=True)
         raise
-
 
 def pull_and_push_changes():
     """
