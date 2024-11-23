@@ -12,7 +12,7 @@ def delete_json_files_for_system(system):
     """
     # Construct the full path
     system_path = os.path.join(NMLDB_SIMU_PATH, system["path"])
-    print(f"Processing folder: {system_path}")
+    print(f"Processing folder: {system_path}",flush=True)
 
     # Delete JSON files in the system's folder
     try:
@@ -22,7 +22,7 @@ def delete_json_files_for_system(system):
                 os.remove(file_path)
                 print(f"Deleted: {file_path}")
     except Exception as e:
-        print(f"Error processing {system_path}: {e}")
+        print(f"Error processing {system_path}: {e}",flush=True)
         raise
 
 
