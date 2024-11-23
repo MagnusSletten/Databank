@@ -31,7 +31,7 @@ jobs:
             -e GITHUB_REPOSITORY="${{ github.repository }}" \
             -e BRANCH_NAME="${{ inputs.working_branch_name }}" \
             -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
-            -e start_index="${{ inputs.start_index }}" \
-            -e end_index="${{ inputs.end_index }}" \
+            -e START_INDEX="${{ inputs.start_index }}" \
+            -e END_INDEX="${{ inputs.end_index }}" \
             nmrlipids/core \
             /bin/bash -c "git pull && Scripts/WorkflowScripts/DockerRunInstructions/RecomputeInstructions.sh"
