@@ -117,8 +117,8 @@ if __name__ == "__main__":
             run_calc_properties()
 
             # Pull and push changes
-            #git_commit_simulation_folder(systems[i]["path"],i)
-            #pull_and_push_changes()
+            git_commit_simulation_folder(systems[i]["path"],i)
+            pull_and_push_changes()
 
             print(f"Index {i} processed successfully.")
 
