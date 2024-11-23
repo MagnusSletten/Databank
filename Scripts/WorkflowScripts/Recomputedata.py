@@ -51,7 +51,7 @@ def run_calc_properties():
 
 def git_commit_simulation_folder(folder_name, index):
     """
-    Pulls the latest changes, adds, and commits changes for the specific simulation folder.
+    Pulls the latest changes, adds only JSON files from the specific simulation folder, and commits changes.
     """
     try:
         # Pull the latest changes to ensure the local branch is up-to-date
@@ -59,8 +59,12 @@ def git_commit_simulation_folder(folder_name, index):
         subprocess.run(["git", "pull"], check=True)
         print("Successfully pulled latest changes.", flush=True)
 
-        # Stage changes only for the specific folder
-        subprocess.run(["git", "add", NMLDB_SIMU_PATH], check=True)
+        # Construct the path to JSON files in the specific folder
+        json_files_path = os.path.join(NMLDB_SIMU_PATH, folder_name, "*.json")
+
+        # Stage only JSON files from the specific folder
+        subprocess.run(["git", "add", json_files_path], shell=True, check=True)
+        print(f"Staged JSON files in {json_files_path}", flush=True)
 
         # Commit changes
         commit_message = f"Processed simulation folder: {folder_name} at index: {index}"
@@ -72,6 +76,7 @@ def git_commit_simulation_folder(folder_name, index):
     except Exception as e:
         print(f"Unexpected error during Git operations: {e}", flush=True)
         raise
+
 
 def pull_and_push_changes():
     """
