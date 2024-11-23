@@ -51,9 +51,14 @@ def run_calc_properties():
 
 def git_commit_simulation_folder(folder_name, index):
     """
-    Adds and commits changes for the specific simulation folder.
+    Pulls the latest changes, adds, and commits changes for the specific simulation folder.
     """
     try:
+        # Pull the latest changes to ensure the local branch is up-to-date
+        print("Pulling latest changes before committing...", flush=True)
+        subprocess.run(["git", "pull"], check=True)
+        print("Successfully pulled latest changes.", flush=True)
+
         # Stage changes only for the specific folder
         subprocess.run(["git", "add", NMLDB_SIMU_PATH], check=True)
 
@@ -62,7 +67,10 @@ def git_commit_simulation_folder(folder_name, index):
         subprocess.run(["git", "commit", "-m", commit_message], check=True)
         print(f"Committed changes: {commit_message}", flush=True)
     except subprocess.CalledProcessError as e:
-        print(f"Error during Git commit: {e}", flush=True)
+        print(f"Error during Git pull or commit: {e}", flush=True)
+        raise
+    except Exception as e:
+        print(f"Unexpected error during Git operations: {e}", flush=True)
         raise
 
 def pull_and_push_changes():
