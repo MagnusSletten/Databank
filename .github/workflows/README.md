@@ -21,15 +21,15 @@ The automated steps are described here: (insert link here).
 
 ## Recomputing Data
 
-You can initiate recomputes of simulation data using the workflow file: `RecomputeDatabank.yml`. The following options allow you to specify which files to recompute and control the distribution of the workload:
+You can initiate recomputes of simulation data using the workflow file: `RecomputeDatabank.yml`. The following options allow you to specify which folders to recompute and control the distribution of the workload. It will work with indexes of the folders as given by the method `initialize_databank()`. For each specified index it will then recompute the JSON files and push to the branch specified as the workflow input: `working_branch_name`
 
-- **Specify File Range**: Use the starting and ending index to define which info files to recompute.
-  - **All Files**: Set the starting index to `0` and the ending index to `-1` (negative one) to recompute all files.
+- **Specify Folder index Range**: Use the starting and ending index to define which folders to recompute.
+  - **All Folders**: Set the starting index to `0` and the ending index to `-1` (negative one) to recompute all folders.
   
-- **Set Number of Runners**: Define the number of runners to split the recompute job. Each runner will process its portion of the files and commit the results to a specified branch.
-  - For example, if there are 100 files and you specify 5 runners, each runner will handle 20 files.
+- **Set Number of Runners**: Define the number of runners to split the recompute job. Each runner will process its portion of the folders and commit the results to a specified branch.
+  - For example, if there are 100 folders and you specify 5 runners, each runner will handle 20 folders.
 
-This setup enables parallel processing, with each runner working on a distinct subset of files.
+This setup enables parallel processing, with each runner working on a distinct subset of folders.
 
 **Logging of failed files within recompute**:
 If certain files fails during the recompute then the process is not cancelled, instead the names of the failed files are added to the logging file: `Data/Logs/recomputeLog.txt`

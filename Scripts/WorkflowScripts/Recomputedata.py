@@ -49,6 +49,21 @@ def run_calc_properties():
         print(f"Unexpected error: {e}")
         raise
 
+def git_commit_simulation_folder(folder_name,index):
+    """
+    Adds and commits changes for the specific simulation folder.
+    """
+    try:
+        # Stage changes only for the specific folder
+        subprocess.run(["git", "add", NMLDB_SIMU_PATH], check=True)
+
+        # Commit changes
+        commit_message = f"Processed simulation folder: {folder_name} at index: {index}"
+        subprocess.run(["git", "commit", "-m", commit_message], check=True)
+        print(f"Committed changes: {commit_message}")
+    except subprocess.CalledProcessError as e:
+        print(f"Error during Git commit: {e}")
+        raise
 
 def pull_and_push_changes():
     """
@@ -66,7 +81,9 @@ def pull_and_push_changes():
         raise
 
 if __name__ == "__main__":
-    try:
+    try: 
+        #Configure git:
+        subprocess.run("./RunnerGitConfig.sh", check=True)
         # Retrieve indices as strings
         start_index_str = os.environ.get("START_INDEX")
         end_index_str = os.environ.get("END_INDEX")
@@ -97,6 +114,7 @@ if __name__ == "__main__":
             run_calc_properties()
 
             # Pull and push changes
+            #git_commit_simulation_folder(systems[i]["path"],i)
             #pull_and_push_changes()
 
             print(f"Index {i} processed successfully.")
