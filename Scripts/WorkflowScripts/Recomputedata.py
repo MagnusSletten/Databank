@@ -82,10 +82,11 @@ def pull_and_push_changes():
 
 if __name__ == "__main__":
     try: 
-      
+        
         # Retrieve indices as strings
         start_index_str = os.environ.get("START_INDEX")
         end_index_str = os.environ.get("END_INDEX")
+        print(f"This will recompute from {start_index_str} to {end_index_str} ")
 
         # Ensure indices are provided
         if start_index_str is None or end_index_str is None:
