@@ -12,7 +12,7 @@ def delete_json_files_for_system(system):
     """
     # Construct the full path
     system_path = os.path.join(NMLDB_SIMU_PATH, system["path"])
-    print(f"Processing folder: {system_path}",flush=True)
+    print(f"Processing folder: {system_path}", flush=True)
 
     # Delete JSON files in the system's folder
     try:
@@ -20,9 +20,9 @@ def delete_json_files_for_system(system):
             if filename.endswith('.json'):
                 file_path = os.path.join(system_path, filename)
                 os.remove(file_path)
-                print(f"Deleted: {file_path}")
+                print(f"Deleted: {file_path}", flush=True)
     except Exception as e:
-        print(f"Error processing {system_path}: {e}",flush=True)
+        print(f"Error processing {system_path}: {e}", flush=True)
         raise
 
 
@@ -36,20 +36,20 @@ def run_calc_properties():
 
         # Change the working directory
         os.chdir(analyze_dir)
-        print(f"Changed directory to: {os.getcwd()}")
+        print(f"Changed directory to: {os.getcwd()}", flush=True)
 
         # Run the calcProperties.sh script
-        print("Running calcProperties.sh...")
+        print("Running calcProperties.sh...", flush=True)
         subprocess.run(["bash", "calcProperties.sh"], check=True)
-        print("calcProperties.sh executed successfully.")
+        print("calcProperties.sh executed successfully.", flush=True)
     except subprocess.CalledProcessError as e:
-        print(f"Error running calcProperties.sh: {e}")
+        print(f"Error running calcProperties.sh: {e}", flush=True)
         raise
     except Exception as e:
-        print(f"Unexpected error: {e}")
+        print(f"Unexpected error: {e}", flush=True)
         raise
 
-def git_commit_simulation_folder(folder_name,index):
+def git_commit_simulation_folder(folder_name, index):
     """
     Adds and commits changes for the specific simulation folder.
     """
@@ -60,9 +60,9 @@ def git_commit_simulation_folder(folder_name,index):
         # Commit changes
         commit_message = f"Processed simulation folder: {folder_name} at index: {index}"
         subprocess.run(["git", "commit", "-m", commit_message], check=True)
-        print(f"Committed changes: {commit_message}")
+        print(f"Committed changes: {commit_message}", flush=True)
     except subprocess.CalledProcessError as e:
-        print(f"Error during Git commit: {e}")
+        print(f"Error during Git commit: {e}", flush=True)
         raise
 
 def pull_and_push_changes():
@@ -70,14 +70,14 @@ def pull_and_push_changes():
     Pulls the latest changes and pushes new changes after processing.
     """
     try:
-        print("Pulling latest changes...")
+        print("Pulling latest changes...", flush=True)
         subprocess.run(["bash", "PullPush.sh"], check=True)
-        print("Changes pushed successfully.")
+        print("Changes pushed successfully.", flush=True)
     except subprocess.CalledProcessError as e:
-        print(f"Error during PullPush.sh: {e}")
+        print(f"Error during PullPush.sh: {e}", flush=True)
         raise
     except Exception as e:
-        print(f"Unexpected error: {e}")
+        print(f"Unexpected error: {e}", flush=True)
         raise
 
 if __name__ == "__main__":
@@ -86,7 +86,7 @@ if __name__ == "__main__":
         # Retrieve indices as strings
         start_index_str = os.environ.get("START_INDEX")
         end_index_str = os.environ.get("END_INDEX")
-        print(f"This will recompute from {start_index_str} to {end_index_str} ",flush=True)
+        print(f"This will recompute from {start_index_str} to {end_index_str} ", flush=True)
 
         # Ensure indices are provided
         if start_index_str is None or end_index_str is None:
@@ -105,7 +105,7 @@ if __name__ == "__main__":
 
         # Process systems one by one
         for i in range(start_index, end_index + 1):
-            print(f"Processing index {i}...",flush=True)
+            print(f"Processing index {i}...", flush=True)
 
             # Delete JSON files for the current system
             delete_json_files_for_system(systems[i])
@@ -114,11 +114,11 @@ if __name__ == "__main__":
             run_calc_properties()
 
             # Pull and push changes
-            git_commit_simulation_folder(systems[i]["path"],i)
+            git_commit_simulation_folder(systems[i]["path"], i)
             pull_and_push_changes()
 
-            print(f"Index {i} processed successfully.")
+            print(f"Index {i} processed successfully.", flush=True)
 
     except Exception as e:
-        print(f"Error processing: {e}")
+        print(f"Error processing: {e}", flush=True)
         sys.exit(1)
