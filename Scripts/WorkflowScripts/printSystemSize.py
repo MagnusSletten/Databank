@@ -4,6 +4,7 @@ from DatabankLib import NMLDB_ROOT_PATH, NMLDB_SIMU_PATH
 
 # Initialize the databank
 systems = initialize_databank()
+systems.sort(key=lambda x: x["path"])
 
 # Fetch the START_INDEX from the environment variable
 start_index = os.getenv("START_INDEX")
