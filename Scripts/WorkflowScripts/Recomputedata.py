@@ -78,7 +78,7 @@ def pull_and_push_changes():
     Pulls the latest changes and pushes new changes after processing.
     """
     workflow_dir = os.path.join(NMLDB_ROOT_PATH, 'Scripts', 'WorkflowScripts')
-    script_path = os.path.join(workflow_dir, "PullPush.sh")
+    script_path = os.path.join(workflow_dir, "Git_Push.sh")
     
     try:
         print("Pulling latest changes...", flush=True)
