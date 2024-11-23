@@ -120,5 +120,5 @@ if __name__ == "__main__":
             print(f"Index {i} processed successfully.")
 
     except Exception as e:
-        print(f"Error processing index {i}: {e}")
+        print(f"Error processing: {e}")
         sys.exit(1)
