@@ -97,7 +97,7 @@ if __name__ == "__main__":
         end_index = int(end_index_str)
 
         # Initialize the databank and retrieve systems
-        systems = initialize_databank()
+        systems = list(initialize_databank()) 
         systems.sort(key=lambda x: x["path"])
 
         # Ensure the indices are within range
