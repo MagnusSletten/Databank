@@ -69,8 +69,8 @@ def pull_and_push_changes():
     """
     Pulls the latest changes and pushes new changes after processing.
     """
-    analyze_dir = os.path.join(NMLDB_ROOT_PATH, 'Scripts', 'AnalyzeDatabank')
-    script_path = os.path.join(analyze_dir, "PullPush.sh")
+    workflow_dir = os.path.join(NMLDB_ROOT_PATH, 'Scripts', 'WorkflowScripts')
+    script_path = os.path.join(workflow_dir, "PullPush.sh")
     
     try:
         print("Pulling latest changes...", flush=True)
