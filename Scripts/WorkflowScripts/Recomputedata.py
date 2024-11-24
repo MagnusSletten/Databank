@@ -1,4 +1,10 @@
-from DatabankLib.core import initialize_databank  # Replace with your actual module name
+"""
+Recomputes JSON files starting from "start-index" and ending with "end-index", branch-name is an optional parameter and when included it will push to that branch. 
+
+"""
+
+
+from DatabankLib.core import initialize_databank  
 from DatabankLib import NMLDB_ROOT_PATH, NMLDB_SIMU_PATH
 
 import glob 
