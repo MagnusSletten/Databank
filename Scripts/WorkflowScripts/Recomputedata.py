@@ -53,6 +53,7 @@ def git_commit_simulation_folder(folder_name, index):
     Pulls the latest changes, adds only JSON files from the specific simulation folder, and commits changes.
     """
     try:
+        os.chdir(NMLDB_ROOT_PATH)
         # Pull the latest changes to ensure the local branch is up-to-date
         print("Pulling latest changes before committing...", flush=True)
         subprocess.run(["git", "pull"], check=True)
