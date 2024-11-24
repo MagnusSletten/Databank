@@ -15,7 +15,7 @@ The new data pipeline relies on this workflow file to handle information from an
 
 3. Then the AddData.yml workflow will be started with the info about relevant branches. This will go through the steps for adding experiment data first then the steps for adding simulation data. If no experiment data is present then those steps will be skipped. The scripts for adding experiment data and simulation data is in `Scripts/WorkflowScripts`. 
 The automated steps for sim data is described [here](https://nmrlipids.github.io/addingData.html).
-The automated steps for experiment data is described [here] (https://nmrlipids.github.io/addingExpData.html)
+The automated steps for experiment data is described [here](https://nmrlipids.github.io/addingExpData.html)
    * Experiment addition steps automated: 3,4,5
    * Simulation addition steps automated: 4,5,6
 
