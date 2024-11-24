@@ -1,5 +1,9 @@
 import os
-from DatabankLib.core import initialize_databank  # Replace with your actual module name
+from DatabankLib.core import initialize_databank
+
+"""
+Temporary convenience method to just retrieve the smallest files
+"""
 
 def find_smallest_files(systems, n):
     """
