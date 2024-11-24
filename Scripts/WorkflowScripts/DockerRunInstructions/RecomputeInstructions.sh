@@ -8,5 +8,4 @@ git checkout "${BRANCH_NAME}" || { echo "Failed to check out branch ${BRANCH_NAM
 Scripts/WorkflowScripts/RunnerGitConfig.sh || { echo "Failed to configure git"; exit 1; }
 
 # Run the recompute script
-python Scripts/WorkflowScripts/Recomputedata.py || { echo "Failed to run Recomputedata.sh"; exit 1; }
-
+python Scripts/WorkflowScripts/Recomputedata.py --start-index "$START_INDEX" --end-index "$END_INDEX" --branch-name "$BRANCH_NAME" || { echo "Failed to run Recomputedata.py"; exit 1; }
