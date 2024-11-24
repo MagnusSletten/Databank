@@ -1,3 +1,4 @@
+#!/bin/bash
 GITHUB_USERNAME="GitHub Actions Bot"  
 GITHUB_EMAIL="action@github.com"  
 
