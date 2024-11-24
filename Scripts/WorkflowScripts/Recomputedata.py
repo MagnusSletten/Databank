@@ -32,13 +32,10 @@ def run_calc_properties():
     Change to the 'Scripts/AnalyzeDatabank' directory and run calcProperties.sh.
     """
     try:
-        # Define the directory containing calcProperties.sh
+        #AnalyzeDatabank directory:
         analyze_dir = os.path.join(NMLDB_ROOT_PATH,'Scripts', 'AnalyzeDatabank')
-
-        # Change the working directory
         os.chdir(analyze_dir)
         print(f"Changed directory to: {os.getcwd()}", flush=True)
-
         print("Running calcProperties.sh...", flush=True)
         subprocess.run(["bash", "calcProperties.sh"], check=True)
         print("calcProperties.sh executed successfully.", flush=True)
@@ -66,12 +63,11 @@ def git_commit_simulation_folder(folder_name, index):
         if not matching_files:
             print(f"No JSON files found in {json_files_path}. Skipping commit.", flush=True)
             return
-
+        #Add new json files:
         subprocess.run(["git", "add"] + matching_files, check=True)
-        # Stage modifications and deletions of tracked .json files
+        #Add deletions of tracked .json files
         subprocess.run(["git", "add", "-u", json_files_dir], check=True)
         print(f"Staged JSON files: {matching_files}", flush=True)
-
         commit_message = f"Processed simulation folder: {folder_name} at index: {index}"
         subprocess.run(["git", "commit", "-m", commit_message], check=True)
         print(f"Committed changes: {commit_message}", flush=True)
