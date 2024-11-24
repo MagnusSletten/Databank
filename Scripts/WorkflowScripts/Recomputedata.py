@@ -65,7 +65,7 @@ def git_commit_simulation_folder(folder_name, index):
             print(f"No JSON files found in {json_files_path}. Skipping commit.", flush=True)
             return
 
-        subprocess.run(["git", "add"] + matching_files, check=True)
+        subprocess.run(["git", "add", "-A"] + matching_files, check=True)
         print(f"Staged JSON files: {matching_files}", flush=True)
 
         commit_message = f"Processed simulation folder: {folder_name} at index: {index}"
