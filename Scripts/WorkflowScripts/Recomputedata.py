@@ -59,13 +59,17 @@ def git_commit_simulation_folder(folder_name, index):
         subprocess.run(["git", "pull"], check=True)
         print("Successfully pulled latest changes.", flush=True)
 
+        json_files_dir = os.path.join("Data", "Simulations", folder_name)
         json_files_path = os.path.join("Data", "Simulations", folder_name, "*.json")
         matching_files = glob.glob(json_files_path)
+        
         if not matching_files:
             print(f"No JSON files found in {json_files_path}. Skipping commit.", flush=True)
             return
 
-        subprocess.run(["git", "add", "-A"] + matching_files, check=True)
+        subprocess.run(["git", "add"] + matching_files, check=True)
+        # Stage modifications and deletions of tracked .json files
+        subprocess.run(["git", "add", "-u", json_files_dir], check=True)
         print(f"Staged JSON files: {matching_files}", flush=True)
 
         commit_message = f"Processed simulation folder: {folder_name} at index: {index}"
