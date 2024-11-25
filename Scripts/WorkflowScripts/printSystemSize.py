@@ -1,5 +1,6 @@
 import os
 from DatabankLib.core import initialize_databank
+import Workflow_utils
 
 """
 Temporary convenience method to just retrieve the smallest files
@@ -23,8 +24,7 @@ def find_smallest_files(systems, n):
     return sorted_systems[:n]
 
 # Initialize the databank
-systems = list(initialize_databank())
-systems.sort(key=lambda x: x["path"])  # Sort systems by path
+systems = Workflow_utils.sorted_databank()
 
 # Fetch the START_INDEX from the environment variable
 start_index = os.getenv("START_INDEX")

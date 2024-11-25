@@ -3,15 +3,11 @@ Recomputes JSON files starting from "start-index" and ending with "end-index", b
 
 """
 
-
 from DatabankLib.core import initialize_databank  
 from DatabankLib import NMLDB_ROOT_PATH, NMLDB_SIMU_PATH
+import glob, os, sys, subprocess, argparse
+import Workflow_utils
 
-import glob 
-import os
-import sys
-import subprocess
-import argparse
 
 def delete_json_files_for_system(system):
     """
@@ -114,8 +110,7 @@ if __name__ == "__main__":
     try:
         print(f"This will recompute from {args.start_index} to {args.end_index}", flush=True)
 
-        systems = list(initialize_databank())
-        systems.sort(key=lambda x: x["path"])
+        systems = Workflow_utils.sorted_databank()
 
         if args.start_index < 0 or args.end_index >= len(systems):
             raise IndexError("Start or end index is out of range")
