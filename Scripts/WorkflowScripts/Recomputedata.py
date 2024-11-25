@@ -1,4 +1,10 @@
-from DatabankLib.core import initialize_databank  # Replace with your actual module name
+"""
+Recomputes JSON files starting from "start-index" and ending with "end-index", branch-name is an optional parameter and when included it will push to that branch. 
+
+"""
+
+
+from DatabankLib.core import initialize_databank  
 from DatabankLib import NMLDB_ROOT_PATH, NMLDB_SIMU_PATH
 
 import glob 
@@ -45,7 +51,6 @@ def run_calc_properties():
     except Exception as e:
         print(f"Unexpected error: {e}", flush=True)
         raise
-
 def git_commit_simulation_folder(folder_name, index):
     """
     Pulls the latest changes, adds only JSON files from the specific simulation folder, and commits changes.
@@ -77,7 +82,6 @@ def git_commit_simulation_folder(folder_name, index):
     except Exception as e:
         print(f"Unexpected error during Git operations: {e}", flush=True)
         raise
-
 
 def pull_and_push_changes():
     """

@@ -47,7 +47,7 @@ def main():
         try:
             # Run the GitHub CLI command to dispatch the workflow
             result = subprocess.run([
-                "gh", "workflow", "run", "RecomputeInstance.yml", "--ref", "dev_pipeline_compose",
+                "gh", "workflow", "run", "RecomputeInstance.yml", "--ref", "dev_pipeline",
                 "--field", f"working_branch_name={working_branch_name}",
                 "--field", f"start_index={current_start}",
                 "--field", f"end_index={current_end}"
