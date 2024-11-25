@@ -6,45 +6,64 @@ import Workflow_utils
 Temporary convenience method to just retrieve the smallest files
 """
 
+def find_smallest_consecutive_files(systems, n):
+    """
+    Finds the smallest n consecutive systems based on the sum of their TRAJECTORY_SIZE
+    and returns their starting index and the corresponding systems.
+    """
+    if not systems or n <= 0 or n > len(systems):
+        print("Invalid input. Ensure systems is not empty and n is within a valid range.")
+        return None, []
+
+    # Initialize the smallest sum and starting index
+    smallest_sum = float("inf")
+    smallest_index = -1
+  
+
+    # Iterate through possible consecutive groups of size n
+    for i in range(len(systems) - n + 1):
+        # Extract the current group
+        current_group = systems[i:i+n]
+
+        # Calculate the sum of TRAJECTORY_SIZE for the group
+        current_sum = sum(system.get("TRAJECTORY_SIZE", float("inf")) for system in current_group)
+
+        # Update if this group has the smallest sum
+        if current_sum < smallest_sum:
+            smallest_sum = current_sum
+            smallest_index = i
+          
+
+    return smallest_index, smallest_sum
+
+
+
 def find_smallest_files(systems, n):
     """
     Finds the smallest n systems based on their TRAJECTORY_SIZE and returns their original indexes.
     """
-    if not systems:
-        print("No systems available.")
-        return []
-
     # Attach the original index to each system for tracking
     indexed_systems = [(i, system) for i, system in enumerate(systems)]
-
     # Sort systems by TRAJECTORY_SIZE
     sorted_systems = sorted(indexed_systems, key=lambda x: x[1].get("TRAJECTORY_SIZE", float("inf")))
-
     # Return the smallest n systems and their original indexes
     return sorted_systems[:n]
 
-# Initialize the databank
-systems = Workflow_utils.sorted_databank()
 
-# Fetch the START_INDEX from the environment variable
-start_index = os.getenv("START_INDEX")
-
-if start_index is not None:
-    # Convert START_INDEX to an integer
+def get_file_at_index(systems, index):
+    """
+    Fetches and prints the TRAJECTORY_SIZE for the file at the given index.
+    """
     try:
-        start_index = int(start_index)
-        print(systems[start_index]["TRAJECTORY_SIZE"])
-    except (ValueError, IndexError):
-        print(f"Invalid START_INDEX: {start_index}. Ensure it's a valid integer within range.")
-else:
-    print("START_INDEX environment variable is not set.")
+        print(systems[index]["TRAJECTORY_SIZE"])
+    except (IndexError, KeyError):
+        print(f"Invalid index: {index}. Ensure it's within range and has TRAJECTORY_SIZE.")
 
-# Fetch the number of smallest files to print from an environment variable or default
-num_smallest_files = int(os.getenv("NUM_SMALLEST_FILES", 5))  # Default to 5
 
-# Find and print the smallest n files
-smallest_files = find_smallest_files(systems, num_smallest_files)
 
-print(f"Smallest {num_smallest_files} files:")
-for original_index, file_info in smallest_files:
-    print(f"Index: {original_index}, TRAJECTORY_SIZE: {file_info.get('TRAJECTORY_SIZE', 'N/A')}")
+if __name__ == "__main__":
+  
+    # Load systems from Workflow_utils
+    systems = Workflow_utils.sorted_databank()
+
+    print(find_smallest_consecutive_files(systems,4))

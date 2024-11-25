@@ -11,3 +11,4 @@ def sorted_databank():
     systems.sort(key=lambda x: x['ID'])
     return systems
 
+items = sorted_databank()
