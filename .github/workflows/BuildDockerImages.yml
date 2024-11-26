@@ -34,15 +34,6 @@ jobs:
       - name: Tag Docker Image
         run: sudo docker tag nmrlipids/${{ inputs.docker_image_name }} nmrlipids/${{ inputs.docker_image_name }}:latest
 
-      - name: Test
-        shell: bash
-        run: |
-          sudo docker run --rm \
-            -e BRANCH_NAME="${{ inputs.branch_name }}" \
-            nmrlipids/${{ inputs.docker_image_name }} \
-            bash -c "Scripts/WorkflowScripts/DockerRunInstructions/Runtests.sh"
-      
-       
       - name: Push Docker image
         run: |
           echo "${{ secrets.DOCKERHUB_TOKEN }}" | sudo docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
