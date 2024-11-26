@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Needs to be run from the root of the repository for now. 
+
 # Directory path:
 TARGET_DIR="Scripts/BuildDatabank/info_files"
 
