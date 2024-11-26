@@ -3,15 +3,11 @@ Recomputes JSON files starting from "start-index" and ending with "end-index", b
 
 """
 
-
 from DatabankLib.core import initialize_databank  
 from DatabankLib import NMLDB_ROOT_PATH, NMLDB_SIMU_PATH
+import glob, os, sys, subprocess, argparse
+import Workflow_utils
 
-import glob 
-import os
-import sys
-import subprocess
-import argparse
 
 def delete_json_files_for_system(system):
     """
@@ -51,7 +47,7 @@ def run_calc_properties():
     except Exception as e:
         print(f"Unexpected error: {e}", flush=True)
         raise
-def git_commit_simulation_folder(folder_name, index):
+def git_commit_simulation_folder(system):
     """
     Pulls the latest changes, adds only JSON files from the specific simulation folder, and commits changes.
     """
@@ -60,11 +56,11 @@ def git_commit_simulation_folder(folder_name, index):
         print("Pulling latest changes before committing...", flush=True)
         subprocess.run(["git", "pull"], check=True)
         print("Successfully pulled latest changes.", flush=True)
-
+        folder_name = system["path"]
         json_files_dir = os.path.join("Data", "Simulations", folder_name)
         json_files_path = os.path.join("Data", "Simulations", folder_name, "*.json")
         matching_files = glob.glob(json_files_path)
-        
+        system_id = system["ID"]
         if not matching_files:
             print(f"No JSON files found in {json_files_path}. Skipping commit.", flush=True)
             return
@@ -73,7 +69,7 @@ def git_commit_simulation_folder(folder_name, index):
         #Add deletions of tracked .json files
         subprocess.run(["git", "add", "-u", json_files_dir], check=True)
         print(f"Staged JSON files: {matching_files}", flush=True)
-        commit_message = f"Processed simulation folder: {folder_name} at index: {index}"
+        commit_message = f"Processed simulation with ID: {system_id}"
         subprocess.run(["git", "commit", "-m", commit_message], check=True)
         print(f"Committed changes: {commit_message}", flush=True)
     except subprocess.CalledProcessError as e:
@@ -114,8 +110,7 @@ if __name__ == "__main__":
     try:
         print(f"This will recompute from {args.start_index} to {args.end_index}", flush=True)
 
-        systems = list(initialize_databank())
-        systems.sort(key=lambda x: x["path"])
+        systems = Workflow_utils.sorted_databank()
 
         if args.start_index < 0 or args.end_index >= len(systems):
             raise IndexError("Start or end index is out of range")
@@ -127,7 +122,7 @@ if __name__ == "__main__":
 
             # Only run commit and push steps if a branch name is provided
             if args.branch_name:
-                git_commit_simulation_folder(systems[i]["path"], i)
+                git_commit_simulation_folder(systems[i])
                 pull_and_push_changes()
 
             print(f"Index {i} processed successfully.", flush=True)
