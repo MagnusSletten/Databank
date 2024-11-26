@@ -122,7 +122,7 @@ if __name__ == "__main__":
 
             # Only run commit and push steps if a branch name is provided
             if args.branch_name:
-                git_commit_simulation_folder(systems[i]["path"], i)
+                git_commit_simulation_folder(systems[i])
                 pull_and_push_changes()
 
             print(f"Index {i} processed successfully.", flush=True)
