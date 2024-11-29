@@ -9,6 +9,6 @@ jobs:
     steps:      
       - name: Log in test 
         run: |
-          echo "${{ secrets.DOCKERHUB_TOKEN }}" | sudo docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+          echo "${{ secrets.DOCKERHUB_TOKEN }}" | sudo docker login -u "nmrlipids" --password-stdin
  
       
