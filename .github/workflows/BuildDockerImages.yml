@@ -24,18 +24,14 @@ jobs:
         with:
           ref: ${{ inputs.branch_name }}
 
-      - name: Build Docker image
+      - name: Build and Tag Docker Image
         run: |
-            sudo docker build --no-cache \
-            -t nmrlipids/${{ inputs.docker_image_name }} \
+          sudo docker build --no-cache \
+            -t nmrlipids/${{ inputs.docker_image_name }}:latest \
             --build-arg GROMACS_VERSION="${{ inputs.gromacs_version }}" \
             -f Docker/${{ inputs.docker_image_name }} .
 
-      - name: Tag Docker Image
-        run: sudo docker tag nmrlipids/${{ inputs.docker_image_name }} nmrlipids/${{ inputs.docker_image_name }}:latest
-
-      - name: Push Docker image
+      - name: Push Docker Image
         run: |
           echo "${{ secrets.DOCKERHUB_TOKEN }}" | sudo docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
           sudo docker push nmrlipids/${{ inputs.docker_image_name }}:latest
-      
