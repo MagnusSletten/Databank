@@ -33,5 +33,5 @@ jobs:
 
       - name: Push Docker Image
         run: |
-          echo "${{ secrets.DOCKERHUB_TOKEN }}" | sudo docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+          echo "${{ secrets.DOCKERHUB_TOKEN }}" | sudo docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin docker.io
           sudo docker push nmrlipids/${{ inputs.docker_image_name }}:latest
