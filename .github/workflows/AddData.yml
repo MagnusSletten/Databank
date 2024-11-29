@@ -36,7 +36,7 @@ jobs:
       - name: Computing new data
         run: |
             sudo docker run --rm \
-              -e REPO_NAME="${{ github.repository }}" \
+              -e GITHUB_REPOSITORY="${{ github.repository }}" \
               -e BRANCH_NAME="${{ inputs.working_branch_name}}" \
               -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
               -e TARGET_BRANCH="${{ inputs.target_branch_name }}" \
