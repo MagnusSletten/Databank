@@ -5,7 +5,7 @@ FROM debian:bookworm-slim
 ARG GROMACS_VERSION=2024.4
 ENV GROMACS_VERSION=${GROMACS_VERSION}
 ARG REPO_URL="https://github.com/MagnusSletten/Databank"
-ARG START_BRANCH_NAME="dev_pipeline"
+ARG START_BRANCH_NAME="dev_pipeline_rebase_clean"
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \

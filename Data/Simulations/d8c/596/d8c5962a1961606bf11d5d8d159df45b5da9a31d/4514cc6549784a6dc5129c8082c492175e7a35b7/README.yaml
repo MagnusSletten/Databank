@@ -40,7 +40,6 @@ DATEOFRUNNING: 18/04/2024
 TYPEOFSYSTEM: lipid bilayer
 EXPERIMENT:
   ORDERPARAMETER:
-    POPC:
-      unpublished/nesterenkoPOPC: unpublished/nesterenkoPOPC/5
+    POPC: {}
   FORMFACTOR: {}
 ID: 803
