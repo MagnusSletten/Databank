@@ -14,7 +14,6 @@ on:
         description: "The branch name to use for cloning the repository"
         required: false
         default: "main"  
-
 jobs:
   build:
     runs-on: nrec-large
@@ -24,27 +23,25 @@ jobs:
         with:
           ref: ${{ inputs.branch_name }}
 
-      - name: Build Docker image
+      - name: Log in to Docker Hub
         run: |
-            sudo docker build --no-cache \
-            -t nmrlipids/${{ inputs.docker_image_name }} \
+          echo "${{ secrets.DOCKERHUB_TOKEN }}" | sudo docker login -u "nmrlipids" --password-stdin
+
+      - name: Build and Tag Docker Image
+        run: |
+          sudo docker build --no-cache \
+            -t nmrlipids/${{ inputs.docker_image_name }}:latest \
             --build-arg GROMACS_VERSION="${{ inputs.gromacs_version }}" \
             -f Docker/${{ inputs.docker_image_name }} .
 
-      - name: Tag Docker Image
-        run: sudo docker tag nmrlipids/${{ inputs.docker_image_name }} nmrlipids/${{ inputs.docker_image_name }}:latest
-
-      - name: Test
-        shell: bash
+      - name: Push Docker Image
         run: |
-          sudo docker run --rm \
-            -e BRANCH_NAME="${{ inputs.branch_name }}" \
-            nmrlipids/${{ inputs.docker_image_name }} \
-            bash -c "Scripts/WorkflowScripts/DockerRunInstructions/Runtests.sh"
-      
-       
-      - name: Push Docker image
-        run: |
-          echo "${{ secrets.DOCKERHUB_TOKEN }}" | sudo docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
           sudo docker push nmrlipids/${{ inputs.docker_image_name }}:latest
       
+      - name: Log Out of Docker Hub
+        if: always()
+        run: |
+          sudo docker logout
+
+      
+
