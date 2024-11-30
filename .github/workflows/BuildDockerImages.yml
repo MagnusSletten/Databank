@@ -39,4 +39,4 @@ jobs:
 
       - name: Push Docker Image
         run: |
-          sudo docker push nmrlipids/${{ inputs.docker_image_name }}:latest
+          sudo docker push nmrlipids/${{ inputs.docker_image_name }}
