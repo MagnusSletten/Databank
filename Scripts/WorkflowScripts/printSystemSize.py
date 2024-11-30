@@ -66,4 +66,4 @@ if __name__ == "__main__":
     # Load systems from Workflow_utils
     systems = Workflow_utils.sorted_databank()
 
-    print(find_smallest_consecutive_files(systems,4))
+    print(find_smallest_consecutive_files(systems,2))

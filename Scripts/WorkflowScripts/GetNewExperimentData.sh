@@ -43,4 +43,4 @@ git pull
 git status 
 git add Data/*
 git commit -m "Automated push by NREC with new experiment data"
-git push https://x-access-token:$GITHUB_TOKEN@github.com/MagnusSletten/Databank.git
+git push https://x-access-token:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git

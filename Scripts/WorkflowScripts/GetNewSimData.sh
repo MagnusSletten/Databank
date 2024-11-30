@@ -68,4 +68,4 @@ git add Data/Simulations/*/*/*/*/*FragmentQuality.json
 git add Data/Simulations/*/*/*/*/SYSTEM_quality.json
 
 git commit -m "Automated push by NREC with new simulation data" || { echo "git commit failed"; exit 1; }
-git push https://x-access-token:$GITHUB_TOKEN@github.com/MagnusSletten/Databank.git || { echo "git push failed"; exit 1; }
+git push https://x-access-token:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git || { echo "git push failed"; exit 1; }

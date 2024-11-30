@@ -80,7 +80,7 @@ jobs:
       - name: Run Docker to Calculate and Dispatch Child Workflows
         run: |
           sudo docker run --rm \
-            --env number_of_runners=${{ github.event.inputs.number_of_runners }} \
+            --env NUMBER_OF_RUNNERS=${{ github.event.inputs.number_of_runners }} \
             --env START_INDEX=${{ github.event.inputs.start_index }} \
             --env END_INDEX=${{ github.event.inputs.end_index }} \
             --env BRANCH_NAME=${{ github.event.inputs.working_branch_name }} \

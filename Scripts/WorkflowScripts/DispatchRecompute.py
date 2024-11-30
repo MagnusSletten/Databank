@@ -5,7 +5,7 @@ from DatabankLib.core import initialize_databank
 
 def main():
     # Read inputs from environment variables
-    number_of_runners = int(os.getenv('number_of_runners', 1))  # Default to 1 runner
+    number_of_runners = int(os.getenv('NUMBER_OF_RUNNERS', 1))  # Default to 1 runner
     start_index = int(os.getenv('START_INDEX', 0))  # Default start index to 0
     end_index = int(os.getenv('END_INDEX', -1))  # Default end index to -1 (must be set)
     working_branch_name = os.getenv('BRANCH_NAME', 'main')  # Default branch name to 'main'
