@@ -30,8 +30,13 @@ jobs:
             -t nmrlipids/${{ inputs.docker_image_name }}:latest \
             --build-arg GROMACS_VERSION="${{ inputs.gromacs_version }}" \
             -f Docker/${{ inputs.docker_image_name }} .
+      
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3.3.0
+        with:
+          username: nmrlipids
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Push Docker Image
         run: |
-          echo "${{ secrets.DOCKERHUB_TOKEN }}" | sudo docker login -u "nmrlipids" --password-stdin docker.io
           sudo docker push nmrlipids/${{ inputs.docker_image_name }}:latest
