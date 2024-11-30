@@ -6,9 +6,12 @@ on:
 jobs:
   build:
     runs-on: nrec-large
-    steps:      
-      - name: Log in test 
-        run: |
-          echo "${{ secrets.DOCKERHUB_TOKEN }}" | sudo docker login -u "nmrlipids" --password-stdin
+    steps:
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3.3.0
+        with:
+          username: nmrlipids
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
  
       
