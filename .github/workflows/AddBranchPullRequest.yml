@@ -30,7 +30,7 @@ jobs:
         
       - name: Pull Docker image
         run: |
-            sudo docker pull nmrlipids/utils
+            sudo docker pull nmrlipids/core
   
       - name: Run add_branch_and_create_pr to create the branch and open the pull request
         run: |
@@ -41,6 +41,6 @@ jobs:
               -e PR_NUMBER="${{ inputs.pr_number }}" \
               -e TARGET_BRANCH_NAME="${{ inputs.target_branch_name }}" \
               -e GITHUB_ACTOR="${{ github.actor }}" \
-              nmrlipids/utils \
+              nmrlipids/core \
               /bin/bash -c "git pull && Scripts/WorkflowScripts/DockerRunInstructions/NewBranchPullRequest.sh"
            
