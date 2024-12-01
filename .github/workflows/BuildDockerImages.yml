@@ -1,0 +1,47 @@
+name: BuildDockerImages
+
+on:
+  workflow_dispatch:
+    inputs:
+      docker_image_name:
+        description: "The Docker image name you want to rebuild and push to DockerHub (e.g., core)"
+        required: true
+      gromacs_version:
+        description: "The version of gromacs used"
+        required: false
+        default: "2024.4"  
+      branch_name:
+        description: "The branch name to use for cloning the repository"
+        required: false
+        default: "main"  
+jobs:
+  build:
+    runs-on: nrec-large
+    steps:      
+      - name: Check out the repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.branch_name }}
+
+      - name: Log in to Docker Hub
+        run: |
+          echo "${{ secrets.DOCKERHUB_TOKEN }}" | sudo docker login -u "nmrlipids" --password-stdin
+
+      - name: Build and Tag Docker Image
+        run: |
+          sudo docker build --no-cache \
+            -t nmrlipids/${{ inputs.docker_image_name }}:latest \
+            --build-arg GROMACS_VERSION="${{ inputs.gromacs_version }}" \
+            -f Docker/${{ inputs.docker_image_name }} .
+
+      - name: Push Docker Image
+        run: |
+          sudo docker push nmrlipids/${{ inputs.docker_image_name }}:latest
+      
+      - name: Log Out of Docker Hub
+        if: always()
+        run: |
+          sudo docker logout
+
+      
+

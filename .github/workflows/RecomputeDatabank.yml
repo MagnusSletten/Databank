@@ -1,0 +1,94 @@
+name: Recompute Databank
+
+on:
+  workflow_dispatch:
+    inputs:
+      base_branch:
+        description: "The branch which has the files that are going to be recomputed."
+        required: true
+        default: "main"
+        type: string
+      working_branch_name:
+        description: "The new branch where new files are added. A pull request to base_branch is then made from working_branch_name"
+        required: true
+        default: "default"
+        type: string 
+      start_index:
+        description: "Starting index" 
+        required: true
+        type: number  
+      end_index:
+        description: "End index"
+        required: true
+        type: number 
+      number_of_runners: 
+        description: "Number of individual runners being used"
+        required: true
+        type: number 
+
+jobs:
+  Make_New_branch:
+    runs-on: nrec-large
+    steps:
+      - name: Pull Docker image
+        run: |
+          sudo docker pull nmrlipids/core
+
+      - name: Run Docker to Create, Push Branch, and Make PR
+        run: |
+          sudo docker run --rm \
+            -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
+            -e BRANCH_NAME="${{ inputs.working_branch_name }}" \
+            -e BASE_BRANCH="${{ inputs.base_branch }}" \
+            -e START_INDEX="${{ inputs.start_index }}" \
+            -e END_INDEX="${{ inputs.end_index }}" \
+            -e GITHUB_REPOSITORY="${{ github.repository }}" \
+            nmrlipids/core \
+            bash -c "
+              git pull && git checkout '${{ inputs.base_branch }}' &&
+              
+              # Configure Git with existing script
+              Scripts/WorkflowScripts/RunnerGitConfig.sh &&
+              
+              # Create the new branch and push it to the repository
+              Scripts/WorkflowScripts/CreateBranch.sh &&
+              
+              # Add an empty commit to initialize 
+              git commit --allow-empty -m 'Initial placeholder commit' &&
+              
+              # Push the empty commit to the remote branch
+              git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} &&
+              
+              # Create a pull request from the new branch to the base branch
+              gh pr create --head '${{ inputs.working_branch_name }}' \
+                            --base '${{ inputs.base_branch }}' \
+                            --title 'Recompute started by ${{ github.actor }}' \
+                            --body 'Recompute includes files from index ${{ inputs.start_index }} to index ${{ inputs.end_index }}'
+            "
+      
+
+
+  Run-dispatches:   
+    runs-on: nrec-large
+    needs: Make_New_branch
+    steps:
+      - name: Pull Docker image
+        run: |
+            sudo docker pull nmrlipids/core
+      
+
+      - name: Run Docker to Calculate and Dispatch Child Workflows
+        run: |
+          sudo docker run --rm \
+            --env NUMBER_OF_RUNNERS=${{ github.event.inputs.number_of_runners }} \
+            --env START_INDEX=${{ github.event.inputs.start_index }} \
+            --env END_INDEX=${{ github.event.inputs.end_index }} \
+            --env BRANCH_NAME=${{ github.event.inputs.working_branch_name }} \
+            --env GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} \
+            --env GITHUB_REPOSITORY="${{ github.repository }}" \
+            nmrlipids/core \
+            /bin/bash -c '
+                git pull || { echo "Failed to pull latest changes"; exit 1; }
+                git checkout ${{ github.event.inputs.working_branch_name }} || { echo "Failed to check out branch ${{ github.event.inputs.working_branch_name }}"; exit 1; }
+                python Scripts/WorkflowScripts/DispatchRecompute.py || { echo "Dispatch Recompute failed"; exit 1; }
+            '

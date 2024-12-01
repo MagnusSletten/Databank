@@ -1,0 +1,69 @@
+import os
+from DatabankLib.core import initialize_databank
+import Workflow_utils
+
+"""
+Temporary convenience method to just retrieve the smallest files
+"""
+
+def find_smallest_consecutive_files(systems, n):
+    """
+    Finds the smallest n consecutive systems based on the sum of their TRAJECTORY_SIZE
+    and returns their starting index and the corresponding systems.
+    """
+    if not systems or n <= 0 or n > len(systems):
+        print("Invalid input. Ensure systems is not empty and n is within a valid range.")
+        return None, []
+
+    # Initialize the smallest sum and starting index
+    smallest_sum = float("inf")
+    smallest_index = -1
+  
+
+    # Iterate through possible consecutive groups of size n
+    for i in range(len(systems) - n + 1):
+        # Extract the current group
+        current_group = systems[i:i+n]
+
+        # Calculate the sum of TRAJECTORY_SIZE for the group
+        current_sum = sum(system.get("TRAJECTORY_SIZE", float("inf")) for system in current_group)
+
+        # Update if this group has the smallest sum
+        if current_sum < smallest_sum:
+            smallest_sum = current_sum
+            smallest_index = i
+          
+
+    return smallest_index, smallest_sum
+
+
+
+def find_smallest_files(systems, n):
+    """
+    Finds the smallest n systems based on their TRAJECTORY_SIZE and returns their original indexes.
+    """
+    # Attach the original index to each system for tracking
+    indexed_systems = [(i, system) for i, system in enumerate(systems)]
+    # Sort systems by TRAJECTORY_SIZE
+    sorted_systems = sorted(indexed_systems, key=lambda x: x[1].get("TRAJECTORY_SIZE", float("inf")))
+    # Return the smallest n systems and their original indexes
+    return sorted_systems[:n]
+
+
+def get_file_at_index(systems, index):
+    """
+    Fetches and prints the TRAJECTORY_SIZE for the file at the given index.
+    """
+    try:
+        print(systems[index]["TRAJECTORY_SIZE"])
+    except (IndexError, KeyError):
+        print(f"Invalid index: {index}. Ensure it's within range and has TRAJECTORY_SIZE.")
+
+
+
+if __name__ == "__main__":
+  
+    # Load systems from Workflow_utils
+    systems = Workflow_utils.sorted_databank()
+
+    print(find_smallest_consecutive_files(systems,2))

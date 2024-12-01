@@ -1,0 +1,47 @@
+name: Add data 
+
+on:
+  workflow_call:
+    inputs:
+      working_branch_name:
+        description: "The new branch where new files are added"
+        required: true
+        default: "default"
+        type: string 
+      target_branch_name:
+        description: "The final destination for files. This will be main at the end"
+        required: true
+        default: "default"
+        type: string 
+  workflow_dispatch:
+    inputs:
+      working_branch_name:
+        description: "The new branch where new files are added"
+        required: true
+        default: "default"
+      target_branch_name:
+        description: "The final destination for files. This will be main at the end"
+        required: true
+        default: "default"
+
+jobs:
+  AddData:
+    runs-on: nrec-large
+    steps:
+
+      - name: Pull Docker image
+        run: |
+            sudo docker pull nmrlipids/core
+      
+      - name: Computing new data
+        run: |
+            sudo docker run --rm \
+              -e GITHUB_REPOSITORY="${{ github.repository }}" \
+              -e BRANCH_NAME="${{ inputs.working_branch_name}}" \
+              -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
+              -e TARGET_BRANCH="${{ inputs.target_branch_name }}" \
+              -e TQDM_DISABLE=True \
+              nmrlipids/core \
+              /bin/bash -c "git pull && Scripts/WorkflowScripts/DockerRunInstructions/GetNewData.sh"
+
+        

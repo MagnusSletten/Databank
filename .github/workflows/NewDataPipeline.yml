@@ -1,0 +1,26 @@
+name: Add data from fork 
+on:
+  pull_request_target:
+    types: [opened]
+    branches:
+      - dev_pipeline_rebase
+  
+jobs:
+    NewBranchAndPr:
+      if: github.repository == 'MagnusSletten/Databank' && github.event.pull_request.head.repo.full_name != 'MagnusSletten/Databank'
+      uses: MagnusSletten/Databank/.github/workflows/AddBranchPullRequest.yml@dev_pipeline_rebase
+      with:
+        working_branch_name: pr-${{ github.event.pull_request.number }}-from-fork
+        target_branch_name: dev_pipeline_rebase
+        pr_number: ${{ github.event.pull_request.number }}
+      secrets: inherit 
+  
+    AddData:
+      needs: NewBranchAndPr
+      uses: MagnusSletten/Databank/.github/workflows/AddData.yml@dev_pipeline_rebase
+      with:
+        working_branch_name: pr-${{ github.event.pull_request.number }}-from-fork
+        target_branch_name: dev_pipeline_rebase
+      secrets: inherit 
+        
+       
