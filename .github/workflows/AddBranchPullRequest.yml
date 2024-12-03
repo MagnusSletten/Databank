@@ -42,5 +42,5 @@ jobs:
               -e TARGET_BRANCH_NAME="${{ inputs.target_branch_name }}" \
               -e GITHUB_ACTOR="${{ github.actor }}" \
               nmrlipids/core \
-              /bin/bash -c "git pull && Scripts/WorkflowScripts/CreateBranchFromFork.sh && Scripts/WorkflowScripts/CreatePullRequesh.sh"
+              /bin/bash -c "git pull && Scripts/WorkflowScripts/CreateBranchFromFork.sh && Scripts/WorkflowScripts/CreatePullRequest.sh"
            
