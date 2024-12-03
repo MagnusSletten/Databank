@@ -3,7 +3,7 @@ FROM debian:bookworm-slim
 
 # Argument for repository URL
 ARG REPO_URL="https://github.com/MagnusSletten/Databank"
-ARG START_BRANCH_NAME="dev_pipeline_rebase_clean"
+ARG START_BRANCH_NAME="feature"
 
 # Install necessary dependencies: curl, git, GitHub CLI, and Python
 RUN apt-get update && \
