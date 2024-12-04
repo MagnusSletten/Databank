@@ -42,6 +42,11 @@ jobs:
         if: always()
         run: |
           sudo docker logout
+  DockerCleanup:
+    needs: build
+    uses: MagnusSletten/Databank/.github/workflows/DockerCleanup.yml@feature
+    with:
+      delete_images: false
 
       
 
