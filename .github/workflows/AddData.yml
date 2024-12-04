@@ -25,14 +25,14 @@ on:
         default: "default"
 
 jobs:
+  DockerCleanup:
+    uses: MagnusSletten/Databank/.github/workflows/DockerCleanup.yml@feature
+    with:
+      delete_images: false
+
   AddData:
     runs-on: nrec-large
     steps:
-      - name: Docker Cleanup
-        uses: MagnusSletten/Databank/.github/workflows/DockerCleanup.yml@feature
-        with:
-          delete_images: false
-
       - name: Pull Docker image
         run: |
             sudo docker pull nmrlipids/core

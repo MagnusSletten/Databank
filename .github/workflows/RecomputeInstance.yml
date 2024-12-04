@@ -18,13 +18,14 @@ on:
         type: number  
 
 jobs:
+  DockerCleanup:
+    uses: MagnusSletten/Databank/.github/workflows/DockerCleanup.yml@feature
+    with:
+      delete_images: false
+      
   AddSimData:
     runs-on: nrec-large
     steps:
-      - name: Docker Cleanup
-        uses: MagnusSletten/Databank/.github/workflows/DockerCleanup.yml@feature
-        with:
-          delete_images: false
       - name: Pull Docker images
         run: |
           sudo docker pull nmrlipids/core

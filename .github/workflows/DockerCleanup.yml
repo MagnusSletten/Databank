@@ -11,7 +11,7 @@ on:
 
 jobs:
   clean_docker:
-    runs-on: ubuntu-latest
+    runs-on: nrec-large
     steps:
       - name: Stop and remove all containers
         run: sudo docker container prune -f

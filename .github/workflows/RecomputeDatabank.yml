@@ -27,6 +27,10 @@ on:
         type: number 
 
 jobs:
+  DockerCleanup:
+    uses: MagnusSletten/Databank/.github/workflows/DockerCleanup.yml@feature
+    with:
+      delete_images: false
   Make_New_branch:
     runs-on: nrec-large
     steps:
