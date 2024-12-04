@@ -1,3 +1,5 @@
+#Removes resources docker has previously used. Failed jobs could previously leave containers running which is why this workflow was made. 
+#Gives option to delete docker images, but by default this is avoided. 
 name: Docker Cleanup
 
 on:
