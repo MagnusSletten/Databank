@@ -22,8 +22,9 @@ jobs:
     uses: MagnusSletten/Databank/.github/workflows/DockerCleanup.yml@feature
     with:
       delete_images: false
-      
+
   AddSimData:
+    needs: DockerCleanup
     runs-on: nrec-large
     steps:
       - name: Pull Docker images

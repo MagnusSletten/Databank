@@ -32,6 +32,7 @@ jobs:
     with:
       delete_images: false
   Make_New_branch:
+    needs: DockerCleanup
     runs-on: nrec-large
     steps:
       - name: Pull Docker image

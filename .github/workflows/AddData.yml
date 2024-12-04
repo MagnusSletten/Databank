@@ -31,6 +31,7 @@ jobs:
       delete_images: false
 
   AddData:
+    needs: DockerCleanup
     runs-on: nrec-large
     steps:
       - name: Pull Docker image
