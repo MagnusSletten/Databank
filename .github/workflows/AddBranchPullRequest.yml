@@ -20,7 +20,7 @@ on:
         type: string
 
 jobs:
-  Run_Add_Branch_and_Create_PR:
+  Add_Branch_And_Pull_Request:
     runs-on: nrec-large
     steps:
       - name: Clean up workspace
@@ -32,7 +32,7 @@ jobs:
         run: |
             sudo docker pull nmrlipids/core
   
-      - name: Run add_branch_and_create_pr to create the branch and open the pull request
+      - name: Add branch and create pull request
         run: |
             sudo docker run --rm \
               -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
