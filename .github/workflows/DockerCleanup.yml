@@ -16,12 +16,6 @@ jobs:
       - name: Stop and remove all containers
         run: sudo docker container prune -f
 
-      - name: Remove all unused volumes
-        run: sudo docker volume prune -f
-
-      - name: Remove all unused networks
-        run: sudo docker network prune -f
-
       - name: Remove all unused build cache
         run: sudo docker builder prune -f
 
