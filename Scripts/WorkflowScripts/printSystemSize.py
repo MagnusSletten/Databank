@@ -60,10 +60,20 @@ def get_file_at_index(systems, index):
         print(f"Invalid index: {index}. Ensure it's within range and has TRAJECTORY_SIZE.")
 
 
+def find_consecutive_file_sizes(systems, start,end):
+    """
+    Calculate total size of files between index start and including end.
+    """
+    # Extract the current group
+    current_group = systems[start:end+1]
+
+    # Calculate the sum of TRAJECTORY_SIZE for the group
+    current_sum = sum(system.get("TRAJECTORY_SIZE", float("inf")) for system in current_group)
+    return current_sum
 
 if __name__ == "__main__":
   
     # Load systems from Workflow_utils
     systems = Workflow_utils.sorted_databank()
 
-    print(find_smallest_consecutive_files(systems,2))
+    print(find_consecutive_file_sizes(systems,531,535))
