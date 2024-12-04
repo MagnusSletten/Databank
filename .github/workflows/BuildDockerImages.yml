@@ -39,7 +39,7 @@ jobs:
           sudo docker push nmrlipids/${{ inputs.docker_image_name }}:latest
       
       - name: Docker Cleanup
-        uses: ./.github/workflows/docker-cleanup.yml
+        uses: MagnusSletten/Databank/.github/workflows/DockerCleanup.yml@feature
         with:
           delete_images: false
       

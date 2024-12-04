@@ -22,7 +22,7 @@ jobs:
     runs-on: nrec-large
     steps:
       - name: Docker Cleanup
-        uses: ./.github/workflows/docker-cleanup.yml
+        uses: MagnusSletten/Databank/.github/workflows/DockerCleanup.yml@feature
         with:
           delete_images: false
       - name: Pull Docker images
