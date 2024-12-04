@@ -21,6 +21,10 @@ jobs:
   AddSimData:
     runs-on: nrec-large
     steps:
+      - name: Docker Cleanup
+        uses: ./.github/workflows/docker-cleanup.yml
+        with:
+          delete_images: false
       - name: Pull Docker images
         run: |
           sudo docker pull nmrlipids/core

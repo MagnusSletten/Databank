@@ -28,6 +28,10 @@ jobs:
   AddData:
     runs-on: nrec-large
     steps:
+      - name: Docker Cleanup
+        uses: ./.github/workflows/docker-cleanup.yml
+        with:
+          delete_images: false
 
       - name: Pull Docker image
         run: |
