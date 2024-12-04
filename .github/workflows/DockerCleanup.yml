@@ -28,6 +28,6 @@ jobs:
       - name: Remove unused images
         run: sudo docker image prune -f
 
-      - name: Force delete all images (optional)
+      - name: Delete all images (optional)
         if: ${{ inputs.delete_images == 'true' }}
         run: sudo docker image prune -f
