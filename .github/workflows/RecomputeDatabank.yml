@@ -27,7 +27,12 @@ on:
         type: number 
 
 jobs:
+  DockerCleanup:
+    uses: MagnusSletten/Databank/.github/workflows/DockerCleanup.yml@dev_pipeline_rebase_clean
+    with:
+      delete_images: false
   Make_New_branch:
+    needs: DockerCleanup
     runs-on: nrec-large
     steps:
       - name: Pull Docker image
@@ -75,7 +80,6 @@ jobs:
       - name: Pull Docker image
         run: |
             sudo docker pull nmrlipids/core
-      
 
       - name: Run Docker to Calculate and Dispatch Child Workflows
         run: |

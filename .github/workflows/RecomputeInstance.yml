@@ -18,7 +18,13 @@ on:
         type: number  
 
 jobs:
+  DockerCleanup:
+    uses: MagnusSletten/Databank/.github/workflows/DockerCleanup.yml@dev_pipeline_rebase_clean
+    with:
+      delete_images: false
+
   AddSimData:
+    needs: DockerCleanup
     runs-on: nrec-large
     steps:
       - name: Pull Docker images

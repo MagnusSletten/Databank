@@ -15,7 +15,12 @@ on:
         required: false
         default: "main"  
 jobs:
-  build:
+  DockerCleanup:
+    uses: MagnusSletten/Databank/.github/workflows/DockerCleanup.yml@dev_pipeline_rebase_clean
+    with:
+      delete_images: false
+  Build:
+    needs: DockerCleanup
     runs-on: nrec-large
     steps:      
       - name: Check out the repository
@@ -42,6 +47,7 @@ jobs:
         if: always()
         run: |
           sudo docker logout
+  
 
       
 
