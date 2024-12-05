@@ -4,25 +4,23 @@ on:
   workflow_call:
     inputs:
       working_branch_name:
-        description: "The new branch where new files are added"
+        description: "Branch containing new data:"
         required: true
-        default: "default"
         type: string 
       target_branch_name:
-        description: "The final destination for files. This will be main at the end"
+        description: "Branch to compare against for identifying new files:"
         required: true
-        default: "default"
         type: string 
   workflow_dispatch:
     inputs:
       working_branch_name:
-        description: "The new branch where new files are added"
+        description: "Branch containing new data:"
         required: true
-        default: "default"
+
       target_branch_name:
-        description: "The final destination for files. This will be main at the end"
+        description: "Branch to compare against for identifying new files:"
         required: true
-        default: "default"
+
 
 jobs:
   DockerCleanup:

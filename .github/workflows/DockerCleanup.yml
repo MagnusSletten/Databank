@@ -7,7 +7,7 @@ on:
     inputs:
       delete_images:
         type: boolean 
-        description: "If true it will delete all images"
+        description: "If true it will delete all images:"
         required: false
         default: false
 

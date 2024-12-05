@@ -4,14 +4,14 @@ on:
   workflow_dispatch:
     inputs:
       docker_image_name:
-        description: "The Docker image name you want to rebuild and push to DockerHub (e.g., core)"
+        description: "The Docker image name you want to rebuild and push to DockerHub (e.g., core):"
         required: true
       gromacs_version:
-        description: "The version of gromacs used"
+        description: "The version of gromacs used:"
         required: false
         default: "2024.4"  
       branch_name:
-        description: "The branch name to use for cloning the repository"
+        description: "The branch name to use for cloning the repository:"
         required: false
         default: "main"  
 jobs:
