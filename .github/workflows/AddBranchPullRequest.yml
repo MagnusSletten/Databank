@@ -7,15 +7,15 @@ on:
   workflow_call:
     inputs:
       working_branch_name:
-        description: "The new branch where new files are added"
+        description: "Name of the new branch:"
         required: true
         type: string
       target_branch_name:
-        description: "The branch it will create a PR towards"
+        description: "The branch it will create a PR towards:"
         required: true
         type: string
       pr_number:
-        description: "The pull request number"
+        description: "The pull request number for incoming fork"
         required: true
         type: string
 
