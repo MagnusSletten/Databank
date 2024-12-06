@@ -59,8 +59,9 @@ rm -rf /var/lib/apt/lists/*
 
 # Clone the MDAnalysis repository
 RUN git clone --branch develop --depth 1 https://github.com/MDAnalysis/mdanalysis.git && \
-    cd mdanalysis/package && \
-    pip install --no-cache-dir --break-system-packages -e . 
+    cd mdanalysis && \ 
+    pip install -e package/ --break-system-packages  
+
 #Add a non-root user 'runner'
 RUN useradd -m -s /bin/bash runner
 
