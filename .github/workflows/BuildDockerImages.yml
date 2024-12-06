@@ -49,7 +49,7 @@ jobs:
           sudo docker run --rm \
             -e BRANCH_NAME="${{ inputs.branch_name }}" \
             nmrlipids/${{ inputs.docker_image_name }} \
-            bash -c "Scripts/WorkflowScripts/DockerRunInstructions/Runtests.sh"
+            bash -c "git pull && Scripts/WorkflowScripts/DockerRunInstructions/Runtests.sh"
      
       - name: Push Docker Image
         run: |
