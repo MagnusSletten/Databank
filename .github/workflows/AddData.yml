@@ -16,7 +16,6 @@ on:
       working_branch_name:
         description: "Branch containing new data:"
         required: true
-
       target_branch_name:
         description: "Branch to compare against for identifying new files:"
         required: true
