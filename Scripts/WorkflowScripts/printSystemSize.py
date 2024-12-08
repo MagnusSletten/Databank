@@ -59,6 +59,29 @@ def get_file_at_index(systems, index):
     except (IndexError, KeyError):
         print(f"Invalid index: {index}. Ensure it's within range and has TRAJECTORY_SIZE.")
 
+def find_closest_consecutive_pair(systems):
+    """
+    Finds the two consecutive systems with the smallest absolute difference 
+    in their TRAJECTORY_SIZE and returns their indexes and the difference.
+    """
+    if len(systems) < 2:
+        print("Not enough systems to find consecutive pairs.")
+        return None, None
+
+    smallest_diff = float("inf")
+    smallest_pair_indices = (None, None)
+
+    for i in range(len(systems) - 1):
+        size1 = systems[i].get("TRAJECTORY_SIZE", float("inf"))
+        size2 = systems[i+1].get("TRAJECTORY_SIZE", float("inf"))
+        current_diff = abs(size1 - size2)
+
+        if current_diff < smallest_diff:
+            smallest_diff = current_diff
+            smallest_pair_indices = (i, i + 1)
+
+    return smallest_pair_indices, smallest_diff
+
 
 def find_consecutive_file_sizes(systems, start,end):
     """
@@ -76,4 +99,4 @@ if __name__ == "__main__":
     # Load systems from Workflow_utils
     systems = Workflow_utils.sorted_databank()
 
-    print(find_consecutive_file_sizes(systems,531,535))
+    print(find_consecutive_file_sizes(systems,688,688))
