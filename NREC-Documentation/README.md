@@ -23,8 +23,7 @@ For detailed instructions, refer to the [NREC guide](https://uh-iaas.readthedocs
    
    Click Volumes on NREC. It’s practical to create a snapshot of a base volume which contains a docker folder if it does not already exist. This can be done by first following the steps to create a volume and then creating a Docker directory at the root of the Volume. 
    
-   Creating the volume can be done by following the guide: 
-    https://uh-iaas.readthedocs.io/manage-volumes.html
+   Creating the volume can be done by following the [guide](https://uh-iaas.readthedocs.io/manage-volumes.html)
 
 2. **Update the software**:
 Updating the Linux packages can be done with the commands:
@@ -63,9 +62,10 @@ Updating the Linux packages can be done with the commands:
    `nano runnersetup.sh`
 
    Set the following variables:
-   - `GITHUB_OWNER`: The owner of your GitHub repository.
+   - `GITHUB_OWNER`: The owner of your GitHub repository. 
    - `GITHUB_REPOSITORY`: Leave this as `Databank`if the repository name isn't changed.
-   This will be used to create the URl to the correct repository. 
+   
+   This will be used to create the URL to the correct repository. Example: If the URL to a repository is `https://github.com/MagnusSletten/Databank` the GITHUB_OWNER is `MagnusSletten`and the GITHUB_REPOSITORY is `Databank`
 
    Save and exit:
    - Press `Ctrl+O`, then `Enter` to save.
