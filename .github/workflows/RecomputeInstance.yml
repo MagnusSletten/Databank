@@ -1,0 +1,42 @@
+name: Recompute instance
+
+on:
+  workflow_dispatch:
+    inputs:
+      working_branch_name:
+        description: "The new branch where new files are added:"
+        required: true
+        type: string  
+      start_index:
+        description: "Starting index:"
+        required: true
+        type: number  
+      end_index:
+        description: "End index:"
+        required: true
+        type: number  
+
+jobs:
+  DockerCleanup:
+    uses: MagnusSletten/Databank/.github/workflows/DockerCleanup.yml@dev_pipeline_rebase_clean
+    with:
+      delete_images: false
+
+  RecomputeData:
+    needs: DockerCleanup
+    runs-on: nrec-large
+    steps:
+      - name: Pull Docker images
+        run: |
+          sudo docker pull nmrlipids/core
+
+      - name: Run docker image to recompute files
+        run: |
+            sudo docker run --rm \
+            -e GITHUB_REPOSITORY="${{ github.repository }}" \
+            -e BRANCH_NAME="${{ inputs.working_branch_name }}" \
+            -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
+            -e START_INDEX="${{ inputs.start_index }}" \
+            -e END_INDEX="${{ inputs.end_index }}" \
+            nmrlipids/core \
+            /bin/bash -c "git pull && Scripts/WorkflowScripts/DockerRunInstructions/RecomputeInstructions.sh"
