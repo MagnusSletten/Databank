@@ -26,26 +26,27 @@ For detailed instructions, refer to the [NREC guide](https://uh-iaas.readthedocs
    Creating the volume can be done by following the [guide](https://uh-iaas.readthedocs.io/manage-volumes.html)
 
 2. **Update the software**:
-Updating the Linux packages can be done with the commands:
-`sudo apt update`
+   Updating the Linux packages can be done with the commands:
+    
+    ```sudo apt update```
 
-    `sudo apt upgrade` 
+    ```sudo apt upgrade``` 
 
 3. **Mount the Volume**:
 
     Once it’s mounted via the web interface it also needs to be mounted via a command:
     
-    `sudo mount /dev/sdb /persistent01`
+    ```sudo mount /dev/sdb /persistent01```
 
 
 4. **Create a Docker Folder**:
    Once mounted, create a Docker folder from the root of the volume:
-   `sudo mkdir /persistent01/Docker`
+   ```sudo mkdir /persistent01/Docker```
    After this is done you can save the Docker Volume as a snapshot. Later volumes can then be created with the Docker exisisting from start. 
 
 5. **Start Docker**:
    
-   `sudo systemctl start docker`
+   ```sudo systemctl start docker```
 
 ## Configuring the Runner
 
@@ -54,12 +55,12 @@ Updating the Linux packages can be done with the commands:
 
 2. **Navigate to the Actions Runner Directory**:
 
-   `cd actions-runner`
+   ```cd actions-runner```
 
 3. **Edit Runner Setup Script**:
    Open the `runnersetup.sh` script:
 
-   `nano runnersetup.sh`
+   ```nano runnersetup.sh``` 
 
    Set the following variables:
    - `GITHUB_OWNER`: The owner of your GitHub repository. 
@@ -75,12 +76,12 @@ Updating the Linux packages can be done with the commands:
 
    `./runnersetup.sh {your_github_personal_access_token}`
 
-   Here the runenrsetup script is being run with the github token passed as a parameter. If a token is not already created you can find instructions here with the [Github official guide](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
+   Here the runnersetup script is being run with the github token passed as a parameter. If a token is not already created you can find instructions here with the [Github official guide](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)
 
 
 5. **Start the Runner**:
 
-   `./run.sh`
+   ```./run.sh```
 
 
 For additional details, refer to the [NREC documentation](https://uh-iaas.readthedocs.io/).
