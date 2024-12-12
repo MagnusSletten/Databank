@@ -55,7 +55,7 @@ For detailed instructions, refer to the [NREC guide](https://uh-iaas.readthedocs
 
 3. **Create a Docker Folder**:
    Once mounted, create a Docker folder from the root of the volume:
-   ```sudo mkdir /persistent01/Docker```
+   ```sudo mkdir /persistent01/docker```
    After this is done you can save the Docker Volume as a snapshot. Later volumes can then be created with the Docker exisisting from start. 
 
 
