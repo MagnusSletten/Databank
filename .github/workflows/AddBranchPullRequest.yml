@@ -1,0 +1,45 @@
+#This will used for an incoming pull request from a fork and it makes a new branch within our repository which is identical to the incoming branch 
+#with a given new branch name and create a pull request to target_branch_name
+
+name: Add new branch and pull request
+
+on:
+  workflow_call:
+    inputs:
+      working_branch_name:
+        description: "Name of the new branch:"
+        required: true
+        type: string
+      target_branch_name:
+        description: "The branch it will create a PR towards:"
+        required: true
+        type: string
+      pr_number:
+        description: "The pull request number for incoming fork"
+        required: true
+        type: string
+
+jobs:
+  Add_Branch_And_Pull_Request:
+    runs-on: nrec-large
+    steps:
+      - name: Clean up workspace
+        run: |
+          # Delete all files in the workspace directory
+          rm -rf $GITHUB_WORKSPACE/*
+        
+      - name: Pull Docker image
+        run: |
+            sudo docker pull nmrlipids/core
+  
+      - name: Add branch and create pull request
+        run: |
+            sudo docker run --rm \
+              -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
+              -e GITHUB_REPOSITORY="${{ github.repository }}" \
+              -e BRANCH_NAME="${{ inputs.working_branch_name }}" \
+              -e PR_NUMBER="${{ inputs.pr_number }}" \
+              -e TARGET_BRANCH_NAME="${{ inputs.target_branch_name }}" \
+              -e GITHUB_ACTOR="${{ github.actor }}" \
+              nmrlipids/core /bin/bash -c "git pull && git checkout ${{ inputs.target_branch_name }} && \
+              Scripts/WorkflowScripts/CreateBranchFromFork.sh && Scripts/WorkflowScripts/CreatePullRequest.sh"
