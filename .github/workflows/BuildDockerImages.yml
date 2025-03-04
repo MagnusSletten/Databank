@@ -20,7 +20,7 @@ on:
         default: true
 jobs:
   DockerCleanup:
-    uses: MagnusSletten/Databank/.github/workflows/DockerCleanup.yml@dev_pipeline_rebase_clean
+    uses: MagnusSletten/Databank/.github/workflows/DockerCleanup.yml@dev_cicd
     with:
       delete_images: false
   Build:
