@@ -1,0 +1,32 @@
+name: Build documentation
+
+on : workflow_dispatch
+
+jobs:
+    install-dependencies:
+        runs-on: ubuntu-latest 
+        steps:
+          - name: install depedencies
+            run: |
+                sudo apt-get install python3-sphinx 
+                pip install myst-parser 
+                pip install sphinx-rtd-theme
+    
+    build-documentation:
+        runs-on: ubuntu-latest
+        needs: install-dependencies
+        steps: 
+          - name: Checkout repository
+            uses: actions/checkout@v4
+            with:
+               ref: "dev_document_cicd"
+       
+          - name: build
+            run: make html
+            working-directory: Scripts/BuildDatabank/docs
+        
+          
+
+
+
+
