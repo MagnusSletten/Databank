@@ -44,6 +44,6 @@ jobs:
               -e TARGET_BRANCH="${{ inputs.target_branch_name }}" \
               -e TQDM_DISABLE=True \
               nmrlipids/core \
-              /bin/bash -c "git pull && Scripts/WorkflowScripts/DockerRunInstructions/GetNewData.sh"
+              /bin/bash -c "git pull && python Scripts/WorkflowScripts/DockerRunInstructions/GetNewData.py"
 
         
