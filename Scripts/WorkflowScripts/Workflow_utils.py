@@ -15,14 +15,26 @@ def sorted_databank():
     systems.sort(key=lambda x: x['ID'])
     return systems
 
-
+#Helper to run a shell command and exit on failure.
 def run_command(command, error_message="Command failed"):
-    """Helper to run a shell command and exit on failure."""
+    
     try:
         subprocess.run(command, shell=True, check=True)
     except subprocess.CalledProcessError:
         print(error_message)
         sys.exit(1)
+
+#Run a Python script using the current interpreter (sys.executable).
+def run_python_script(script_path, args=None, error_message="Python script failed"):
+   
+    if args is None:
+        args = []
+    try:
+        subprocess.run([sys.executable, script_path, *args], check=True)
+    except subprocess.CalledProcessError:
+        print(error_message)
+        sys.exit(1)
+
 
 def branch_exists(branch_name):
     """Return True if a local branch by that name already exists."""
@@ -34,6 +46,9 @@ def branch_exists(branch_name):
 
 def git_pull():
     run_command("git pull", "Failed to pull new files")
+
+def git_commit(commit_message:str):
+    run_command(f"git commit -m {commit_message}","git commit failed")
 
 def git_setup():
     GITHUB_USERNAME = "GitHub Actions Bot"
