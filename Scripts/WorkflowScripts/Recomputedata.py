@@ -6,7 +6,7 @@ Recomputes JSON files starting from "start-index" and ending with "end-index", b
 from DatabankLib.core import initialize_databank  
 from DatabankLib import NMLDB_ROOT_PATH, NMLDB_SIMU_PATH
 import glob, os, sys, subprocess, argparse
-import Workflow_utils
+from .Workflow_utils import * 
 
 
 def delete_json_files_for_system(system):

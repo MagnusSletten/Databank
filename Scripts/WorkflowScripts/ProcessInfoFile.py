@@ -6,8 +6,7 @@ import os
 import argparse
 
 def main(info_file_path):
-    git_pull()
-
+    
     NMRLB_BUILDDATAPANK_PATH = os.path.join(NMLDB_ROOT_PATH,"Scripts","BuildDatabank")
     AddData_path = os.path.join(NMRLB_BUILDDATAPANK_PATH,"AddData.py")
     calcProperties_path = os.path.join(NMLDB_ROOT_PATH,"Scripts","AnalyzeDatabank","calcProperties.sh")
@@ -17,7 +16,7 @@ def main(info_file_path):
 
     WORK_DIR="/tmp/databank_workdir"
     os.makedirs(WORK_DIR, exist_ok=True)
-    add_data_args = [f"-f {info_file_path}",f"-w {WORK_DIR}"]
+    add_data_args = ["-f",info_file_path,"-w", WORK_DIR]
 
     run_python_script(AddData_path,add_data_args,error_message="AddData failed")
 
