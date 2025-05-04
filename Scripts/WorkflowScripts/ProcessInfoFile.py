@@ -3,6 +3,7 @@ from DatabankLib import NMLDB_ROOT_PATH
 from .Workflow_utils import *  
 
 import os 
+import argparse
 
 def main(info_file_path):
     git_pull()
@@ -44,5 +45,13 @@ def add_sim_files():
     run_command("git add Data/Simulations/*/*/*/*/*FragmentQuality.json")
     run_command("git add Data/Simulations/*/*/*/*/SYSTEM_quality.json")
 
+
+def get_args():
+    parser = argparse.ArgumentParser(description="Run NMRLipids data pipeline on a YAML info file.")
+    parser.add_argument("info_file", help="Path to the info.yaml file")
+
+    return parser.parse_args()
+
 if __name__ == "__main__":
-    main()
+    args = get_args()
+    main(args.info_file)
