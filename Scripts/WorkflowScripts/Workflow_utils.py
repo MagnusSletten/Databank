@@ -16,24 +16,27 @@ def sorted_databank():
     return systems
 
 #Helper to run a shell command and exit on failure.
-def run_command(command, error_message="Command failed"):
-    
+def run_command(command, error_message="Command failed", working_dir=None):
     try:
-        subprocess.run(command, shell=True, check=True)
+        subprocess.run(command, shell=True, check=True, cwd=working_dir)
     except subprocess.CalledProcessError:
         print(error_message)
         sys.exit(1)
 
-#Run a Python script using the current interpreter (sys.executable).
-def run_python_script(script_path, args=None, error_message="Python script failed"):
-   
+#Run a Python script using the current interpreter (sys.executable). Optional work directory can be applied.
+def run_python_script(script_path, args=None, error_message="Python script failed", working_dir=None):
     if args is None:
         args = []
     try:
-        subprocess.run([sys.executable, script_path, *args], check=True)
+        subprocess.run(
+            [sys.executable, script_path, *args],
+            check=True,
+            cwd=working_dir  # Set working directory if provided
+        )
     except subprocess.CalledProcessError:
         print(error_message)
         sys.exit(1)
+
 
 
 def branch_exists(branch_name):

@@ -9,7 +9,8 @@ def main(info_file_path):
     
     NMRLB_BUILDDATAPANK_PATH = os.path.join(NMLDB_ROOT_PATH,"Scripts","BuildDatabank")
     AddData_path = os.path.join(NMRLB_BUILDDATAPANK_PATH,"AddData.py")
-    calcProperties_path = os.path.join(NMLDB_ROOT_PATH,"Scripts","AnalyzeDatabank","calcProperties.sh")
+    AnalyzeDatabank_path = os.path.join(NMLDB_ROOT_PATH,"Scripts","AnalyzeDatabank")
+    calcProperties_path = os.path.join(AnalyzeDatabank_path,"calcProperties.sh")
     searchDATABANK_path = os.path.join(NMRLB_BUILDDATAPANK_PATH,"searchDATABANK.py")
     QualityEvaluation_path = os.path.join(NMRLB_BUILDDATAPANK_PATH,"QualityEvaluation.py")
     makeRanking_path = os.path.join(NMRLB_BUILDDATAPANK_PATH,"makeRanking.py")
@@ -20,7 +21,7 @@ def main(info_file_path):
 
     run_python_script(AddData_path,add_data_args,error_message="AddData failed")
 
-    run_command(calcProperties_path, "Calcproperties failed")
+    run_command(calcProperties_path, "Calcproperties failed",working_dir=AnalyzeDatabank_path)
 
     run_python_script(searchDATABANK_path,error_message="SearchDatabank failed")
     run_python_script(QualityEvaluation_path,error_message= "QualtyEvaluation failed")
