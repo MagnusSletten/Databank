@@ -51,7 +51,7 @@ def git_pull():
     run_command("git pull", "Failed to pull new files")
 
 def git_commit(commit_message:str):
-    run_command(f"git commit -m {commit_message}","git commit failed")
+    run_command(f'git commit -m "{commit_message}"',"git commit failed")
 
 def git_setup():
     GITHUB_USERNAME = "GitHub Actions Bot"
