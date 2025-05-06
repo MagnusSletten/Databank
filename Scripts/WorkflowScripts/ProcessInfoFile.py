@@ -27,7 +27,7 @@ def main(info_files_folder_path):
     
 
 def run_addData_for_files(folder_path,info_files,work_directory):
-    path_dict = get_databank_paths()
+    path_dict = get_databank_paths(NMLDB_ROOT_PATH)
     for file in info_files:
         file_path = os.path.join(folder_path,file)
         add_data_args = ["-f", file_path, "-w", work_directory]
