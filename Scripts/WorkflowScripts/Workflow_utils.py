@@ -128,3 +128,17 @@ def create_branch(base_branch, new_branch_name, github_repository):
         f'git push https://x-access-token:{github_token}@github.com/{github_repository} {new_branch_name}:{new_branch_name}',
         "Failed to push the branch"
     )
+
+def get_infofile_names_from_folder(folder_path):
+    yaml_files = []
+    try:
+        file_names =  os.listdir(folder_path)
+    except FileNotFoundError:
+            print(f"Folder not found: {folder_path}")
+            return None 
+    for file in file_names:
+        if file.lower().endswith(('.yaml', '.yml')):
+            yaml_files.append(file)
+    return yaml_files 
+            
+       
