@@ -6,7 +6,7 @@ import os
 import argparse
 
 def main(info_files_folder_path):    
-    path_dict = get_databank_paths()
+    path_dict = get_databank_paths(NMLDB_ROOT_PATH)
 
     work_directory = "/tmp/databank_workdir"
     os.makedirs(work_directory, exist_ok=True)
