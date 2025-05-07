@@ -1,6 +1,6 @@
 from DatabankLib import NMLDB_SIMU_PATH
 from DatabankLib import NMLDB_ROOT_PATH
-from .Workflow_utils import *  
+from Scripts.WorkflowScripts.Workflow_utils import *  
 
 import os 
 import argparse

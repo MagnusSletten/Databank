@@ -1,7 +1,7 @@
 from WorkflowScripts.Workflow_utils import *
 from DatabankLib import NMLDB_SIMU_PATH
 from DatabankLib import NMLDB_ROOT_PATH
-from WorkflowScripts import ProcessInfoFile 
+from Scripts.WorkflowScripts import ProcessInfoFile 
 import os
 import sys
 
