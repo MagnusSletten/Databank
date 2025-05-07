@@ -35,50 +35,30 @@ def run_addData_for_files(folder_path,info_files,work_directory):
 
 
 
-
-
-
 def add_sim_files():
-    run_command("git add Data/Simulations/*/*/*/*/README.yaml")
-    run_command("git add Data/Simulations/*/*/*/*/apl.json")
-    run_command("git add Data/Simulations/*/*/*/*/*OrderParameters.json")
-    run_command("git add Data/Simulations/*/*/*/*/FormFactor.json")
-    run_command("git add Data/Simulations/*/*/*/*/TotalDensity.json")
-    run_command("git add Data/Simulations/*/*/*/*/thickness.json")
-    run_command("git add Data/Simulations/*/*/*/*/eq_times.json")
-    run_command("git add Data/Simulations/*/*/*/*/*OrderParameters_quality.json")
-    run_command("git add Data/Simulations/*/*/*/*/FormFactorQuality.json")
-    run_command("git add Data/Simulations/*/*/*/*/*FragmentQuality.json")
-    run_command("git add Data/Simulations/*/*/*/*/SYSTEM_quality.json")
+    patterns = [
+        "*/*/*/*/README.yaml",
+        "*/*/*/*/apl.json",
+        "*/*/*/*/*OrderParameters.json",
+        "*/*/*/*/FormFactor.json",
+        "*/*/*/*/TotalDensity.json",
+        "*/*/*/*/thickness.json",
+        "*/*/*/*/eq_times.json",
+        "*/*/*/*/*OrderParameters_quality.json",
+        "*/*/*/*/FormFactorQuality.json",
+        "*/*/*/*/*FragmentQuality.json",
+        "*/*/*/*/SYSTEM_quality.json"
+    ]
+
+    for pattern in patterns:
+        run_command(f"git add {NMLDB_SIMU_PATH}/{pattern}","Failed to add new simulation files")
 
 
 def get_args():
     parser = argparse.ArgumentParser(description="Run NMRLipids data pipeline on a YAML info file.")
-    parser.add_argument("info_file_folder", help="Path to the info.yaml file")
+    parser.add_argument("--info_file_folder", required=True, help="Path to the folder containing .yaml or .yml info files")
 
     return parser.parse_args()
-
-
-#TODO: Use package paths directly instead of this dictionary approach. 
-
-def get_databank_paths(NMLDB_ROOT_PATH):
-    NMRLB_BUILDDATAPANK_PATH = os.path.join(NMLDB_ROOT_PATH, "Scripts", "BuildDatabank")
-    AddData_path = os.path.join(NMRLB_BUILDDATAPANK_PATH, "AddData.py")
-    AnalyzeDatabank_path = os.path.join(NMLDB_ROOT_PATH, "Scripts", "AnalyzeDatabank")
-    calcProperties_path = os.path.join(AnalyzeDatabank_path, "calcProperties.sh")
-    searchDATABANK_path = os.path.join(NMRLB_BUILDDATAPANK_PATH, "searchDATABANK.py")
-    QualityEvaluation_path = os.path.join(NMRLB_BUILDDATAPANK_PATH, "QualityEvaluation.py")
-    makeRanking_path = os.path.join(NMRLB_BUILDDATAPANK_PATH, "makeRanking.py")
-
-    return {
-        "NMRLB_BUILDDATAPANK_PATH": NMRLB_BUILDDATAPANK_PATH,
-        "AddData_path": AddData_path,
-        "AnalyzeDatabank_path": AnalyzeDatabank_path,
-        "calcProperties_path": calcProperties_path,
-        "searchDATABANK_path": searchDATABANK_path,
-        "QualityEvaluation_path": QualityEvaluation_path,
-        "makeRanking_path": makeRanking_path
-    }
 
 
 

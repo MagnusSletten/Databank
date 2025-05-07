@@ -38,6 +38,26 @@ def run_python_script(script_path, args=None, error_message="Python script faile
         sys.exit(1)
 
 
+#TODO: Use package paths directly instead of this dictionary approach. 
+def get_databank_paths(NMLDB_ROOT_PATH):
+    Builddatabank_path = os.path.join(NMLDB_ROOT_PATH, "Scripts", "BuildDatabank")
+    AddData_path = os.path.join(Builddatabank_path, "AddData.py")
+    AnalyzeDatabank_path = os.path.join(NMLDB_ROOT_PATH, "Scripts", "AnalyzeDatabank")
+    calcProperties_path = os.path.join(AnalyzeDatabank_path, "calcProperties.sh")
+    searchDATABANK_path = os.path.join(Builddatabank_path, "searchDATABANK.py")
+    QualityEvaluation_path = os.path.join(Builddatabank_path, "QualityEvaluation.py")
+    makeRanking_path = os.path.join(Builddatabank_path, "makeRanking.py")
+
+    return {
+        "Builddatabank_path": Builddatabank_path,
+        "AddData_path": AddData_path,
+        "AnalyzeDatabank_path": AnalyzeDatabank_path,
+        "calcProperties_path": calcProperties_path,
+        "searchDATABANK_path": searchDATABANK_path,
+        "QualityEvaluation_path": QualityEvaluation_path,
+        "makeRanking_path": makeRanking_path
+    }
+
 
 def branch_exists(branch_name):
     """Return True if a local branch by that name already exists."""
