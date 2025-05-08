@@ -24,7 +24,7 @@ def main(info_files_folder_path):
     run_python_script(path_dict["QualityEvaluation_path"], error_message="QualityEvaluation failed")
     run_python_script(path_dict["makeRanking_path"], error_message="makeRanking failed")
 
-    add_sim_files()
+    stash_sim_files()
     
 
 def run_addData_for_files(folder_path,info_files,work_directory):
@@ -54,6 +54,23 @@ def add_sim_files():
     for pattern in patterns:
         run_command(f"git add {NMLDB_SIMU_PATH}/{pattern}","Failed to add new simulation files")
 
+def stash_sim_files():
+    patterns = [
+        "*/*/*/*/README.yaml",
+        "*/*/*/*/apl.json",
+        "*/*/*/*/*OrderParameters.json",
+        "*/*/*/*/FormFactor.json",
+        "*/*/*/*/TotalDensity.json",
+        "*/*/*/*/thickness.json",
+        "*/*/*/*/eq_times.json",
+        "*/*/*/*/*OrderParameters_quality.json",
+        "*/*/*/*/FormFactorQuality.json",
+        "*/*/*/*/*FragmentQuality.json",
+        "*/*/*/*/SYSTEM_quality.json"
+    ]
+
+    for pattern in patterns:
+        run_command(f"git stash push -m 'simdata' {NMLDB_SIMU_PATH}/{pattern}", "Failed to stash new simulation files")
 
 def get_args():
     parser = argparse.ArgumentParser(description="Run NMRLipids data pipeline on a YAML info file.")
