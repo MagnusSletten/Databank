@@ -67,6 +67,7 @@ def branch_exists(branch_name):
     )
     return result.returncode == 0
 
+
 def git_pull():
     run_command("git pull", "Failed to pull new files")
 
@@ -93,6 +94,14 @@ def git_push(github_repository):
         f'git push https://x-access-token:{github_token}@github.com/{github_repository}.git',
         "git push failed"
     )
+
+    
+def get_branch_name():
+    branch_name = os.getenv("BRANCH_NAME")
+    if not branch_name:
+        print("Branch name enviromental variable must be set")
+        sys.exit(1) 
+    return branch_name
 
 def create_pull_request(branch_name, target_branch_name, github_actor):
     github_token = os.getenv("GITHUB_TOKEN")

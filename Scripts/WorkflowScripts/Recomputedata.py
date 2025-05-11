@@ -110,7 +110,7 @@ if __name__ == "__main__":
     try:
         print(f"This will recompute from {args.start_index} to {args.end_index}", flush=True)
 
-        systems = Workflow_utils.sorted_databank()
+        systems = sorted_databank()
 
         if args.start_index < 0 or args.end_index >= len(systems):
             raise IndexError("Start or end index is out of range")

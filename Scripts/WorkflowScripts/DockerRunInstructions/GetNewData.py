@@ -22,12 +22,6 @@ def main():
     run_python_script(ProcessInfoFile_path,["--info_file_folder",data_folder_path])
 
 
-def get_branch_name():
-    branch_name = os.getenv("BRANCH_NAME")
-    if not branch_name:
-        print("Branch name enviromental variable must be set")
-        sys.exit(1) 
-    return branch_name
 
 if __name__ == "__main__":
     main()
