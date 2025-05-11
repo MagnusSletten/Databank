@@ -9,13 +9,7 @@ Contains methods used for python scripts related to workflows.
 """
 
 
-#In order to get a consistent order of readme.yaml files we use sorting based on the ID.
-def sorted_databank():
-    systems = list(initialize_databank())
-    systems.sort(key=lambda x: x['ID'])
-    return systems
-
-#Helper to run a shell command and exit on failure.
+#Helper to run a shell command and exit on failure. Optional work directory can be applied.
 def run_command(command, error_message="Command failed", working_dir=None):
     try:
         subprocess.run(command, shell=True, check=True, cwd=working_dir)
@@ -37,6 +31,11 @@ def run_python_script(script_path, args=None, error_message="Python script faile
         print(error_message)
         sys.exit(1)
 
+#In order to get a consistent order of readme.yaml files I use sorting based on the ID.
+def sorted_databank():
+    systems = list(initialize_databank())
+    systems.sort(key=lambda x: x['ID'])
+    return systems
 
 #TODO: Use package paths directly instead of this dictionary approach. 
 def get_databank_paths(NMLDB_ROOT_PATH):
