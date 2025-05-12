@@ -3,7 +3,7 @@ name: Run tests
 on:
   pull_request:
     branches:
-      - 'main'
+      - 'dev_cicd'
     paths:
       - 'Scripts/**/*.py'
       - 'Scripts/**/*.sh'
