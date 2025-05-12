@@ -1,7 +1,7 @@
 name: Run tests
 
 on:
-  pull_request:
+  pull_request_target:
     branches:
       - 'dev_cicd'
     paths:
@@ -15,14 +15,23 @@ jobs:
     with:
       delete_images: false
   Tests:
+    needs: DockerCleanup
     runs-on: nrec-large
+    container:
+      image: nmrlipids/core-norepo
+    env:
+      BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
+
     steps:
-      - name: Pull Docker image
+      - name: Checkout pull-request code
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref:        ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 0
+    
+      - name: Install package and test dependencies
         run: |
-           sudo docker pull nmrlipids/core
-      - name: Run tests in Docker
-        run: |
-          sudo docker run --rm \
-          -e BRANCH_NAME="${{ github.ref_name }}" \
-          nmrlipids/core \
-          bash -c "git pull && Scripts/WorkflowScripts/DockerRunInstructions/Runtests.sh"
+          pip install --break-system-packages -e .
+      - name: Run tests
+        run: pytest -vs
