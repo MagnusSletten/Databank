@@ -3,6 +3,7 @@ import subprocess
 import sys
 from DatabankLib.core import initialize_databank
 
+
 def main():
     # Read inputs from environment variables
     number_of_runners = int(os.getenv('NUMBER_OF_RUNNERS', 1))  # Default to 1 runner
