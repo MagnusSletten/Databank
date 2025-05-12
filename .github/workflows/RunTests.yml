@@ -1,16 +1,25 @@
 name: Run tests
 
 on:
-  push:
+  pull_request:
+    branches:
+      - 'main'
     paths:
       - 'Scripts/**/*.py'
       - 'Scripts/**/*.sh'
       - 'Scripts/**/*.ipynb'
-
+    
 jobs:
-  testing:
+  DockerCleanup:
+    uses: MagnusSletten/Databank/.github/workflows/DockerCleanup.yml@dev_cicd
+    with:
+      delete_images: false
+  Tests:
     runs-on: nrec-large
     steps:
+      - name: Pull Docker image
+        run: |
+           sudo docker pull nmrlipids/core
       - name: Run tests in Docker
         run: |
           sudo docker run --rm \
