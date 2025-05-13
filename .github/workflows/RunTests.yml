@@ -21,6 +21,7 @@ jobs:
       image: nmrlipids/core-norepo
     env:
       BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
+      DISABLE_TQDM: "1"
 
     steps:
       - name: Checkout pull-request code
