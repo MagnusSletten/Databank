@@ -25,6 +25,11 @@ jobs:
     env:
       TQDM_DISABLE: True
 
+    defaults:
+      run:
+        shell: bash
+        working-directory: /Databank 
+
     steps:
       - name: Fetch and checkout pull request branch
         run: |
