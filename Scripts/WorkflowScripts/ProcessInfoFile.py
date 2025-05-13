@@ -3,7 +3,7 @@ from DatabankLib import NMLDB_ROOT_PATH
 from WorkflowScripts.Workflow_utils import *  
 import os 
 import argparse
-
+#Change to test cicd
 def main(info_files_folder_path):    
     path_dict = get_databank_paths(NMLDB_ROOT_PATH)
 
