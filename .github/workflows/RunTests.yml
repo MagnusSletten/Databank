@@ -8,30 +8,33 @@ on:
       - 'Scripts/**/*.py'
       - 'Scripts/**/*.sh'
       - 'Scripts/**/*.ipynb'
-    
+
 jobs:
   DockerCleanup:
+    if: github.repository == 'MagnusSletten/Databank'
     uses: MagnusSletten/Databank/.github/workflows/DockerCleanup.yml@dev_cicd
     with:
       delete_images: false
+
   Tests:
+    if: github.repository == 'MagnusSletten/Databank'
     needs: DockerCleanup
     runs-on: nrec-large
     container:
-      image: nmrlipids/core-norepo
+      image: nmrlipids/core
     env:
-      BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
+      TQDM_DISABLE: True
 
     steps:
-      - name: Checkout pull-request code
-        uses: actions/checkout@v4
-        with:
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref:        ${{ github.event.pull_request.head.sha }}
-          fetch-depth: 0
-    
+      - name: Fetch and checkout pull request branch
+        run: |
+          PR_BRANCH=ci_pr_${{ github.event.pull_request.number }} 
+          git fetch origin pull/${{ github.event.pull_request.number }}/head:$PR_BRANCH
+          git checkout $PR_BRANCH
+          
       - name: Install package and test dependencies
         run: |
           pip install --break-system-packages -e .
+
       - name: Run tests
         run: pytest -vs
