@@ -11,17 +11,19 @@ on:
     
 jobs:
   DockerCleanup:
+    if: github.repository == 'MagnusSletten/Databank'
     uses: MagnusSletten/Databank/.github/workflows/DockerCleanup.yml@dev_cicd
     with:
       delete_images: false
   Tests:
+    if: github.repository == 'MagnusSletten/Databank'
     needs: DockerCleanup
     runs-on: nrec-large
     container:
       image: nmrlipids/core-norepo
     env:
       BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
-      DISABLE_TQDM: "1"
+      TQDM_DISABLE: True 
 
     steps:
       - name: Checkout pull-request code
