@@ -44,8 +44,7 @@ jobs:
               with:
                 repository: "MagnusPriv/NMRLipids.github.io"
                 ref: "push_test"   
-                token: ${{ secrets.DOCUMENT_TOKEN }}
-      
+                token: ${{ secrets.DOCUMENT_TOKEN }}     
 
             - name: Download artifact
               uses: actions/download-artifact@v4
@@ -53,17 +52,13 @@ jobs:
                 name: html-build
                 path: .
                 
-            - name: Configure git
-              run: |
-               git config user.name 'github-actions[bot]'
-               git config user.email 'github-actions[bot]@users.noreply.github.com'
-            
-            - name: Commit and push files
-              run: |
-                git add .
-                git commit -m "Automated update of documentation"
-                git push 
-            
+            - name: Commit and push documentation
+              uses: EndBug/add-and-commit@v9
+              with:
+                author_name: github-actions[bot]
+                author_email: github-actions[bot]@users.noreply.github.com
+                message: "Automated update of documentation"
+                    
             
 
 
