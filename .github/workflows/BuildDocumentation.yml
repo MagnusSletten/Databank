@@ -6,6 +6,8 @@ on:
   push:
     branches: 
       - dev_document_cicd
+    paths:
+      - Scripts/**
     
 
 jobs:
