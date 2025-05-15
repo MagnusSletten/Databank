@@ -2,14 +2,12 @@ name: Build documentation
 
 on: 
   workflow_dispatch:
-
   push:
     branches: 
       - dev_document_cicd
     paths:
       - Scripts/**
     
-
 jobs:
     build-documentation:
         runs-on: ubuntu-latest 
