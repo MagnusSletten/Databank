@@ -94,7 +94,7 @@ def systemLoadTraj(systems):
 # ----------------------------------------------------------------
 # Every test function is parametrized with system ID to make clear reporting
 # about which system actually fails on a test function.
-
+MAXRELERR_COMPARE_THRESHOLD = 2e-6
 
 def compareJSONsBtwSD(jsfn: str):
     """Function to call from the test to compare JSON to the precomputed one.
@@ -121,19 +121,22 @@ def compareJSONsBtwSD(jsfn: str):
     if type(j1) is list:
         assert len(j1) == len(j2), \
             f"Problem in {jsfn} comparison: lists has different lengths!"
-        for k1 in range(len(j1)):
-            _a = (np.array(j1[k1]) - np.array(j2[k1])).ravel()
-            assert (_a**2).sum() < 1e-7, (
-               f"Problem in {jsfn} comparison: {k1} line.\n" +
-               f"Computed: {str(j1[k1])} \n" +
-               f"Pre-computed: {str(j2[k1])}")
-    elif type(j1) is dict:
+        # to process further list as dict
+        j1 = dict(enumerate(j1))
+        j2 = dict(enumerate(j2))
+
+    if type(j1) is dict:
+        assert(set(j1.keys())==set(j2.keys()))
         for k1 in j1:
-            _a = (np.array(j1[k1]) - np.array(j2[k1])).ravel()
-            assert (_a**2).sum() < 1e-7, (
-               f"Problem in {jsfn} comparison: {k1} field.\n" +
-               f"Computed: {str(j1[k1])} \n" +
-               f"Pre-computed: {str(j2[k1])}")
+            np.testing.assert_allclose(
+                np.array(j1[k1]),
+                np.array(j2[k1]),
+                rtol=MAXRELERR_COMPARE_THRESHOLD,
+                err_msg=(
+                    f"Problem in {jsfn} comparison: {k1} line.\n" +
+                    f"Computed: {str(j1[k1])} \n" +
+                    f"Pre-computed: {str(j2[k1])}")
+            )
 
     print(f"Data {jsfn} was compared against precomputed!")
 
