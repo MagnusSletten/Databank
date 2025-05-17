@@ -53,17 +53,12 @@ RUN git clone --branch develop --depth 1 https://github.com/MDAnalysis/mdanalysi
 #Add pytest:
 RUN pip install --no-cache-dir --break-system-packages pytest
 
-# Add a non-root user 'runner'
-RUN useradd -m -s /bin/bash runner
 
 # Create a symbolic link for python -> python3
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
 # Set environment variables
 ENV PATH="/usr/local/gromacs/bin:${PATH}"
-
-# Switch to the non-root user
-USER runner
 
 # Set the working directory inside the container
 WORKDIR /Databank
