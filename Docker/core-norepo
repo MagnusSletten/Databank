@@ -2,7 +2,7 @@
 FROM debian:bookworm-slim
 
 # Define arguments for GROMACS version
-ARG GROMACS_VERSION=2024.4
+ARG GROMACS_VERSION=2025.2
 ENV GROMACS_VERSION=${GROMACS_VERSION}
 
 # Install system dependencies
@@ -10,9 +10,6 @@ RUN apt-get update && apt-get install -y \
     bash \
     git \
     cmake \
-    gcc \
-    g++ \
-    make \
     wget \
     curl \
     libfftw3-dev \
@@ -20,8 +17,10 @@ RUN apt-get update && apt-get install -y \
     python3-pip \
     llvm-dev \
     clang \
-    build-essential \
-    && apt-get clean && rm -rf /var/lib/apt/lists/*
+    build-essential &&\    
+    rm -rf /var/lib/apt/lists/*
+
+RUN pip3 install --no-cache-dir cmake --break-system-packages
 
 # Install GROMACS
 RUN wget https://ftp.gromacs.org/gromacs/gromacs-${GROMACS_VERSION}.tar.gz && \
@@ -29,26 +28,30 @@ RUN wget https://ftp.gromacs.org/gromacs/gromacs-${GROMACS_VERSION}.tar.gz && \
     rm gromacs-${GROMACS_VERSION}.tar.gz && \
     cd gromacs-${GROMACS_VERSION} && \
     mkdir build && cd build && \
-    cmake .. -DGMX_BUILD_OWN_FFTW=ON -DGMX_GPU=OFF -DGMX_MPI=OFF && \
-    make -j$(nproc) && \
-    make install && \
+    cmake .. -DGMX_BUILD_OWN_FFTW=ON -DREGRESSIONTEST_DOWNLOAD=ON &&\
+    make &&\
+    make check &&\
+    make install &&\
+    rm -rf /var/lib/apt/lists/* &&\
     cd ../.. && rm -rf gromacs-${GROMACS_VERSION}
 
 # Install necessary dependencies and GitHub CLI
 RUN apt-get update && \
-    apt-get install -y curl git && \
+    apt-get install -y && \
     curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg && \
     chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg && \
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null && \
     apt-get update && \
     apt-get install -y gh && \
-    apt-get clean && \
+    apt-get clean &&\
     rm -rf /var/lib/apt/lists/*
 
 # Clone the MDAnalysis repository and install it
 RUN git clone --branch develop --depth 1 https://github.com/MDAnalysis/mdanalysis.git && \
     cd mdanalysis/package && \
-    pip install --no-cache-dir --break-system-packages -e . 
+    pip install --no-cache-dir --break-system-packages . && \
+    cd ../.. && \
+    rm -rf mdanalysis
 
 #Add pytest:
 RUN pip install --no-cache-dir --break-system-packages pytest
