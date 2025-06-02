@@ -11,8 +11,8 @@ on:
     
 jobs:
   DockerCleanup:
-    if: github.repository == 'NMRLipids/Databank'
-    uses: NMRLipids/Databank/.github/workflows/DockerCleanup.yml@main
+    if: github.repository == 'MagnusSletten/Databank'
+    uses: MagnusSletten/Databank/.github/workflows/DockerCleanup.yml@dev_cicd
     with:
       delete_images: false
   Tests:
@@ -20,9 +20,10 @@ jobs:
     runs-on: nrec-large
     container:
       image: nmrlipids/core-norepo
-      options: --user 1000:1000 
+      options: --user 1000:1000
     env:
       TQDM_DISABLE: True 
+
     steps:
       - name: Checkout pull-request code
         uses: actions/checkout@v4
