@@ -1,0 +1,38 @@
+name: Run tests
+
+on:
+  pull_request_target:
+    branches:
+      - 'dev_cicd'
+    paths:
+      - 'Scripts/**/*.py'
+      - 'Scripts/**/*.sh'
+      - 'Scripts/**/*.ipynb'
+    
+jobs:
+  DockerCleanup:
+    if: github.repository == 'NMRLipids/Databank'
+    uses: NMRLipids/Databank/.github/workflows/DockerCleanup.yml@main
+    with:
+      delete_images: false
+  Tests:
+    needs: DockerCleanup
+    runs-on: nrec-large
+    container:
+      image: nmrlipids/core-norepo
+      options: --user 1000:1000 
+    env:
+      TQDM_DISABLE: True 
+    steps:
+      - name: Checkout pull-request code
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref:        ${{ github.event.pull_request.head.sha }}
+          fetch-depth: 1
+    
+      - name: Install package and test dependencies
+        run: |
+          pip install --break-system-packages -e . -r Scripts/DatabankLib/requirements-dev.txt
+      - name: Run tests
+        run: ./runtests.sh 
