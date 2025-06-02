@@ -10,6 +10,8 @@ on:
         description: "If true it will delete all images:"
         required: false
         default: false
+  
+  workflow_dispatch:
 
 jobs:
   Clean_Docker:
