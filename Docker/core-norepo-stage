@@ -41,43 +41,50 @@ RUN wget https://ftp.gromacs.org/gromacs/gromacs-${GROMACS_VERSION}.tar.gz && \
 ############################################
 # Stage 2: runtime (copy only the installed GROMACS)
 ############################################
+#########################################
+# Stage 2: runtime (copy GROMACS + install MDAnalysis, CLI, etc.)
+#########################################
 FROM debian:bookworm-slim
 
-# Define arguments for GROMACS version (so PATH is consistent)
+# Define arguments for GROMACS version (for PATH consistency)
 ARG GROMACS_VERSION=2025.2
 ENV GROMACS_VERSION=${GROMACS_VERSION}
 
 # Copy the installed GROMACS tree from the builder stage
 COPY --from=builder /usr/local/gromacs /usr/local/gromacs
 
-# Install necessary dependencies and GitHub CLI (unchanged form)
-RUN apt-get update && \
-    apt-get install -y && \
-    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg \
-      | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg && \
-    chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg && \
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] \
-      https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null && \
-    apt-get update && \
-    apt-get install -y gh && \
-    apt-get clean && \
+# Install necessary dependencies (including git, curl, python3, pip, and GPG tools),
+# then add GitHub CLI repo and install 'gh'
+
+RUN apt-get update && apt-get install -y \
+    bash \
+    git \
+    cmake \
+    wget \
+    curl \
+    libfftw3-dev \
+    python3 \
+    python3-pip \
+    llvm-dev \
+    clang \
+    build-essential &&\    
     rm -rf /var/lib/apt/lists/*
 
-# Clone the MDAnalysis repository and install it (unchanged form)
+# Clone the MDAnalysis repository and install it
 RUN git clone --branch develop --depth 1 https://github.com/MDAnalysis/mdanalysis.git && \
     cd mdanalysis/package && \
     pip install --no-cache-dir --break-system-packages . && \
     cd ../.. && \
     rm -rf mdanalysis
 
-# Add pytest (unchanged form)
-RUN pip install --no-cache-dir --break-system-packages pytest
+# Add pytest
+RUN pip3 install --no-cache-dir --break-system-packages pytest
 
-# Create a symbolic link for python -> python3 (unchanged form)
+# Create a symbolic link for python -> python3
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
-# Expose GROMACS binaries via PATH (unchanged form)
+# Expose GROMACS binaries via PATH
 ENV PATH="/usr/local/gromacs/bin:${PATH}"
 
-# Set the working directory inside the container (unchanged form)
+# Set the working directory inside the container
 WORKDIR /Databank
