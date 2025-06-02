@@ -21,7 +21,6 @@ jobs:
     runs-on: nrec-large
     container:
       image: nmrlipids/core-norepo
-      options: --user 1000:1000
       
     env:
       TQDM_DISABLE: True 
