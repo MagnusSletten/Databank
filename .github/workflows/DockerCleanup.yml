@@ -12,6 +12,12 @@ on:
         default: false
   
   workflow_dispatch:
+     inputs:
+      delete_images:
+        type: boolean 
+        description: "If true it will delete all images:"
+        required: false
+        default: false
 
 jobs:
   Clean_Docker:
