@@ -34,6 +34,6 @@ jobs:
     
       - name: Install package and test dependencies
         run: |
-          pip install --break-system-packages -e .
+          pip install --break-system-packages -e -r Scripts/DatabankLib/requirements-dev.txt .
       - name: Run tests
-        run: pytest -vs
+        run: ./runtests.sh 
