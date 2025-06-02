@@ -34,4 +34,4 @@ jobs:
           (github.event_name == 'workflow_call' && inputs.delete_images == true) ||
           (github.event_name == 'workflow_dispatch' && github.event.inputs.delete_images == 'true')
           }}
-        run:  docker image prune -f
+        run:  docker image prune -a -f
