@@ -30,5 +30,8 @@ jobs:
         run: docker builder prune -f
 
       - name: Remove all images (optional)
-        if: ${{ inputs.delete_images == 'true' }}
+        if: ${{ 
+          (github.event_name == 'workflow_call' && inputs.delete_images == true) ||
+          (github.event_name == 'workflow_dispatch' && github.event.inputs.delete_images == 'true')
+          }}
         run:  docker image prune -f
