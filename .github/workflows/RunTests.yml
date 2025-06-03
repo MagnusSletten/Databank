@@ -3,7 +3,7 @@ name: Run tests
 on:
   pull_request_target:
     branches:
-      - 'dev_cicd'
+      - 'main_cicd_test'
     paths:
       - 'Scripts/**/*.py'
       - 'Scripts/**/*.sh'
