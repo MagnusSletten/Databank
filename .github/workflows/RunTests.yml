@@ -12,7 +12,7 @@ on:
 jobs:
   DockerCleanup:
     if: github.repository == 'MagnusSletten/Databank'
-    uses: MagnusSletten/Databank/.github/workflows/DockerCleanup.yml@dev_cicd
+    uses: MagnusSletten/Databank/.github/workflows/DockerCleanup.yml@main_cicd_test
     with:
       delete_images: false
   Tests:
