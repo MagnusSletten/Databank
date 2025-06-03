@@ -1,7 +1,7 @@
 name: Run tests
 
 on:
-  pull_request_target:
+  pull_request_target: # This workflow is triggered when pull requests are made or updated towards the main branch.
     branches:
       - 'main'
     paths:
@@ -15,7 +15,7 @@ jobs:
     container:
       image: nmrlipids/core
     env:
-      TQDM_DISABLE: True 
+      TQDM_DISABLE: True #Disables TQDM progress bars to make output cleaner.
     steps:
       - name: Checkout pull-request code
         uses: actions/checkout@v4
