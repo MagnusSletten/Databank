@@ -19,7 +19,7 @@ jobs:
     needs: DockerCleanup
     runs-on: nrec-large
     container:
-      image: nmrlipids/core-norepo-stage 
+      image: nmrlipids/core
     env:
       TQDM_DISABLE: True 
 
