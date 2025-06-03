@@ -16,7 +16,6 @@ jobs:
     with:
       delete_images: false
   Tests:
-    if: github.repository == 'MagnusSletten/Databank'
     needs: DockerCleanup
     runs-on: nrec-large
     container:
