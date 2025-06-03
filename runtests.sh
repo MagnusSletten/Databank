@@ -4,6 +4,8 @@
 # Determine the platform (Linux or MacOS)
 OS_TYPE=$(uname)
 
+status=0
+
 if [[ "$OS_TYPE" == "Linux" || "$OS_TYPE" == "Darwin" ]]; then
   echo "Running tests on $OS_TYPE"
 else
@@ -13,11 +15,12 @@ fi
 
 # Run the tests using pytest
 if command -v pytest &> /dev/null; then
-  pytest Scripts/tests --cmdopt sim2
-  pytest Scripts/tests --cmdopt sim1
-  pytest Scripts/tests --cmdopt nodata
+  pytest Scripts/tests --cmdopt sim2 || status=1
+  pytest Scripts/tests --cmdopt sim1 || status=1
+  pytest Scripts/tests --cmdopt nodata || status=1
 else
   echo "pytest is not installed. Please install required libraries using"
   echo ">> pip install -e . -r Scripts/DatabankLib/requirements-dev.txt <<"
-  exit 1
+  status=1
 fi
+exit $status
