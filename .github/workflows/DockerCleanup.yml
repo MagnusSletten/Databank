@@ -1,9 +1,9 @@
-#Removes resources docker has previously used. Failed jobs could previously leave containers running which is why this workflow was made. 
-#Gives option to delete docker images, but by default this is avoided. 
+#Removes resources docker has previously used, this is ideal due to failed jobs leading to build up of resources.
+#Gives option to delete docker images, the default is false. 
 name: Docker Cleanup
 
 on:
-  workflow_call:
+  workflow_call:  #This allows the workflow to be called from other workflows. A way to modullize workflows.
     inputs:
       delete_images:
         type: boolean 
@@ -21,7 +21,7 @@ on:
 
 jobs:
   Clean_Docker:
-    runs-on: nrec-large
+    runs-on: nrec-large  #This workflow is only relevant for self hosted runners like NREC setups.
     steps:
       - name: Stop and remove all containers
         run:  docker container prune -f
@@ -29,7 +29,7 @@ jobs:
       - name: Remove all unused build cache
         run: docker builder prune -f
 
-      - name: Remove all images (optional)
+      - name: Remove all images (optional) #Slightly different input handling for workflow_call and workflow_dispatch
         if: ${{ 
           (github.event_name == 'workflow_call' && inputs.delete_images == true) ||
           (github.event_name == 'workflow_dispatch' && github.event.inputs.delete_images == 'true')
