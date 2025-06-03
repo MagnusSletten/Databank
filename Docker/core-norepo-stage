@@ -14,8 +14,7 @@ RUN apt-get update && apt-get install -y \
     build-essential && \
     rm -rf /var/lib/apt/lists/*
 
-
-# Install the latest CMake via pip
+# Install the latest CMake via pip which is needed for latest GROMACS versions
 RUN pip3 install --no-cache-dir cmake --break-system-packages
 
 # Install GROMACS
@@ -34,13 +33,11 @@ RUN wget https://ftp.gromacs.org/gromacs/gromacs-${GROMACS_VERSION}.tar.gz && \
 # Final stage to create runtime image
 FROM debian:bookworm-slim AS final
 
-# Define arguments for GROMACS version (for PATH consistency)
-ARG GROMACS_VERSION=2025.2
-ENV GROMACS_VERSION=${GROMACS_VERSION}
-
-# Copy the installed GROMACS tree from the builder stage
+# Copy the installed GROMACS from the builder stage
 COPY --from=builder /usr/local/gromacs /usr/local/gromacs
 
+# Add dev-requirement file for DatabankLib
+COPY Scripts/DatabankLib/requirements-dev.txt requirements.txt
 
 RUN apt-get update && apt-get install -y \
     bash \
@@ -50,6 +47,7 @@ RUN apt-get update && apt-get install -y \
     python3-pip  &&\    
     rm -rf /var/lib/apt/lists/*
 
+
 # Clone the MDAnalysis repository and install it
 RUN git clone --branch develop --depth 1 https://github.com/MDAnalysis/mdanalysis.git && \
     cd mdanalysis/package && \
@@ -57,6 +55,7 @@ RUN git clone --branch develop --depth 1 https://github.com/MDAnalysis/mdanalysi
     cd ../.. && \
     rm -rf mdanalysis
 
+#Install GitHub CLI:
 RUN apt-get update && \
   apt-get install -y && \
   curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg && \
@@ -67,8 +66,9 @@ RUN apt-get update && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/*
 
-# Add pytest
-RUN pip3 install --no-cache-dir --break-system-packages pytest
+#Install depenencies from requirementsfile
+RUN pip3 install --no-cache-dir --break-system-packages \
+    -r requirements.txt
 
 # Create a symbolic link for python -> python3
 RUN ln -s /usr/bin/python3 /usr/bin/python
@@ -83,4 +83,4 @@ RUN useradd -m -s /bin/bash runner
 USER runner
 
 # Set the working directory inside the container
-WORKDIR /Databank
+WORKDIR /workspace 
