@@ -3,7 +3,7 @@ name: Run tests
 on:
   pull_request_target: # This workflow is triggered when pull requests are made or updated towards the main branch.
     branches:
-      - 'main'
+      - 'clean_cicd_test'
     paths:
       - 'Scripts/**/*.py'
       - 'Scripts/**/*.sh'
@@ -11,8 +11,8 @@ on:
     
 jobs:
   DockerCleanup:
-    if: github.repository == 'NMRLipids/Databank'
-    uses: NMRLipids/Databank/.github/workflows/DockerCleanup.yml@main
+    if: github.repository == 'MagnusSletten/Databank'
+    uses: MagnusSletten/Databank/.github/workflows/DockerCleanup.yml@clean_cicd_test
     with:
       delete_images: false
   Tests:
