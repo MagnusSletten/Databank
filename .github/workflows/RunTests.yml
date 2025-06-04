@@ -10,13 +10,7 @@ on:
       - 'Scripts/**/*.ipynb'
     
 jobs:
-  DockerCleanup:
-    if: github.repository == 'MagnusSletten/Databank'
-    uses: MagnusSletten/Databank/.github/workflows/DockerCleanup.yml@clean_cicd_test
-    with:
-      delete_images: false
   Tests:
-    needs: DockerCleanup
     runs-on: nrec-large
     container:
       image: nmrlipids/core
