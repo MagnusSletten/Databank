@@ -51,11 +51,15 @@ RUN apt-get update && apt-get install -y \
 #Create the virtual enviroment for python
 RUN python3.11 -m venv /opt/venv
 
+
 #Add enviroment to PATH
 ENV PATH="/opt/venv/bin:$PATH"
-
 RUN useradd -m -s /bin/bash runner
 RUN chown -R runner:runner /opt/venv
+
+RUN pip install -r requirements.txt --no-cache-dir
+
+
 
 # Create a symbolic link for python -> python3
 RUN ln -s /usr/bin/python3 /usr/bin/python
