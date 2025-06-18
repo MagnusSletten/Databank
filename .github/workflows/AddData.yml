@@ -1,5 +1,8 @@
 name: Add data 
 
+permissions:
+  contents: read
+
 on:
   workflow_call:
     inputs:
@@ -39,6 +42,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.working_branch_name }}
 
       - name: Computing new data
         env:
@@ -48,8 +53,5 @@ jobs:
           TARGET_BRANCH:     ${{ inputs.target_branch_name }}
           TQDM_DISABLE:      "True"
         run: |
-          git fetch
-          git checkout "$BRANCH_NAME"
-          git pull
           git submodule update --init --remote
           python Scripts/WorkflowScripts/DockerRunInstructions/GetNewData.py
