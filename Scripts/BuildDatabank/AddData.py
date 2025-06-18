@@ -67,7 +67,7 @@ pd.set_option("display.max_colwidth", 1000)
 
 
 if __name__ == "__main__":
-    # parse input yaml file
+    # parse input yaml file:
     parser = argparse.ArgumentParser(
         prog="AddData.py Script",
         description="Add a new dataset to the NMRLipids databank"
