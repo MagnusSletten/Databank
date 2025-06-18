@@ -10,11 +10,6 @@ def main():
     
     #Sets up git:
     git_setup()
-    #Updates starting branch:
-    git_pull()
-    branch_name = get_branch_name()
-    #Checks out branch
-    git_checkout_branch(branch_name)
     #Updates the checked out branch
     git_pull()
     #Running scripts:
