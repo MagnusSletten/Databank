@@ -7,11 +7,8 @@ import os
 def main():
     ProcessInfoFile_path = os.path.abspath(ProcessInfoFile.__file__)
     data_folder_path = os.path.join(NMLDB_ROOT_PATH,"UserData")
-    
     #Sets up git:
     git_setup()
-    #Updates the checked out branch
-    git_pull()
     #Running scripts:
     run_python_script(ProcessInfoFile_path,["--info_file_folder",data_folder_path])
 
