@@ -1,0 +1,57 @@
+name: Add data 
+
+permissions:
+  contents: read
+
+on:
+  workflow_call:
+    inputs:
+      working_branch_name:
+        description: "Branch containing new data:"
+        required: true
+        type: string 
+      target_branch_name:
+        description: "Branch to compare against for identifying new files:"
+        required: true
+        type: string 
+      target_repository:
+        description: "Repository to create PR against (owner/repo)"
+        required: true
+        type: string
+
+  workflow_dispatch:
+    inputs:
+      working_branch_name:
+        description: "Branch containing new data:"
+        required: true
+        type: string
+      target_branch_name:
+        description: "Branch to compare against for identifying new files:"
+        required: true
+        type: string
+      target_repository:
+        description: "Repository to create PR against (owner/repo)"
+        required: true
+        type: string
+
+jobs:
+  AddData:
+    runs-on: nrec-large
+    container:
+      image: nmrlipids/core
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.working_branch_name }}
+
+      - name: Computing new data
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          BRANCH_NAME:       ${{ inputs.working_branch_name }}
+          GITHUB_TOKEN:      ${{ secrets.GITHUB_TOKEN }}
+          TARGET_BRANCH:     ${{ inputs.target_branch_name }}
+          TQDM_DISABLE:      "True"
+        run: |
+          git submodule update --init --remote
+          python Scripts/WorkflowScripts/DockerRunInstructions/GetNewData.py
