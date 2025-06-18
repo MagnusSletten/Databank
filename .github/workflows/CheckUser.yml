@@ -1,0 +1,14 @@
+# .github/workflows/print-runner-ids.yml
+name: Print Runner UID/GID
+
+on:
+  workflow_dispatch:
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show runner UID and GID
+        run: |
+          echo "Runner UID: $(id -u)"
+          echo "Runner GID: $(id -g)"
