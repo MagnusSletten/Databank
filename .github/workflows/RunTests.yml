@@ -11,7 +11,7 @@ on:
     
 jobs:
   Tests:
-    runs-on: nrec-large
+    runs-on: ubuntu-latest
     container:
       image: nmrlipids/core
     env:
