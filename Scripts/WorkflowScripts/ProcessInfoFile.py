@@ -23,7 +23,6 @@ def main(info_files_folder_path):
     run_python_script(path_dict["makeRanking_path"], error_message="makeRanking failed")
 
     add_sim_files()
-    stash_sim_files()
     
 
 def run_addData_for_files(folder_path,info_files,work_directory):
