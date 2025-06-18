@@ -1,8 +1,11 @@
-# Dockerfile
+# Dockerfile to unify standard github ubuntu runner users with runner in
+# image. Not doing this leads to permission issues with mounted environment. 
+
 FROM nmrlipids/core
 
 USER root
-# Allow these to be overridden at build time if you like:
+
+#If default runner user changes later these must be changed. 
 ARG RUNNER_UID=1001
 ARG RUNNER_GID=118
 
@@ -10,8 +13,6 @@ RUN groupmod -g ${RUNNER_GID} runner \
  && usermod  -u ${RUNNER_UID} -g ${RUNNER_GID} runner \
  && chown -R ${RUNNER_UID}:${RUNNER_GID} /home/runner
 
-# switch to that user (so all later layers, and your entrypoint, run as 1001:118)
 USER runner
 
-# ensure the GitHub workspace mount is where you expect it
 WORKDIR /github/workspace
