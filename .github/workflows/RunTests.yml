@@ -1,9 +1,9 @@
 name: Run tests
 
 on:
-  pull_request_target: # This workflow is triggered when pull requests are made or updated towards the main branch.
+  pull_request: # This workflow is triggered when pull requests are made or updated towards the main branch.
     branches:
-      - 'main_cicd_test'
+      - 'automatic_tests_clean'
     paths:
       - 'Scripts/**/*.py'
       - 'Scripts/**/*.sh'
