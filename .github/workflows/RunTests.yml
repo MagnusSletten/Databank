@@ -13,8 +13,8 @@ jobs:
   Tests:
     runs-on: ubuntu-latest
     container:
-      image: nmrlipids/core
-      options: --user runner:runner
+      image: nmrlipids/core-user
+
     env:
       TQDM_DISABLE: True #Disables TQDM progress bars to make output cleaner.
     steps:
