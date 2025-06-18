@@ -11,9 +11,10 @@ on:
     
 jobs:
   Tests:
-    runs-on: nrec-large
+    runs-on: ubuntu-latest
     container:
-      image: nmrlipids/core
+      image: nmrlipids/core-user
+
     env:
       TQDM_DISABLE: True #Disables TQDM progress bars to make output cleaner.
     steps:
