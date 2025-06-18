@@ -3,7 +3,6 @@ from DatabankLib import NMLDB_SIMU_PATH
 from DatabankLib import NMLDB_ROOT_PATH
 from WorkflowScripts import ProcessInfoFile 
 import os
-import sys
 
 def main():
     ProcessInfoFile_path = os.path.abspath(ProcessInfoFile.__file__)

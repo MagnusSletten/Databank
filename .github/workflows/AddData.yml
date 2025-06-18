@@ -21,29 +21,25 @@ on:
         required: true
 
 
-
 jobs:
-  DockerCleanup:
-    uses: MagnusSletten/Databank/.github/workflows/DockerCleanup.yml@dev_cicd
-    with:
-      delete_images: false
-
   AddData:
-    needs: DockerCleanup
     runs-on: nrec-large
+    container:
+      image: nmrlipids/core
     steps:
-      - name: Pull Docker image
-        run: |
-            sudo docker pull nmrlipids/core
-      
+      - name: Check out repository
+        uses: actions/checkout@v4
+
       - name: Computing new data
+        env:
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          BRANCH_NAME:       ${{ inputs.working_branch_name }}
+          GITHUB_TOKEN:      ${{ secrets.GITHUB_TOKEN }}
+          TARGET_BRANCH:     ${{ inputs.target_branch_name }}
+          TQDM_DISABLE:      "True"
         run: |
-            sudo docker run --rm \
-              -e GITHUB_REPOSITORY="${{ github.repository }}" \
-              -e BRANCH_NAME="${{ inputs.working_branch_name}}" \
-              -e GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}" \
-              -e TARGET_BRANCH="${{ inputs.target_branch_name }}" \
-              -e TQDM_DISABLE=True \
-              nmrlipids/core \
-              /bin/bash -c "git fetch && git checkout \$BRANCH_NAME && git pull && python Scripts/WorkflowScripts/DockerRunInstructions/GetNewData.py"
-        
+          git fetch
+          git checkout "$BRANCH_NAME"
+          git pull
+          git submodule update --init --remote
+          python Scripts/WorkflowScripts/DockerRunInstructions/GetNewData.py
