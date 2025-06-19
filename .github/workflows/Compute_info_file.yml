@@ -1,4 +1,4 @@
-name: Add data 
+name: Process info file
 
 permissions:
   contents: read
@@ -54,4 +54,5 @@ jobs:
           TQDM_DISABLE:      "True"
         run: |
           git submodule update --init --remote
+          pip install -e . -r Scripts/DatabankLib/requirements-dev.txt 
           python Scripts/WorkflowScripts/DockerRunInstructions/GetNewData.py
