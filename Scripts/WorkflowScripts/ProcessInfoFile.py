@@ -22,9 +22,7 @@ def main(info_files_folder_path):
     run_python_script(path_dict["QualityEvaluation_path"], error_message="QualityEvaluation failed")
     run_python_script(path_dict["makeRanking_path"], error_message="makeRanking failed")
 
-    add_sim_files()
-    git_push()
-    
+  
 
 def run_addData_for_files(folder_path,info_files,work_directory):
     path_dict = get_databank_paths(NMLDB_ROOT_PATH)
