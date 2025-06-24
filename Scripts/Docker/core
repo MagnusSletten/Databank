@@ -56,6 +56,13 @@ RUN apt-get update && \
 ENV PATH="/opt/conda/bin:/opt/conda/envs/databank/bin:/usr/local/gromacs/bin:${PATH}"
 
 # Create and switch to non-root runner user
+RUN useradd -m -s /bin/bash runner
+USER runner
+
+# Enable Conda in interactive shells
+RUN echo ". /opt/conda/etc/profile.d/conda.sh" >> /home/runner/.bashrc && \
+    echo "conda activate databank" >> /home/runner/.bashrc
+
 
 # Set working directory and default command
 WORKDIR /workspace
