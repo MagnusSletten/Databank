@@ -1,18 +1,40 @@
-# Dockerfile to unify standard github ubuntu runner users with runner in image. 
-# Purpose is to avoid permission issues with mounted github environment. 
-
-FROM nmrlipids/core
+FROM nmrlipids/gromacs:latest
 
 USER root
 
-#If default runner user changes later these must be changed. 
 ARG RUNNER_UID=1001
 ARG RUNNER_GID=118
 
-RUN groupmod -g ${RUNNER_GID} runner \
- && usermod  -u ${RUNNER_UID} -g ${RUNNER_GID} runner \
- && chown -R ${RUNNER_UID}:${RUNNER_GID} /home/runner
+# Copy in your dev requirements
+COPY Scripts/DatabankLib/requirements-dev.txt /tmp/requirements-dev.txt
+
+# Install minimal Python toolchain and bootstrap venv
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+      bash \
+      git \
+      curl \
+      libgomp1 \  
+      python3.11-venv \
+      python3-pip \
+      ca-certificates && \
+    rm -rf /var/lib/apt/lists/* && \
+    python3.11 -m venv /opt/venv && \
+    /opt/venv/bin/pip install --upgrade pip
+
+# Create runner group & user, then own the venv
+RUN groupadd --gid ${RUNNER_GID} runner && \
+    useradd  --uid ${RUNNER_UID} --gid runner --create-home --shell /bin/bash runner && \
+    chown -R runner:runner /opt/venv
+
+# Put venv and GROMACS on PATH
+ENV PATH="/opt/venv/bin:/usr/local/gromacs/bin:${PATH}"
 
 USER runner
-
+# Install dev requirements into the venv
+RUN pip install --no-cache-dir -r /tmp/requirements-dev.txt
 WORKDIR /github/workspace
+
+
+
+
