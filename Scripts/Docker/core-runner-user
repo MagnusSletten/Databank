@@ -1,0 +1,18 @@
+# Dockerfile to unify standard github ubuntu runner users with runner in image. 
+# Purpose is to avoid permission issues with mounted github environment. 
+
+FROM nmrlipids/core
+
+USER root
+
+#If default runner user changes later these must be changed. 
+ARG RUNNER_UID=1001
+ARG RUNNER_GID=118
+
+RUN groupmod -g ${RUNNER_GID} runner \
+ && usermod  -u ${RUNNER_UID} -g ${RUNNER_GID} runner \
+ && chown -R ${RUNNER_UID}:${RUNNER_GID} /home/runner
+
+USER runner
+
+WORKDIR /github/workspace
