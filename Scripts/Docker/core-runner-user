@@ -1,5 +1,5 @@
-# Dockerfile to unify standard github ubuntu runner users with runner in
-# image. Not doing this leads to permission issues with mounted environment. 
+# Dockerfile to unify standard github ubuntu runner users with runner in image. 
+# Purpose is to avoid permission issues with mounted github environment. 
 
 FROM nmrlipids/core
 
