@@ -2,7 +2,7 @@
 `test_adddata.py` perform regression testing of adding-data functionality
 
 NOTE: globally import of DatabankLib is **STRICTLY FORBIDDEN** because it 
-      breaks the substitution of global path folders
+      breaks the substitution of global path folders.
 """
 
 import os
