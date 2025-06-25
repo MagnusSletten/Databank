@@ -17,5 +17,9 @@ jobs:
           fetch-depth: 1
           ref: ci_tests_improve-docker  
 
+      - name: Install package and update dependencies
+        run: |
+          pip install -e . -r Scripts/DatabankLib/requirements-dev.txt
+
       - name: Run regression test suite
         run: ./runtests-regression.sh
