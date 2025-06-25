@@ -1,8 +1,9 @@
 name: Test Regression Workflow
+
 on:
   schedule:
     - cron: '*/15 * * * *'
-  workflow_dispatch:  
+  workflow_dispatch:  # also allow manual runs
 
 jobs:
   regression-tests:
@@ -15,7 +16,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
-          ref: ci_tests_improve-docker  
+          ref: test-branch  # specify your test branch name here
 
       - name: Run regression test suite
         run: ./runtests-regression.sh
