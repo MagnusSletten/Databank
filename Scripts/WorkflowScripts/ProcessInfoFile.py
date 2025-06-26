@@ -31,5 +31,9 @@ def get_args():
 
 
 if __name__ == "__main__":
-    info_file_path = get_infofile_path_from_folder("UserData")
+    args = get_args()
+    info_file_path = get_infofile_path_from_folder(args.info_file_path)
+    if not info_file_path:
+        print(f"No info file found in {args.info_file_path}, exiting.")
+        sys.exit(0)
     main(info_file_path)
