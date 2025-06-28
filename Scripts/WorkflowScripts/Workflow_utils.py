@@ -3,35 +3,59 @@ import subprocess
 import sys
 import os
 
-
 """
-Contains methods used for python scripts related to workflows. 
+Contains methods used for python scripts related to workflows.
+
+.. note::
+   This module is only used by automated workflows. Users of the Databank
+   repository can safely ignore it.
 """
 
-#Helper to run a shell command and exit on failure. Optional work directory can be applied.
 def run_command(command, error_message="Command failed", working_dir=None):
+    """
+    Run a shell command and exit on failure.
+
+    :param command: The shell command to execute (string).
+    :param error_message: Message to display if the command fails.
+    :param working_dir: Optional working directory in which to run the command.
+    :raises SystemExit: Exits with code 1 if the command fails.
+    """
     try:
         subprocess.run(command, shell=True, check=True, cwd=working_dir)
     except subprocess.CalledProcessError:
         print(error_message)
         sys.exit(1)
 
-#Run a Python script using the current interpreter (sys.executable). Optional work directory can be applied.
 def run_python_script(script_path, args=None, error_message="Python script failed", working_dir=None):
+    """
+    Execute a Python script with the current interpreter and optional arguments.
+
+    :param script_path: Path to the Python script to run.
+    :param args: List of arguments to pass to the script (defaults to []).
+    :param error_message: Message to display if execution fails.
+    :param working_dir: Optional working directory in which to run the script.
+    :raises SystemExit: Exits with code 1 if the script execution fails.
+    """
     if args is None:
         args = []
     try:
         subprocess.run(
             [sys.executable, script_path, *args],
             check=True,
-            cwd=working_dir  # Set working directory if provided
+            cwd=working_dir  
         )
     except subprocess.CalledProcessError:
         print(error_message)
         sys.exit(1)
 
-#TODO: Use package paths directly instead of this dictionary approach. 
 def get_databank_paths(NMLDB_ROOT_PATH):
+    """
+    Retrieve paths to various databank scripts and tools.
+
+    :param NMLDB_ROOT_PATH: Root path of the NML database repository.
+    :return: Dictionary mapping descriptive keys to full paths of databank components.
+    :rtype: dict
+    """
     Builddatabank_path = os.path.join(NMLDB_ROOT_PATH, "Scripts", "BuildDatabank")
     AddData_path = os.path.join(Builddatabank_path, "AddData.py")
     AnalyzeDatabank_path = os.path.join(NMLDB_ROOT_PATH, "Scripts", "AnalyzeDatabank")
@@ -50,8 +74,13 @@ def get_databank_paths(NMLDB_ROOT_PATH):
         "makeRanking_path": makeRanking_path
     }
             
-       
 def delete_info_file(info_file_path):
+    """
+    Delete an information file at the specified path, warning on failure.
+
+    :param info_file_path: Path to the info file to be removed.
+    :raises OSError: Prints a warning if the file cannot be deleted.
+    """
     try:
         os.remove(info_file_path)
         print(f"Deleted info file: {info_file_path}")
