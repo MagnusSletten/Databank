@@ -49,20 +49,6 @@ def get_databank_paths(NMLDB_ROOT_PATH):
         "QualityEvaluation_path": QualityEvaluation_path,
         "makeRanking_path": makeRanking_path
     }
-
-
-def get_infofile_path_from_folder(folder_path):
-    """
-    Return the first .yaml or .yml filepath in the given folder,
-    or None if the folder doesn't exist or contains no matching files.
-    """
-    try:
-        for fname in os.listdir(folder_path):
-            if fname.lower().endswith(('.yaml', '.yml')):
-                return os.path.join(folder_path, fname)
-    except FileNotFoundError:
-        print(f"Folder not found: {folder_path}")
-    return None
             
        
 def delete_info_file(info_file_path):
