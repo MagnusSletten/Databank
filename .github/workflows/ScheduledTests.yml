@@ -8,7 +8,7 @@ on:
 
 jobs:
   regression-tests:
-    if: github.repository == 'NMRLipids/Databank'
+    if: github.repository == 'MagnusSletten/Databank'
     runs-on: ubuntu-latest
     container:
       image: nmrlipids/core
