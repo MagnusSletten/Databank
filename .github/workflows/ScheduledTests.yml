@@ -1,9 +1,9 @@
 name: Weekly Scheduled Tests
 
 on:
-  schedule:
+  #schedule:
     # Runs every Monday at 12:00 UTC
-    - cron: '0 12 * * 1'
+  #  - cron: '0 12 * * 1'
   workflow_dispatch:
 
 jobs:
@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: nmrlipids/core
-      options: --user 1001:118
     steps:
       - name: Checkout main branch
         uses: actions/checkout@v4
@@ -21,5 +20,7 @@ jobs:
         run: |
           pip install -e . -r Scripts/DatabankLib/requirements-dev.txt
 
-      - name: Run regression test suite
-        run: ./runtests-regression.sh
+      - name: Run regression test suite as unprivileged user
+        run: |
+          # use runuser to switch to the 'runner' account you created in the image
+          runuser -u runner -- ./runtests-regression.sh
