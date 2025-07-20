@@ -12,17 +12,19 @@ Executes standard pipeline of processing for an info file.
 
 def main(info_file_path):    
     path_dict = get_databank_paths(NMLDB_ROOT_PATH)
-    work_directory = "/tmp/databank_workdir"
-    os.makedirs(work_directory, exist_ok=True)
+    work_directory_dry = "/tmp/databank_workdir/dry"
+    work_directory_real = "/tmp/databank_workdir_real"
+    os.makedirs(work_directory_dry, exist_ok=True)
+    os.makedirs(work_directory_real, exist_ok=True)
 
     run_python_script(
         path_dict["AddData_path"],
-        args=["-f", info_file_path, "-w", work_directory, "--dry-run"],
+        args=["-f", info_file_path, "-w", work_directory_dry, "--dry-run"],
         error_message="AddData dry run failed"
     )
     run_python_script(
         path_dict["AddData_path"],
-        args=["-f", info_file_path, "-w", work_directory],
+        args=["-f", info_file_path, "-w", work_directory_real],
         error_message="AddData failed"
     )
     run_command(
