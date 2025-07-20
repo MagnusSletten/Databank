@@ -10,17 +10,18 @@ Contains methods used for python scripts related to workflows.
    repository can safely ignore it.
 """
 
-def run_command(command, error_message="Command failed", working_dir=None):
+def run_command(cmd_args, error_message="Command failed", working_dir=None):
     """
-    Run a shell command and exit on failure.
+    Run a command and exit on failure.
 
-    :param command: The shell command to execute (string).
+    :param cmd_args: List of command arguments, e.g.
+                     ["/path/to/compute_databank.py", "--nmrpca", "*-0"]
     :param error_message: Message to display if the command fails.
     :param working_dir: Optional working directory in which to run the command.
     :raises SystemExit: Exits with code 1 if the command fails.
     """
     try:
-        subprocess.run(command, shell=True, check=True, cwd=working_dir)
+        subprocess.run(cmd_args, shell=False, check=True, cwd=working_dir)
     except subprocess.CalledProcessError:
         print(error_message)
         sys.exit(1)
