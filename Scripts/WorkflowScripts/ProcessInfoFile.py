@@ -26,7 +26,7 @@ def main(info_file_path):
         error_message="AddData failed"
     )
     run_command(
-        path_dict["compute_databank_path --nmrpca --maicos --op --thickness --apl --range *-0"] ,
+        f"{path_dict['compute_databank_path']} --nmrpca --maicos --op --thickness --apl --range '*-0'",
         "Calcproperties failed",
         working_dir=path_dict["AnalyzeDatabank_path"]
     )
