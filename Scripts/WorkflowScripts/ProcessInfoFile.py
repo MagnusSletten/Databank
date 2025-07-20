@@ -17,11 +17,16 @@ def main(info_file_path):
 
     run_python_script(
         path_dict["AddData_path"],
+        args=["-f", info_file_path, "-w", work_directory, "--dry-run"],
+        error_message="AddData dry run failed"
+    )
+    run_python_script(
+        path_dict["AddData_path"],
         args=["-f", info_file_path, "-w", work_directory],
         error_message="AddData failed"
     )
     run_command(
-        path_dict["calcProperties_path"],
+        path_dict["compute_databank_path --nmrpca --maicos --op --thickness --apl --range *-0"] ,
         "Calcproperties failed",
         working_dir=path_dict["AnalyzeDatabank_path"]
     )

@@ -58,7 +58,7 @@ def get_databank_paths(NMLDB_ROOT_PATH):
     Builddatabank_path = os.path.join(NMLDB_ROOT_PATH, "Scripts", "BuildDatabank")
     AddData_path = os.path.join(Builddatabank_path, "AddData.py")
     AnalyzeDatabank_path = os.path.join(NMLDB_ROOT_PATH, "Scripts", "AnalyzeDatabank")
-    calcProperties_path = os.path.join(AnalyzeDatabank_path, "calcProperties.sh")
+    compute_databank_path = os.path.join(AnalyzeDatabank_path, "compute_databank.py")
     searchDATABANK_path = os.path.join(Builddatabank_path, "searchDATABANK.py")
     QualityEvaluation_path = os.path.join(Builddatabank_path, "QualityEvaluation.py")
     makeRanking_path = os.path.join(Builddatabank_path, "makeRanking.py")
@@ -67,7 +67,7 @@ def get_databank_paths(NMLDB_ROOT_PATH):
         "Builddatabank_path": Builddatabank_path,
         "AddData_path": AddData_path,
         "AnalyzeDatabank_path": AnalyzeDatabank_path,
-        "calcProperties_path": calcProperties_path,
+        "compute_databank_path": compute_databank_path,
         "searchDATABANK_path": searchDATABANK_path,
         "QualityEvaluation_path": QualityEvaluation_path,
         "makeRanking_path": makeRanking_path
