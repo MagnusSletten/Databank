@@ -11,7 +11,7 @@ Executes standard pipeline of processing for an info file.
 """
 
 def main(info_file_path):    
-    root_path = get_databank_paths(NMLDB_ROOT_PATH)
+    path_dict = get_databank_paths(NMLDB_ROOT_PATH)
 
     parent_folder = os.path.dirname(NMLDB_ROOT_PATH)
 
