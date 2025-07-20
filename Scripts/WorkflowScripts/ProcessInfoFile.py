@@ -11,9 +11,14 @@ Executes standard pipeline of processing for an info file.
 """
 
 def main(info_file_path):    
-    path_dict = get_databank_paths(NMLDB_ROOT_PATH)
-    work_directory_dry = "/tmp/databank_workdir/dry"
-    work_directory_real = "/tmp/databank_workdir_real"
+    root_path = get_databank_paths(NMLDB_ROOT_PATH)
+
+    parent_folder = os.path.dirname(NMLDB_ROOT_PATH)
+
+    # create a workdir next to Databank
+    base_tmp = os.path.join(parent_folder, "databank_workdir")
+    work_directory_dry  = os.path.join(base_tmp, "dry")
+    work_directory_real = os.path.join(base_tmp, "real")
     os.makedirs(work_directory_dry, exist_ok=True)
     os.makedirs(work_directory_real, exist_ok=True)
 
