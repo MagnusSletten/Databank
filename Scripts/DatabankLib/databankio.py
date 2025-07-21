@@ -201,7 +201,7 @@ def calc_file_sha1_hash(fi: str, step: int = 67108864, one_block: bool = True) -
             sha1_hash.update(block)
         else:
             # we don't need tqdm from one-block SHA1
-            with tqdm(total=n_tot_steps) as pbar:
+            with tqdm(total=n_tot_steps,position=0, leave=True) as pbar:
                 # Read and update hash string value in blocks of 4K
                 for byte_block in iter(lambda: f.read(step), b""):
                     sha1_hash.update(byte_block)

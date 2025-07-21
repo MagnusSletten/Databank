@@ -167,7 +167,7 @@ def computeAPL(  # noqa: N802 (API)
     # this calculates the area per lipid as a function of time and stores it
     # in the databank
     apl = {}
-    for ts in tqdm(u.trajectory, desc="Scanning the trajectory"):
+    for ts in tqdm(u.trajectory, position=0, leave=True, desc="Scanning the trajectory"):
         if u.trajectory.time >= system["TIMELEFTOUT"] * 1000:
             dims = u.dimensions
             apl_frame = dims[0] * dims[1] * 2 / n_lipid

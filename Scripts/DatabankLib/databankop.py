@@ -177,7 +177,7 @@ def _read_trajs_calc_OPs(
         op.traj = np.zeros(n_res, dtype=np.float64)
 
     print("Processing trajectory with optimized single-core engine...")
-    for _ in tqdm(mol.trajectory, total=n_frames, unit="frame"):
+    for _ in tqdm(mol.trajectory, total=n_frames, unit="frame",position=0, leave=True):
         for op in op_obj_list:
             if op.atomgroup is None or len(op.atomgroup) == 0:
                 continue
