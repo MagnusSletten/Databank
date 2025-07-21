@@ -35,11 +35,7 @@ def main(info_file_path):
     run_command(
         [
             path_dict['compute_databank_path'],
-            "--nmrpca",
             "--maicos",
-            "--op",
-            "--thickness",
-            "--apl",
             "--range",
             "*-0",   
         ],
