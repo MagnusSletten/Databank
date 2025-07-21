@@ -1,14 +1,14 @@
 name: Weekly Scheduled Tests
 
 on:
-  schedule:
+ # schedule:
     # Runs every Monday at 12:00 UTC
-    - cron: '0 12 * * 1'
+  #  - cron: '0 12 * * 1'
   workflow_dispatch:
 
 jobs:
   regression-tests:
-    if: github.repository == 'NMRLipids/Databank'
+    if: github.repository == 'MagnusSletten/Databank'
     runs-on: ubuntu-latest
     container:
       image: nmrlipids/core
