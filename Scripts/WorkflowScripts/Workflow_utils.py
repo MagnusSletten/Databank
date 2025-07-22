@@ -1,6 +1,7 @@
 import subprocess
 import sys
 import os
+import logging
 
 """
 Contains methods used for python scripts related to workflows.
@@ -9,6 +10,13 @@ Contains methods used for python scripts related to workflows.
    This module is only used by automated workflows. Users of the Databank
    repository can safely ignore it.
 """
+
+logging.basicConfig(
+    format="%(asctime)s [%(levelname)s]: %(message)s",
+    datefmt="%I:%M:%S %p",
+    level=logging.INFO,
+)
+logger = logging.getLogger()
 
 def run_command(cmd_args, error_message="Command failed", working_dir=None):
     """
@@ -23,7 +31,7 @@ def run_command(cmd_args, error_message="Command failed", working_dir=None):
     try:
         subprocess.run(cmd_args, shell=False, check=True, cwd=working_dir)
     except subprocess.CalledProcessError:
-        print(error_message)
+        logger.error(error_message)
         sys.exit(1)
 
 def run_python_script(script_path, args=None, error_message="Python script failed", working_dir=None):
@@ -39,13 +47,14 @@ def run_python_script(script_path, args=None, error_message="Python script faile
     if args is None:
         args = []
     try:
+        logger.info(f"Running python script with path {script_path}")
         subprocess.run(
             [sys.executable, script_path, *args],
             check=True,
             cwd=working_dir  
         )
     except subprocess.CalledProcessError:
-        print(error_message)
+        logger.error(error_message)
         sys.exit(1)
 
 def get_databank_paths(NMLDB_ROOT_PATH):
@@ -83,6 +92,6 @@ def delete_info_file(info_file_path):
     """
     try:
         os.remove(info_file_path)
-        print(f"Deleted info file: {info_file_path}")
+        logger.info(f"Deleted info file: {info_file_path}")
     except OSError as e:
-        print(f"Warning: could not delete {info_file_path}: {e}")
+        logger.warning(f"Could not delete {info_file_path}: {e}")
