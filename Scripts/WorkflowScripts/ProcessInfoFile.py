@@ -33,10 +33,14 @@ def main(info_file_path):
         args=["-f", info_file_path, "-w", work_directory_real],
         error_message="AddData failed"
     )
-    run_command(
+     run_command(
         [
             path_dict['compute_databank_path'],
+            "--nmrpca",
             "--maicos",
+            "--op",
+            "--thickness",
+            "--apl",
             "--range",
             "*-0",   
         ],
