@@ -12,14 +12,6 @@ Executes standard pipeline of processing for an info file.
 """
 
 def main(info_file_path): 
-    logging.basicConfig(
-        format="%(asctime)s [%(levelname)s]: %(message)s",
-        datefmt="%I:%M:%S %p",
-        level=logging.INFO,
-    )
-    logger = logging.getLogger()
-
-
     path_dict = get_databank_paths(NMLDB_ROOT_PATH)
 
     parent_folder = os.path.dirname(NMLDB_ROOT_PATH)
@@ -52,7 +44,6 @@ def main(info_file_path):
         working_dir=path_dict["AnalyzeDatabank_path"]
     )
     delete_info_file(info_file_path)
-    logger.info(f"Deleted info file: {info_file_path}")
 
 #Gets arguments from parser
 def get_args():
