@@ -1,7 +1,7 @@
-from DatabankLib.core import initialize_databank 
 import subprocess
 import sys
 import os
+import logging
 
 """
 Contains methods used for python scripts related to workflows.
@@ -11,19 +11,27 @@ Contains methods used for python scripts related to workflows.
    repository can safely ignore it.
 """
 
-def run_command(command, error_message="Command failed", working_dir=None):
-    """
-    Run a shell command and exit on failure.
+logging.basicConfig(
+    format="%(asctime)s [%(levelname)s]: %(message)s",
+    datefmt="%I:%M:%S %p",
+    level=logging.INFO,
+)
+logger = logging.getLogger()
 
-    :param command: The shell command to execute (string).
+def run_command(cmd_args, error_message="Command failed", working_dir=None):
+    """
+    Run a command and exit on failure.
+
+    :param cmd_args: List of command arguments, e.g.
+                     ["/path/to/compute_databank.py", "--nmrpca", "*-0"]
     :param error_message: Message to display if the command fails.
     :param working_dir: Optional working directory in which to run the command.
     :raises SystemExit: Exits with code 1 if the command fails.
     """
     try:
-        subprocess.run(command, shell=True, check=True, cwd=working_dir)
+        subprocess.run(cmd_args, shell=False, check=True, cwd=working_dir)
     except subprocess.CalledProcessError:
-        print(error_message)
+        logger.error(error_message)
         sys.exit(1)
 
 def run_python_script(script_path, args=None, error_message="Python script failed", working_dir=None):
@@ -45,21 +53,21 @@ def run_python_script(script_path, args=None, error_message="Python script faile
             cwd=working_dir  
         )
     except subprocess.CalledProcessError:
-        print(error_message)
+        logger.error(error_message)
         sys.exit(1)
 
 def get_databank_paths(NMLDB_ROOT_PATH):
     """
-    Retrieve paths to various databank scripts and tools.
+    Retrieve relevant paths from databank.
 
-    :param NMLDB_ROOT_PATH: Root path of the NML database repository.
+    :param NMLDB_ROOT_PATH: Root path of the database repository.
     :return: Dictionary mapping descriptive keys to full paths of databank components.
     :rtype: dict
     """
     Builddatabank_path = os.path.join(NMLDB_ROOT_PATH, "Scripts", "BuildDatabank")
     AddData_path = os.path.join(Builddatabank_path, "AddData.py")
     AnalyzeDatabank_path = os.path.join(NMLDB_ROOT_PATH, "Scripts", "AnalyzeDatabank")
-    calcProperties_path = os.path.join(AnalyzeDatabank_path, "calcProperties.sh")
+    compute_databank_path = os.path.join(AnalyzeDatabank_path, "compute_databank.py")
     searchDATABANK_path = os.path.join(Builddatabank_path, "searchDATABANK.py")
     QualityEvaluation_path = os.path.join(Builddatabank_path, "QualityEvaluation.py")
     makeRanking_path = os.path.join(Builddatabank_path, "makeRanking.py")
@@ -68,7 +76,7 @@ def get_databank_paths(NMLDB_ROOT_PATH):
         "Builddatabank_path": Builddatabank_path,
         "AddData_path": AddData_path,
         "AnalyzeDatabank_path": AnalyzeDatabank_path,
-        "calcProperties_path": calcProperties_path,
+        "compute_databank_path": compute_databank_path,
         "searchDATABANK_path": searchDATABANK_path,
         "QualityEvaluation_path": QualityEvaluation_path,
         "makeRanking_path": makeRanking_path
@@ -83,6 +91,7 @@ def delete_info_file(info_file_path):
     """
     try:
         os.remove(info_file_path)
-        print(f"Deleted info file: {info_file_path}")
+        logger.info(f"Deleted info file: {info_file_path}")
     except OSError as e:
-        print(f"Warning: could not delete {info_file_path}: {e}")
+        logger.warning(f"Could not delete {info_file_path}: {e}")
+
