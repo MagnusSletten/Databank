@@ -47,6 +47,7 @@ def run_python_script(script_path, args=None, error_message="Python script faile
     if args is None:
         args = []
     try:
+        logger.info(f"Running python script with path {script_path}")
         subprocess.run(
             [sys.executable, script_path, *args],
             check=True,
