@@ -6,9 +6,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build_gromacs:
+  build_gromacs_and_core:
     runs-on: ubuntu-latest
-    if: github.repository == 'NMRLipids/Databank'
     steps:
       - name: Get latest gromacs release version 
         id: version
@@ -28,6 +27,9 @@ jobs:
             -t nmrlipids/gromacs \
             --build-arg GROMACS_VERSION=${{ steps.version.outputs.version }} \
             .
+      - name: Build core image
+        run: |
+          docker build -f Scripts/Docker/core -t nmrlipids/core .
 
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
@@ -39,29 +41,11 @@ jobs:
         run: |
           docker push nmrlipids/gromacs
 
-  build_core:
-    runs-on: ubuntu-latest
-    needs: build_gromacs
-    steps:
-      - name: Checkout Databank repo 
-        uses: actions/checkout@v4
-
-      - name: Build core image
-        run: |
-          docker build -f Scripts/Docker/core -t nmrlipids/core .
-
-      - name: Log in to Docker Hub
-        uses: docker/login-action@v3
-        with:
-          username: ${{ vars.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_PASSWORD }}
-
       - name: Push core image
         run: docker push nmrlipids/core
 
   build_doc_builder:
      runs-on: ubuntu-latest
-     if: github.repository == 'NMRLipids/Databank'
      steps:
       - name: Checkout Databank repo 
         uses: actions/checkout@v4
