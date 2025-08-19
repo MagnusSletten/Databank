@@ -15,7 +15,7 @@ logging.basicConfig(
     datefmt="%I:%M:%S %p",
     level=logging.INFO,
 )
-logger = logging.getLogger()
+logger = logging.getLogger(__name__)
 
 def run_command(command, error_message="Command failed", working_dir=None):
     """
