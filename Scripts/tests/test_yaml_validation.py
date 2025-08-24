@@ -2,12 +2,13 @@ import pytest
 import os
 import sys
 import copy 
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__),'../', '../')) 
 
 from BuildDatabank.SchemaValidation.ValidateYAML import validate_info_file, validate_info_dict
 
 pytestmark = pytest.mark.adddata
-valid_info_path = os.path.join(os.path.dirname(__file__), "Data","info","info566.yaml")
+
 
 valid = {
   "DOI": "10.5281/zenodo.11614468",
@@ -100,6 +101,8 @@ def test_missing_tpr_gromacs(valid_instance):
     assert errors[0].validator == "required" 
 
 def test_valid_info_file():
+    from DatabankLib import NMLDB_DATA_PATH
+    valid_info_path = os.path.join(NMLDB_DATA_PATH,"info","info566.yaml")
     errors = validate_info_file(valid_info_path)
     assert len(errors) == 0
 
