@@ -12,6 +12,7 @@ import time
 from tempfile import TemporaryDirectory
 import pytest
 from pytest_check import check
+import sys
 
 
 # run only without mocking data
@@ -24,7 +25,15 @@ def tmp_work_dir():
         print(f"Will use following directory for loadings: {wdir}")
         yield wdir
 
-
+@pytest.fixture(scope="module", autouse=True)
+def addRootToPath():
+    root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+    sys.path.insert(0, root_path)
+    yield
+    # teardown:
+    if sys.path[0] == root_path:
+        sys.path.pop(0)
+        
 class TestAddData:
 
     @classmethod
