@@ -36,6 +36,7 @@ from urllib.error import URLError, HTTPError
 from copy import deepcopy
 import pandas as pd
 import numpy as np
+from Scripts.BuildDatabank.SchemaValidation.ValidateYAML import validate_info_dict
 
 from MDAnalysis import Universe
 
@@ -128,6 +129,13 @@ if __name__ == "__main__":
         pp.pprint(yaml.dump(info_yaml))
 
     # validate yaml entries and return updated sim dict
+    try: 
+        errors = validate_info_dict(info_yaml)
+        if(0<len(errors)):
+            logger.error(errors)
+            quit(1)
+    except Exception as e:
+        logger.error(e)
     try:
         sim_dict, files = parse_valid_config_settings(info_yaml)
     except KeyError as e:
