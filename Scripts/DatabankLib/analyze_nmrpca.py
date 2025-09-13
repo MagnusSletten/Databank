@@ -91,6 +91,7 @@ ALLOWLIPIDS = [
     "SLPI",
 ]
 
+
 merge_cutoff = 2.0
 trj_size_cutoff = (
     1500000000  # This is the boundary set empirically by @pbuslaev

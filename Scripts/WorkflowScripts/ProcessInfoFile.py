@@ -15,6 +15,10 @@ from WorkflowScripts.Workflow_utils import delete_info_file, get_databank_paths,
 
 
 def run_analysis(info_file_path:str) -> None:
+    if(os.environ["MEM_CUTOFF"]):
+         logger.info("Using mem cutoff"+os.environ["MEM_CUTOFF"])
+    else: 
+        logger.info("no mem cutoff")
     """Run full analysis of info-file"""
     work_directory_real,_ = setup_folders()
     path_dict = get_databank_paths(NMLDB_ROOT_PATH)
