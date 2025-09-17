@@ -13,9 +13,7 @@ import pytest
 import pytest_check as check
 
 # run only on sim2 mocking data
-pytestmark = pytest.mark.nodata
-pytestmark2 = pytest.mark.all
-pytestmark3 = pytest.mark.min 
+pytestmark = [pytest.mark.nodata, pytest.mark.all, pytest.mark.min] 
 
 
 def test_uname2element():

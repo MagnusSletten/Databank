@@ -18,9 +18,7 @@ import pytest
 # Global fixtures
 # ----------------------------------------------------------------
 
-pytestmark = pytest.mark.sim1
-pytestmark2 = pytest.mark.all
-pytestmark3 = pytest.mark.min 
+pytestmark = [pytest.mark.sim1, pytest.mark.all, pytest.mark.min] 
 
 
 @pytest.fixture(scope="module")

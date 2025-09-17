@@ -38,8 +38,7 @@ logger.addHandler(ch)
 # On teardown stage we clear the folders.
 
 # run only on sim2 mocking data
-pytestmark = pytest.mark.sim1
-pytestmark2 = pytest.mark.all
+pytestmark = [pytest.mark.sim1, pytest.mark.all]
 
 
 @pytest.fixture(scope="module")

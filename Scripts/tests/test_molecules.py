@@ -4,9 +4,7 @@ import pytest
 import pytest_check as check
 
 # run only on sim2 mocking data
-pytestmark = pytest.mark.sim2
-pytestmark2 = pytest.mark.all
-pytestmark3 = pytest.mark.min 
+pytestmark = [pytest.mark.sim2, pytest.mark.all,pytest.mark.min] 
 
 LIPIDS_SET_LENGTH = 5
 POPE_MOLECULAR_WEIGHT = 718
