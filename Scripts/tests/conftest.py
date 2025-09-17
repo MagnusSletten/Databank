@@ -2,6 +2,9 @@ import importlib
 import os
 import pytest
 import logging
+import os
+
+import pytest
 
 # Pytest HOOKS
 # -------------------------------------------------------------------
@@ -9,8 +12,10 @@ import logging
 
 def pytest_addoption(parser):
     parser.addoption(
-        "--cmdopt", action="store", default="sim1",
-        help="Two test groups: sim1|sim2|nodata"
+        "--cmdopt",
+        action="store",
+        default="sim1",
+        help="Two test groups: sim1|sim2|nodata",
     )
 
 
@@ -62,8 +67,7 @@ def logger():
     logger = logging.getLogger("test_logger")
     logger.setLevel(logging.DEBUG)
     handler = logging.StreamHandler()
-    formatter = logging.Formatter(
-        "%(asctime)s - %(name)s - %(levelname)s - %(message)s")
+    formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
     handler.setFormatter(formatter)
 
     if not logger.handlers:  # Avoid adding multiple handlers during pytest runs
