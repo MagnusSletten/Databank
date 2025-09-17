@@ -41,9 +41,9 @@ def header_module_scope(request):
     # pick sim from marker or cmdopt (your existing logic is fine)
     cmdopt = getattr(request.config.option, "cmdopt", "nodata")
     sim = {
-        "sim1": "Simulations.1",
         "sim2": "Simulations.2",
         "adddata": "Simulations.AddData",
+          "sim1": "Simulations.1",
         "nodata": None,
     }.get(cmdopt, None)
 
