@@ -23,7 +23,7 @@ def pytest_addoption(parser):
 # Pytest GLOBAL FIXTURES
 # -------------------------------------------------------------------
 SIM_MAP = {
-    "sim1": "Simulations.1",
+#    "sim1": "Simulations.1",
     "sim2": "Simulations.2",
     "adddata": "Simulations.AddData",
     "nodata": None,
@@ -33,7 +33,7 @@ SIM_MAP = {
 def header_module_scope(request):
     # 1) Prefer dataset markers on this test module
     sim_key = None
-    for key in ("sim1", "sim2", "adddata", "nodata"):
+    for key in ("sim2", "adddata", "nodata"):
         if request.node.get_closest_marker(key):
             sim_key = key
             break
@@ -56,10 +56,10 @@ def header_module_scope(request):
     else:
         os.environ.pop("NMLDB_SIMU_PATH", None)
 
-    # 4) Clean re-import so module sees the fresh env
-    for name in list(sys.modules):
-        if name == "DatabankLib" or name.startswith("DatabankLib."):
-            del sys.modules[name]
+# 4) Clean re-import so module sees the fresh env
+  #  for name in list(sys.modules):
+  #      if name == "DatabankLib" or name.startswith("DatabankLib."):
+  #          del sys.modules[name]
     
     import DatabankLib
     importlib.reload(DatabankLib)  # noqa: F401
