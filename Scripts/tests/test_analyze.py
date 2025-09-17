@@ -39,6 +39,7 @@ logger.addHandler(ch)
 
 # run only on sim2 mocking data
 pytestmark = pytest.mark.sim1
+pytestmark2 = pytest.mark.all
 
 
 @pytest.fixture(scope="module")

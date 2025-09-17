@@ -20,6 +20,8 @@ import pytest_check as check
 
 # run only on sim2 mocking data
 pytestmark = pytest.mark.sim2
+pytestmark2 = pytest.mark.all
+pytestmark3 = pytest.mark.min 
 
 # for vector comparisons with np.testing.assert_allclose
 MAXRELERR_COMPARE_THRESHOLD = 1e-2

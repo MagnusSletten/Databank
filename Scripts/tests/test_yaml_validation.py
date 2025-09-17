@@ -3,6 +3,8 @@ import os
 import pytest
 
 pytestmark = pytest.mark.adddata
+pytestmark2 = pytest.mark.all
+pytestmark3 = pytest.mark.min 
 
 valid = {
     "DOI": "10.5281/zenodo.11614468",

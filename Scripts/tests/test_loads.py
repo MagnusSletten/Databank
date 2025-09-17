@@ -13,6 +13,8 @@ import pytest_check as check
 
 # run only without mocking data
 pytestmark = pytest.mark.nodata
+pytestmark2 = pytest.mark.all
+pytestmark3 = pytest.mark.min 
 
 
 class TestDownloadResourceFromUri:

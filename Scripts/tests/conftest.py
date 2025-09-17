@@ -18,8 +18,11 @@ def pytest_addoption(parser):
         help="Two test groups: sim1|sim2|nodata",
     )
 
-
-
+def remove_databank_import() -> None:
+    for name in list(sys.modules):
+        if name == "DatabankLib" or name.startswith("DatabankLib."):
+            del sys.modules[name]
+    
 # Pytest GLOBAL FIXTURES
 # -------------------------------------------------------------------
 SIM_MAP = {
@@ -31,7 +34,6 @@ SIM_MAP = {
 
 @pytest.fixture(autouse=True, scope="module")
 def header_module_scope(request):
-    # 1) Prefer dataset markers on this test module
     sim_key = None
     for key in ("sim1", "sim2", "adddata", "nodata"):
         if request.node.get_closest_marker(key):
@@ -44,10 +46,8 @@ def header_module_scope(request):
         if cmdopt in SIM_MAP:
             sim_key = cmdopt
         else:
-            # default if nothing specified
             sim_key = "nodata"
 
-    # 3) Set env before (re)import
     data_root = os.path.join(os.path.dirname(__file__), "Data")
     os.environ["NMLDB_DATA_PATH"] = data_root
     sim_dir = SIM_MAP[sim_key]
@@ -55,19 +55,15 @@ def header_module_scope(request):
         os.environ["NMLDB_SIMU_PATH"] = os.path.join(data_root, sim_dir)
     else:
         os.environ.pop("NMLDB_SIMU_PATH", None)
-
-   #4) Clean re-import so module sees the fresh env
-    for name in list(sys.modules):
-        if name == "DatabankLib" or name.startswith("DatabankLib."):
-            del sys.modules[name]
     
     import DatabankLib
-    #importlib.reload(DatabankLib)  # noqa: F401
 
     print("DBG env -> NMLDB_DATA_PATH:", os.getenv("NMLDB_DATA_PATH"))
     print("DBG env -> NMLDB_SIMU_PATH:", os.getenv("NMLDB_SIMU_PATH"))
 
     yield
+    #Teardown:
+    remove_databank_import()
 
     print("DBG: Mocking completed")
 

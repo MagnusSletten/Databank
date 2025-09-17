@@ -16,6 +16,7 @@ from pytest_check import check
 
 # run only without mocking data
 pytestmark = pytest.mark.adddata
+pytestmark2 = pytest.mark.all
 
 
 @pytest.fixture(scope="module")
