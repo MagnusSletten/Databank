@@ -31,10 +31,10 @@ def pytest_collection_modifyitems(config, items):
 # -------------------------------------------------------------------
 
 SIM_MAP = {
-    "sim1": "Simulations.1",
     "sim2": "Simulations.2",
     "adddata": "Simulations.AddData",
     "nodata": None,
+     "sim1": "Simulations.1",
 }
 @pytest.fixture(autouse=True, scope="module")
 def header_module_scope(request):
