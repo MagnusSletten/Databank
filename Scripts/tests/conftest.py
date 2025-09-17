@@ -29,40 +29,30 @@ SIM_MAP = {
     "nodata": None,
 }
 
-@pytest.fixture(autouse=True, scope="module")
-def set_root_and_data():
-    tests_dir = os.path.dirname(__file__)
-    data_root = os.path.join(tests_dir, "Data")
-    os.environ["NMLDB_ROOT_PATH"] = tests_dir
-    os.environ["NMLDB_DATA_PATH"]  = data_root
-    yield
 
-@pytest.fixture(autouse=True, scope="function")
-def set_dataset_per_test(request):
-    # 1) Prefer explicit marker
-    sim_key = next((k for k in SIM_MAP if request.node.get_closest_marker(k)), None)
-
-    # 2) Fallback to --cmdopt (but don't assume sim1)
-    if sim_key is None:
-        cmdopt = getattr(request.config.option, "cmdopt", None)
-        sim_key = cmdopt if cmdopt in SIM_MAP else "nodata"
-
-    # 3) Apply env
-    data_root = os.environ["NMLDB_DATA_PATH"]
-    sim_dir = SIM_MAP[sim_key]
-    if sim_dir is None:
-        os.environ.pop("NMLDB_SIMU_PATH", None)
+@pytest.fixture(autouse=True, scope="session")
+def header_module_scope(request):
+    cmdopt = request.config.getoption("--cmdopt")
+    if cmdopt == "sim1":
+        sim = "Simulations.1"
+    elif cmdopt == "sim2":
+        sim = "Simulations.2"
+    elif cmdopt == "adddata":
+        sim = "Simulations.AddData"
+    elif cmdopt == "nodata":
+        sim = None
     else:
-        os.environ["NMLDB_SIMU_PATH"] = os.path.join(data_root, sim_dir)
+        pytest.exit(f"Unknown --cmdopt {cmdopt}")
+    os.environ["NMLDB_DATA_PATH"] = os.path.join(os.path.dirname(__file__), "Data")
+    if sim is not None:
+        os.environ["NMLDB_SIMU_PATH"] = os.path.join(os.path.dirname(__file__), "Data", sim)
+    import DatabankLib
+    importlib.reload(DatabankLib)
 
-    # 4) Clean reimport so this test uses the right env
-    for name in list(sys.modules):
-        if name == "DatabankLib" or name.startswith("DatabankLib."):
-            del sys.modules[name]
-    importlib.invalidate_caches()
-    import DatabankLib  # noqa: F401
-
-    print(f"DBG dataset -> {sim_key} ({os.getenv('NMLDB_SIMU_PATH')})")
+    print("DBG: Mocking Data path: ", DatabankLib.NMLDB_DATA_PATH)
+    print("DBG: Mocking Simulations path: ", DatabankLib.NMLDB_SIMU_PATH)
+    yield
+    print("DBG: Mocking completed")
 
 
 @pytest.fixture(scope="module")
