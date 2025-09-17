@@ -19,56 +19,50 @@ def pytest_addoption(parser):
     )
 
 
-def pytest_collection_modifyitems(config, items):
-    cmdopt = config.getoption("--cmdopt")
-    run_only_sim = pytest.mark.skip(reason=f"Skipped by --cmdopt {cmdopt}")
-    for item in items:
-        if cmdopt not in item.keywords:
-            item.add_marker(run_only_sim)
-
 
 # Pytest GLOBAL FIXTURES
 # -------------------------------------------------------------------
-
 SIM_MAP = {
+    "sim1": "Simulations.1",
     "sim2": "Simulations.2",
     "adddata": "Simulations.AddData",
     "nodata": None,
-     "sim1": "Simulations.1",
 }
-@pytest.fixture(autouse=True, scope="module")
-def header_module_scope(request):
-    # pick sim from marker or cmdopt (your existing logic is fine)
-    cmdopt = getattr(request.config.option, "cmdopt", "nodata")
-    sim = {
-        "sim2": "Simulations.2",
-        "adddata": "Simulations.AddData",
-          "sim1": "Simulations.1",
-        "nodata": None,
-    }.get(cmdopt, None)
 
+@pytest.fixture(autouse=True, scope="module")
+def set_root_and_data():
     tests_dir = os.path.dirname(__file__)
     data_root = os.path.join(tests_dir, "Data")
-
-    # 🔑 root + data must be set BEFORE import
     os.environ["NMLDB_ROOT_PATH"] = tests_dir
-    os.environ["NMLDB_DATA_PATH"] = data_root
-    if sim is not None:
-        os.environ["NMLDB_SIMU_PATH"] = os.path.join(data_root, sim)
-    else:
-        os.environ.pop("NMLDB_SIMU_PATH", None)
+    os.environ["NMLDB_DATA_PATH"]  = data_root
+    yield
 
-    # clean re-import so DatabankLib picks up new env
+@pytest.fixture(autouse=True, scope="function")
+def set_dataset_per_test(request):
+    # 1) Prefer explicit marker
+    sim_key = next((k for k in SIM_MAP if request.node.get_closest_marker(k)), None)
+
+    # 2) Fallback to --cmdopt (but don't assume sim1)
+    if sim_key is None:
+        cmdopt = getattr(request.config.option, "cmdopt", None)
+        sim_key = cmdopt if cmdopt in SIM_MAP else "nodata"
+
+    # 3) Apply env
+    data_root = os.environ["NMLDB_DATA_PATH"]
+    sim_dir = SIM_MAP[sim_key]
+    if sim_dir is None:
+        os.environ.pop("NMLDB_SIMU_PATH", None)
+    else:
+        os.environ["NMLDB_SIMU_PATH"] = os.path.join(data_root, sim_dir)
+
+    # 4) Clean reimport so this test uses the right env
     for name in list(sys.modules):
         if name == "DatabankLib" or name.startswith("DatabankLib."):
             del sys.modules[name]
     importlib.invalidate_caches()
     import DatabankLib  # noqa: F401
 
-    print("DBG env -> ROOT:", os.getenv("NMLDB_ROOT_PATH"))
-    print("DBG env -> DATA:", os.getenv("NMLDB_DATA_PATH"))
-    print("DBG env -> SIMU:", os.getenv("NMLDB_SIMU_PATH"))
-    yield
+    print(f"DBG dataset -> {sim_key} ({os.getenv('NMLDB_SIMU_PATH')})")
 
 
 @pytest.fixture(scope="module")
