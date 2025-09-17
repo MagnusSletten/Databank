@@ -37,25 +37,24 @@ SIM_MAP = {
     "nodata": None,
 }
 
-@pytest.fixture(autouse=True, scope="module")
-def header_module_scope(request):
-    # 1) Prefer dataset markers on this test module
+@pytest.fixture(autouse=True, scope="function")
+def header_function_scope(request):
+    # Find which marker is set on this test
     sim_key = None
-    for key in ("sim1", "sim2", "adddata", "nodata"):
+    for key in SIM_MAP:
         if request.node.get_closest_marker(key):
             sim_key = key
             break
 
-    # 2) Fallback to --cmdopt (if provided and known)
+    # Fallback to cmdopt if no marker present
     if sim_key is None:
         cmdopt = getattr(request.config.option, "cmdopt", None)
         if cmdopt in SIM_MAP:
             sim_key = cmdopt
         else:
-            # default if nothing specified
             sim_key = "nodata"
 
-    # 3) Set env before (re)import
+    # Set env
     data_root = os.path.join(os.path.dirname(__file__), "Data")
     os.environ["NMLDB_DATA_PATH"] = data_root
     sim_dir = SIM_MAP[sim_key]
@@ -64,15 +63,14 @@ def header_module_scope(request):
     else:
         os.environ.pop("NMLDB_SIMU_PATH", None)
 
-    # 4) Clean re-import so module sees the fresh env
+    # Force fresh import of DatabankLib
     for name in list(sys.modules):
         if name == "DatabankLib" or name.startswith("DatabankLib."):
             del sys.modules[name]
     importlib.invalidate_caches()
     import DatabankLib  # noqa: F401
 
-    print("DBG env -> NMLDB_DATA_PATH:", os.getenv("NMLDB_DATA_PATH"))
-    print("DBG env -> NMLDB_SIMU_PATH:", os.getenv("NMLDB_SIMU_PATH"))
+    print(f"DBG: Using dataset {sim_key} -> {os.getenv('NMLDB_SIMU_PATH')}")
 
     yield
 
