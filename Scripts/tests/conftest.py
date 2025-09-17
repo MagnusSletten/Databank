@@ -1,3 +1,4 @@
+import importlib
 import os
 import pytest
 import logging
@@ -24,10 +25,10 @@ def pytest_collection_modifyitems(config, items):
 # Pytest GLOBAL FIXTURES
 # -------------------------------------------------------------------
 
-
-@pytest.fixture(autouse=True, scope="session")
+@pytest.fixture(autouse=True, scope="module")
 def header_module_scope(request):
     cmdopt = request.config.getoption("--cmdopt")
+
     if cmdopt == "sim1":
         sim = "Simulations.1"
     elif cmdopt == "sim2":
@@ -38,16 +39,23 @@ def header_module_scope(request):
         sim = None
     else:
         pytest.exit(f"Unknown --cmdopt {cmdopt}")
+
     os.environ["NMLDB_DATA_PATH"] = os.path.join(os.path.dirname(__file__), "Data")
     if sim is not None:
-        os.environ["NMLDB_SIMU_PATH"] = os.path.join(
-            os.path.dirname(__file__), "Data", sim)
-    import DatabankLib
-    print("DBG: Mocking Data path: ", DatabankLib.NMLDB_DATA_PATH)
-    print("DBG: Mocking Simulations path: ", DatabankLib.NMLDB_SIMU_PATH)
-    yield
-    print("DBG: Mocking completed")
+        os.environ["NMLDB_SIMU_PATH"] = os.path.join(os.path.dirname(__file__), "Data", sim)
+    else:
+        os.environ.pop("NMLDB_SIMU_PATH", None)
 
+    # reload DatabankLib so it re-reads env
+    import DatabankLib
+    importlib.reload(DatabankLib)
+
+    print("DBG: Mocking Data path:", DatabankLib.NMLDB_DATA_PATH)
+    print("DBG: Mocking Simulations path:", getattr(DatabankLib, "NMLDB_SIMU_PATH", None))
+
+    yield
+
+    print("DBG: Mocking completed")
 
 @pytest.fixture(scope="module")
 def logger():
