@@ -56,13 +56,13 @@ def header_module_scope(request):
     else:
         os.environ.pop("NMLDB_SIMU_PATH", None)
 
-    # 4) Clean re-import so module sees the fresh env
-  #  for name in list(sys.modules):
-  #      if name == "DatabankLib" or name.startswith("DatabankLib."):
-  #          del sys.modules[name]
+   #4) Clean re-import so module sees the fresh env
+    for name in list(sys.modules):
+        if name == "DatabankLib" or name.startswith("DatabankLib."):
+            del sys.modules[name]
     
     import DatabankLib
-    importlib.reload(DatabankLib)  # noqa: F401
+    #importlib.reload(DatabankLib)  # noqa: F401
 
     print("DBG env -> NMLDB_DATA_PATH:", os.getenv("NMLDB_DATA_PATH"))
     print("DBG env -> NMLDB_SIMU_PATH:", os.getenv("NMLDB_SIMU_PATH"))
