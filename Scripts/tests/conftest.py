@@ -36,45 +36,39 @@ SIM_MAP = {
     "adddata": "Simulations.AddData",
     "nodata": None,
 }
+@pytest.fixture(autouse=True, scope="module")
+def header_module_scope(request):
+    # pick sim from marker or cmdopt (your existing logic is fine)
+    cmdopt = getattr(request.config.option, "cmdopt", "nodata")
+    sim = {
+        "sim1": "Simulations.1",
+        "sim2": "Simulations.2",
+        "adddata": "Simulations.AddData",
+        "nodata": None,
+    }.get(cmdopt, None)
 
-@pytest.fixture(autouse=True, scope="function")
-def header_function_scope(request):
-    # Find which marker is set on this test
-    sim_key = None
-    for key in SIM_MAP:
-        if request.node.get_closest_marker(key):
-            sim_key = key
-            break
+    tests_dir = os.path.dirname(__file__)
+    data_root = os.path.join(tests_dir, "Data")
 
-    # Fallback to cmdopt if no marker present
-    if sim_key is None:
-        cmdopt = getattr(request.config.option, "cmdopt", None)
-        if cmdopt in SIM_MAP:
-            sim_key = cmdopt
-        else:
-            sim_key = "nodata"
-
-    # Set env
-    data_root = os.path.join(os.path.dirname(__file__), "Data")
+    # 🔑 root + data must be set BEFORE import
+    os.environ["NMLDB_ROOT_PATH"] = tests_dir
     os.environ["NMLDB_DATA_PATH"] = data_root
-    sim_dir = SIM_MAP[sim_key]
-    if sim_dir is not None:
-        os.environ["NMLDB_SIMU_PATH"] = os.path.join(data_root, sim_dir)
+    if sim is not None:
+        os.environ["NMLDB_SIMU_PATH"] = os.path.join(data_root, sim)
     else:
         os.environ.pop("NMLDB_SIMU_PATH", None)
 
-    # Force fresh import of DatabankLib
+    # clean re-import so DatabankLib picks up new env
     for name in list(sys.modules):
         if name == "DatabankLib" or name.startswith("DatabankLib."):
             del sys.modules[name]
     importlib.invalidate_caches()
     import DatabankLib  # noqa: F401
 
-    print(f"DBG: Using dataset {sim_key} -> {os.getenv('NMLDB_SIMU_PATH')}")
-
+    print("DBG env -> ROOT:", os.getenv("NMLDB_ROOT_PATH"))
+    print("DBG env -> DATA:", os.getenv("NMLDB_DATA_PATH"))
+    print("DBG env -> SIMU:", os.getenv("NMLDB_SIMU_PATH"))
     yield
-
-    print("DBG: Mocking completed")
 
 
 @pytest.fixture(scope="module")
