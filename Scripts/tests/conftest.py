@@ -42,7 +42,7 @@ def header_module_scope(request):
 
     # 2) Fallback to --cmdopt (if provided and known)
     if sim_key is None:
-        cmdopt = getattr(request.config.option, "cmdopt", None)
+        cmdopt = request.config.getoption("--cmdopt")
         if cmdopt in SIM_MAP:
             sim_key = cmdopt
         else:
@@ -51,13 +51,11 @@ def header_module_scope(request):
     data_root = os.path.join(os.path.dirname(__file__), "Data")
     os.environ["NMLDB_DATA_PATH"] = data_root
     sim_dir = SIM_MAP[sim_key]
-    if sim_dir is not None:
+    if sim_dir:
         os.environ["NMLDB_SIMU_PATH"] = os.path.join(data_root, sim_dir)
     else:
         os.environ.pop("NMLDB_SIMU_PATH", None)
     
-    import DatabankLib
-
     print("DBG env -> NMLDB_DATA_PATH:", os.getenv("NMLDB_DATA_PATH"))
     print("DBG env -> NMLDB_SIMU_PATH:", os.getenv("NMLDB_SIMU_PATH"))
 
