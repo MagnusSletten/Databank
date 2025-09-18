@@ -18,13 +18,11 @@ def pytest_addoption(parser):
         help="Two test groups: sim1|sim2|nodata",
     )
 
-def remove_databank_import() -> None:
-    for name in list(sys.modules):
-        if name == "DatabankLib" or name.startswith("DatabankLib."):
-            del sys.modules[name]
     
 # Pytest GLOBAL FIXTURES
 # -------------------------------------------------------------------
+
+#Dictionary for pytest marker to simulation folder
 SIM_MAP = {
     "sim1": "Simulations.1",
     "sim2": "Simulations.2",
@@ -34,13 +32,14 @@ SIM_MAP = {
 
 @pytest.fixture(autouse=True, scope="module")
 def header_module_scope(request):
-    sim_key = None
+    """Set env vars depending on data required, remove DatabankLib on teardown."""
+    # Find pytest marker:
     for key in ("sim1", "sim2", "adddata", "nodata"):
         if request.node.get_closest_marker(key):
             sim_key = key
             break
 
-    # 2) Fallback to --cmdopt (if provided and known)
+    # Default to nodata:
     if sim_key is None:
         cmdopt = request.config.getoption("--cmdopt")
         if cmdopt in SIM_MAP:
@@ -62,7 +61,6 @@ def header_module_scope(request):
     yield
     #Teardown:
     remove_databank_import()
-
     print("DBG: Mocking completed")
 
 
@@ -82,3 +80,9 @@ def logger():
     # TEARDOWN: clean up handlers after use
     for handler in logger.handlers:
         logger.removeHandler(handler)
+
+def remove_databank_import() -> None:
+    """Delete DatabankLib module from sys.modules, resets future imports"""
+    for name in list(sys.modules):
+        if name.startswith("DatabankLib"):
+            del sys.modules[name]
