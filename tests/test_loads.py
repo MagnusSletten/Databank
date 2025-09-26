@@ -12,7 +12,7 @@ from urllib.error import HTTPError, URLError
 import pytest
 import pytest_check as check
 
-# run only without mocking data
+# run only without mocking dataasdasd
 pytestmark = [pytest.mark.nodata, pytest.mark.min]
 
 
