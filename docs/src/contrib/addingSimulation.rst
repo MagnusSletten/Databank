@@ -4,7 +4,7 @@ Adding simulations
 ==================
 
 The recommended way to contribute new simulation data is to use the
-`FAIRMD Upload-Portal <https://upload-portal.nmrlipids.fi>`_.  
+`FAIRMD Upload-Portal <https://upload-portal.nmrlipids.fi>`_.
 The portal provides a simple form where you supply the essential details of your
 simulation. After submission, the information is automatically sent to the
 `BilayerData <https://github.com/NMRLipids/BilayerData>`_ repository, where a pull
