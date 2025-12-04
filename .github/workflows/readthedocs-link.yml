@@ -14,5 +14,5 @@ jobs:
     steps:
       - uses: readthedocs/actions/preview@v1
         with:
-          project-slug: Magnus-Databank
+          project-slug: magnus-databank
           single-version: "true"
