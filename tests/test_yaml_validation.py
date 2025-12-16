@@ -113,6 +113,7 @@ def test_missing_tpr_gromacs(valid_instance):
     assert len(errors) == 1
     assert errors[0].validator == "required"
 
+
 def test_missing_FF(valid_instance):
     from fairmd.lipids.SchemaValidation.ValidateYAML import validate_info_dict
 

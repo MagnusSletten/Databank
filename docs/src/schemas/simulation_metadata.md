@@ -127,7 +127,7 @@ Give an identifier for a series of related simulations e.g. NVT simulations with
 15. **SOFTWARE\_VERSION**  
 Give the version of the software used.
 
-16. **FF**  
+16. **FF** (compulsory)
 Give the name of the force field used used in the simulation.
 
 17. **FF\_SOURCE**  
