@@ -15,6 +15,7 @@ valid = {
     "SYSTEM": "120POPC_8CHOL_3968SOL_303K",
     "SOFTWARE_VERSION": "5.0.4",
     "FF": "CHARMM36",
+    "AUTHORS_CONTACT": "Einstein, Albert",
     "COMPOSITION": {
         "DOPC": {"NAME": "DOPC", "MAPPING": "mappingDOPCcharmm.yaml"},
         "SOL": {"NAME": "TIP3", "MAPPING": "mappingTIP3PCHARMMgui.yaml"},
@@ -118,6 +119,15 @@ def test_missing_FF(valid_instance):
     from fairmd.lipids.SchemaValidation.ValidateYAML import validate_info_dict
 
     del valid_instance["FF"]
+    errors = validate_info_dict(valid_instance)
+    assert len(errors) == 1
+    assert errors[0].validator == "required"
+
+
+def test_missing_authors_contact(valid_instance):
+    from fairmd.lipids.SchemaValidation.ValidateYAML import validate_info_dict
+
+    del valid_instance["AUTHORS_CONTACT"]
     errors = validate_info_dict(valid_instance)
     assert len(errors) == 1
     assert errors[0].validator == "required"
