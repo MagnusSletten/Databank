@@ -118,7 +118,7 @@ Give description of system in free format. For example ''POPC with cholesterol a
 12. **PUBLICATION**  
 Give reference to a publication(s) related to the data.
 
-13. **AUTHORS\_CONTACT**  
+13. **AUTHORS\_CONTACT** (compulsory) 
 Give the name and email of the main author(s) of the data.
 
 14. **BATCHID**  
