@@ -10,8 +10,8 @@ valid = {
     "TRJ": "566.trj",
     "TPR": "566.tpr",
     "SOFTWARE": "gromacs",
-    "PREEQTIME": 0,
-    "TIMELEFTOUT": 0,
+    "PREEQTIME": 2.0,
+    "TIMELEFTOUT": 10,
     "SYSTEM": "120POPC_8CHOL_3968SOL_303K",
     "SOFTWARE_VERSION": "5.0.4",
     "COMPOSITION": {

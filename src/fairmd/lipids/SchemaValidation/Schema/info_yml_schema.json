@@ -28,9 +28,9 @@
        "type": "string" ,
        "enum": ["gromacs", "openMM", "NAMD"]},
     "PREEQTIME": { 
-      "type": "integer" },
+      "type": "number" },
     "TIMELEFTOUT": {
-       "type": "integer" },
+       "type": "number" },
     "TEMPERATURE": {
        "type": ["number", "null"]},
     "DIR_WRK": {
