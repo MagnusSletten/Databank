@@ -46,7 +46,7 @@ from fairmd.lipids.core import System
 from fairmd.lipids.databankio import download_resource_from_uri, resolve_file_url
 from fairmd.lipids.databankLibrary import GetNlipids, getLipids, system2MDanalysisUniverse
 from fairmd.lipids.molecules import lipids_set
-from fairmd.lipids.SchemaValidation.engines import get_struc_top_traj_fnames
+from fairmd.lipids.schema_validation.engines import get_struc_top_traj_fnames
 
 
 def computeNMRPCA(  # noqa: N802 (API)

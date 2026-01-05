@@ -18,7 +18,7 @@ from fairmd.lipids import FMDL_SIMU_PATH
 from fairmd.lipids.core import System
 from fairmd.lipids.databankio import download_resource_from_uri, resolve_file_url
 from fairmd.lipids.molecules import lipids_set, molecule_ff_set, molecules_set
-from fairmd.lipids.SchemaValidation.engines import get_struc_top_traj_fnames, software_dict
+from fairmd.lipids.schema_validation.engines import get_struc_top_traj_fnames, software_dict
 
 logger = logging.getLogger(__name__)
 
