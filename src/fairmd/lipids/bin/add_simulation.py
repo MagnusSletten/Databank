@@ -37,6 +37,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import zipfile
 from copy import deepcopy
 from urllib.error import HTTPError, URLError
 
@@ -58,8 +59,8 @@ from fairmd.lipids.databankio import (
 )
 from fairmd.lipids.databankLibrary import lipids_set, molecules_set, parse_valid_config_settings
 from fairmd.lipids.molecules import Lipid, MoleculeMappingError, NonLipid
-from fairmd.lipids.SchemaValidation.engines import get_struc_top_traj_fnames, software_dict
-from fairmd.lipids.SchemaValidation.ValidateYAML import validate_info_dict
+from fairmd.lipids.schema_validation.engines import get_struc_top_traj_fnames, software_dict
+from fairmd.lipids.schema_validation.validate_yaml import validate_info_dict
 
 pd.set_option("display.max_rows", 500)
 pd.set_option("display.max_columns", 500)
@@ -190,6 +191,8 @@ Returns error codes:
 
     # Create temporary directory where to download files and analyze them
     dir_wrk = args.work_dir
+
+
     try:
         if args.no_cache:
             dir_tmp = tempfile.mkdtemp(prefix="tmp_6-", dir=dir_wrk)
@@ -201,44 +204,77 @@ Returns error codes:
         sys.exit(2)
     logger.info(f"The data will be processed in directory path '{dir_tmp}'")
 
-    # Check link status and download files
-    try:
-        download_links = []
-        for fi in files:
-            logger.info(f"Validating URL to file: {fi}..")
-            _x = resolve_file_url(sim["DOI"], fi, validate_uri=True)
-            download_links.append(_x)
 
-        logger.info(f"Now downloading {len(files)} files ...")
+    #Prepare zipped files
 
-        for url, fi in zip(download_links, files, strict=False):
-            download_resource_from_uri(
-                url,
-                os.path.join(dir_tmp, fi),
-                override_if_exists=args.no_cache,
-                max_bytes=args.dry_run,
-            )
-
-        logger.info(f"Download of {len(files)} files was successful")
-
-    except HTTPError as e:
-        if e.code == 404:
+    if sim["zip"]:
+        zip_name = sim["zip"]
+        try: 
+            zip_url = resolve_file_url(sim["DOI"], zip_name, validate_uri=True)
+            zip_location = os.path.join(dir_tmp, zip_name)
+            download_resource_from_uri(zip_url,zip_location, max_bytes=args.dry_run)
+                
+        except HTTPError as e:
+            if e.code == 404:
+                logger.exception(
+                    f"ressource not found on server '{e.url}' (404). Wrong DOI link or file name?",
+                )
+            else:
+                logger.exception(f"HTTPError {e.code} while trying to download the file '{e.url}'")
+            sys.exit(3)
+        except URLError as e:
             logger.exception(
-                f"ressource not found on server '{e.url}' (404). Wrong DOI link or file name?",
+                f"couldn't resolve network adress: {e.reason}. Please check your internet connection.",
             )
-        else:
-            logger.exception(f"HTTPError {e.code} while trying to download the file '{e.url}'")
-        sys.exit(3)
-    except URLError as e:
-        logger.exception(
-            f"couldn't resolve network adress: {e.reason}. Please check your internet connection.",
-        )
-        sys.exit(3)
-    except Exception as e:
-        logger.exception(
-            f"'{type(e).__name__}' while attempting to download ressources, aborting",
-        )
-        sys.exit(3)
+            sys.exit(3)
+        except Exception as e:
+            logger.exception(
+                f"'{type(e).__name__}' while attempting to download ressources, aborting",
+            )
+            sys.exit(3)
+
+        with zipfile.ZipFile(zip_location) as zipped:
+            logger.info("Zipfile contains:")
+            zipped.printdir()
+    # Check link status and download files
+    else:
+        try:
+            download_links = []
+            for fi in files:
+                logger.info(f"Validating URL to file: {fi}..")
+                _x = resolve_file_url(sim["DOI"], fi, validate_uri=True)
+                download_links.append(_x)
+
+            logger.info(f"Now downloading {len(files)} files ...")
+
+            for url, fi in zip(download_links, files, strict=False):
+                download_resource_from_uri(
+                    url,
+                    os.path.join(dir_tmp, fi),
+                    override_if_exists=args.no_cache,
+                    max_bytes=args.dry_run,
+                )
+
+            logger.info(f"Download of {len(files)} files was successful")
+
+        except HTTPError as e:
+            if e.code == 404:
+                logger.exception(
+                    f"ressource not found on server '{e.url}' (404). Wrong DOI link or file name?",
+                )
+            else:
+                logger.exception(f"HTTPError {e.code} while trying to download the file '{e.url}'")
+            sys.exit(3)
+        except URLError as e:
+            logger.exception(
+                f"couldn't resolve network adress: {e.reason}. Please check your internet connection.",
+            )
+            sys.exit(3)
+        except Exception as e:
+            logger.exception(
+                f"'{type(e).__name__}' while attempting to download ressources, aborting",
+            )
+            sys.exit(3)
 
     # -- Calculate hash of downloaded files
 
@@ -659,5 +695,7 @@ Returns error codes:
     logger.info("Script completed successfully!")
 
 
+if __name__ == "__main__":
+    add_simulation()
 if __name__ == "__main__":
     add_simulation()
