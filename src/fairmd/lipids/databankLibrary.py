@@ -475,6 +475,11 @@ def parse_valid_config_settings(info_yaml: dict) -> tuple[dict, list[str]]:
         if key_sim.upper() in "SOFTWARE":  # skip 'SOFTWARE' entry
             continue
 
+        allowed_extra = {"ZIP"} 
+        if key_sim.upper() in allowed_extra:
+            continue
+
+
         # STEP 4.1.
         # Anne: check if key is in molecules_dict, molecule_numbers_dict or
         # molecule_ff_dict too
